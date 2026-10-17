@@ -4,6 +4,7 @@
 > validator draft is frozen as unqualified, and the macOS path is native otool via the replay wrapper.
 > Log names `L__*` / `l__*` mentioned implicitly below were renamed to `dependencies__*` /
 > `loadcommands__*` in checkpoint 2 (map: `evidence/path-renames-1.json`).
+> The text below is kept as written at checkpoint 1; see the dated addendum at the end for corrections.
 
 Request: public-macho-inspection-20261017-01. Checkpoint 1, written before any
 inspector code is committed. Linux x86_64 only. Nothing here is macOS
@@ -87,3 +88,17 @@ What works: well-formed thin, fat and fat64 files parse; unknown commands raise 
 - `evidence/dev-20261017T021238Z/`: first generator version. Its `u01`/`u02` broken slice used `sizeofcmds + 8` (slack); llvm-otool accepts that, so the generator was changed to `sizeofcmds - 8`, and m24 now keeps the slack case.
 - `evidence/baseline-*/otool-oracle-arch/l-arch-.cmd|log|exit`: my shell quoting mistake (`$a__u01` expanded to empty). It holds the `-arch all` run for u01; the following refusals to overwrite came from `logrun.sh`. The rerun has correct names.
 - The stock `dump` of m17 printed "lost sys.stderr" after `MemoryError` (exit 1).
+
+## Addendum, 2026-10-17 (documentation correction; nothing rerun)
+
+Source review of `scripts/probe_stock_macholib.py` and `scripts/replay_otool.sh` at `1116d14`. These are limits of the code, not observed crashes or resource exhaustion. The measurements above are unchanged.
+
+- **Decision 2, "enough to keep the test worker alive", is qualified.** It holds only as an observation of this run: the probe finished. For m17, the `strict` and `walk` children reported `MemoryError` (max RSS 1,042,696 and 1,042,704 KiB), and the `dump` child exited 1 ("lost sys.stderr"). It is not a bound on the whole worker:
+  - `RLIMIT_AS` and `RLIMIT_CPU` are set in `preexec_fn` and apply to the child only.
+  - `subprocess.run(capture_output=True)` collects the full child stdout and stderr in the parent and decodes them before the tail is cut (`[-4000:]`, `[-2000:]`). Parent memory for capture and decoding is not limited.
+  - A `setrlimit` failure in `preexec_fn` would raise in the parent, and `run()` does not catch it.
+  - On timeout, only the direct child is killed, and the partial output is still captured in full.
+- **A4, "Without an outer bound this can kill a test worker":** the outer bound used here was per child, as above.
+- **Decision 3:** rc 0, a successful parse, or the absence of "error:", "is not an object file" or `cmd ?(` does not establish validity of an untrusted binary. The caller reports a bounded 12-fixture macOS arm64 replay with Apple `otool-classic` and stock macholib 1.16.4 (m08's alignment defect accepted; m10/m15 rc 0 with invalid-name indications; m24 rc 0 with an inconsistent-size diagnostic; m21 printing an inner x86_64 header for an arm64 request). These are caller-reported, not measured in this session, and listed in `README.md`. That path is an inventory aid, not a validity check.
+- **Decision 4** stays stopped. The 932-line draft is frozen and unqualified, and no tool discrepancy reopens it automatically.
+- **Retained results:** the `l-arch-.*` files named above are now `loadcommands-arch-.*` (checkpoint 2 rename, bytes unchanged).
