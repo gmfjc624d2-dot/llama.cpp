@@ -1,9 +1,11 @@
 """Focused tests for scripts/replay_bounded.py and the bounded reads in scripts/classify_replay.py.
 
 Native cases start only finite cooperative fake tools (`python -I -c ...`, at most 3 s of natural
-life) in their own new session; nothing else is signalled. No fixture is executed.
+life) in their own new session; nothing else is signalled. Injected-failure cases use a fake process
+over plain pipes and signal/wait doubles: no child, no signal. No fixture is executed.
 """
 
+import errno
 import hashlib
 import importlib.util
 import json
@@ -15,6 +17,7 @@ import sys
 import tempfile
 import time
 import unittest
+from unittest import mock
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -119,7 +122,7 @@ class RunCaseTest(unittest.TestCase):
         o, e = res["streams"]["stdout"], res["streams"]["stderr"]
         self.assertEqual((len(so), o["overflow"], o["observed_bytes"], o["complete"]), (4096, True, 4097, False))
         self.assertIsNone(o["complete_sha256"])
-        self.assertIn(res["cleanup"]["group_signal"], ("sent", "no_such_group"))
+        self.assertIn(res["cleanup"]["group_signal"], ("requested", "no_such_group"))
         self.assertFalse(res["summary"]["capture_complete"])
         # stderr may or may not be drained after the cutoff; only its consistency is checked
         self.assertEqual(e["complete"], e["eof"] == "capture" and not e["overflow"])
@@ -129,7 +132,7 @@ class RunCaseTest(unittest.TestCase):
         res, _so, _se = self.run_case("import time; time.sleep(3)", timeout=0.5)
         self.assertLess(time.monotonic() - t0, 2.9)
         self.assertEqual(res["rc"], "timeout")
-        self.assertEqual((res["process"]["timed_out"], res["process"]["signal"], res["cleanup"]["group_signal"]), (True, signal.SIGKILL, "sent"))
+        self.assertEqual((res["process"]["timed_out"], res["process"]["signal"], res["cleanup"]["group_signal"]), (True, signal.SIGKILL, "requested"))
         self.assertFalse(res["summary"]["capture_complete"])
 
     def test_timeout_with_inherited_pipe(self):
@@ -143,14 +146,14 @@ class RunCaseTest(unittest.TestCase):
         self.assertEqual(res["process"]["exit_code"], 0)
         self.assertTrue(res["process"]["timed_out"])
         self.assertFalse(res["summary"]["process_completed"])
-        self.assertEqual(res["cleanup"]["group_signal"], "sent")
+        self.assertEqual(res["cleanup"]["group_signal"], "requested")
         self.assertNotEqual(res["streams"]["stdout"]["eof"], "capture")
         self.assertFalse(res["summary"]["capture_complete"])
 
     def test_permission_error_is_not_success(self):
         def deny(*_a):
             raise PermissionError(1, "denied")
-        res, _so, _se = self.run_case("import time; time.sleep(1.0)", timeout=0.3, grace=2.5, killpg=deny, kill=deny)
+        res, _so, _se = self.run_case("import time; time.sleep(1.0)", timeout=0.3, grace=2.5, ops=rb.Ops(killpg=deny, kill=deny))
         self.assertTrue(res["cleanup"]["group_signal"].startswith("failed"))
         self.assertTrue(res["cleanup"]["direct_signal"].startswith("failed"))
         self.assertFalse(res["summary"]["cleanup_certain"])
@@ -161,7 +164,7 @@ class RunCaseTest(unittest.TestCase):
 
         def lost(*_a):
             raise ChildProcessError(10, "no child")
-        res, _so, _se = self.run_case("pass", killpg=lambda *a: calls.append(a), waitpid=lost)
+        res, _so, _se = self.run_case("pass", ops=rb.Ops(killpg=lambda *a: calls.append(a), waitpid=lost))
         os.waitpid(res["pid"], 0)  # the real child is still ours to reap
         self.assertEqual(calls, [])
         self.assertEqual(res["cleanup"]["reaped"], "by_other")
@@ -248,6 +251,257 @@ class ClassifierBoundsTest(unittest.TestCase):
         self.assertFalse(cr.usable(cases["lipo-archs f"]))
         self.assertEqual(cr.outcome(cases["otool-dependencies arm64 f"], "arm64", ["arm64"])[0], "classifier_read_truncated")
         self.assertTrue(cr.usable(cases["magic f"]))
+
+
+class FakeProc:
+    """Stands in for Popen: plain pipes, no child. Its pid is only ever given to doubles."""
+
+    def __init__(self, test):
+        self.pid = 4242424
+        r1, self.w_out = os.pipe()
+        r2, self.w_err = os.pipe()
+        self.stdout = os.fdopen(r1, "rb", buffering=0)
+        self.stderr = os.fdopen(r2, "rb", buffering=0)
+        self.returncode = None
+        test.addCleanup(self.close_writers)
+
+    def close_writers(self):
+        for fd in (self.w_out, self.w_err):
+            try:
+                os.close(fd)
+            except OSError:
+                pass
+
+
+class FlakySelector:
+    """Real selector with one injected failure."""
+
+    def __init__(self, fail, exc):
+        self.sel, self.fail, self.exc, self.n = rb.selectors.DefaultSelector(), fail, exc, {}
+
+    def _maybe(self, name):
+        self.n[name] = self.n.get(name, 0) + 1
+        if name == self.fail[0] and self.n[name] == self.fail[1]:
+            raise self.exc
+
+    def register(self, *a):
+        self._maybe("register")
+        return self.sel.register(*a)
+
+    def unregister(self, *a):
+        return self.sel.unregister(*a)
+
+    def select(self, *a):
+        self._maybe("select")
+        return self.sel.select(*a)
+
+    def get_map(self):
+        return self.sel.get_map()
+
+    def close(self):
+        self._maybe("close")
+        return self.sel.close()
+
+
+class AbortTest(unittest.TestCase):
+    """Failures after the tool started: original exception kept, receipt never clean."""
+
+    def setUp(self):
+        self.proc = FakeProc(self)
+        self.calls = []
+
+    def ops(self, **kw):
+        base = dict(popen=lambda *a, **k: self.proc,
+                    killpg=lambda *a: self.calls.append(("killpg",) + a),
+                    kill=lambda *a: self.calls.append(("kill",) + a),
+                    waitpid=lambda pid, opt: self.calls.append(("waitpid", pid)) or (pid, 0))
+        base.update(kw)
+        return rb.Ops(**base)
+
+    def eof(self):
+        self.proc.close_writers()
+
+    def abort(self, exc_type, **kw):
+        with self.assertRaises(exc_type) as cm:
+            rb.run_case(["/fake/tool"], HERE, 5.0, 64, 64, 0.2, ops=self.ops(**kw))
+        r = cm.exception.replay_receipt
+        self.assertEqual(r["rc"], "aborted")
+        self.assertFalse(r["summary"]["capture_complete"])
+        self.assertFalse(r["summary"]["cleanup_certain"])
+        self.assertTrue(self.proc.stdout.closed and self.proc.stderr.closed)
+        self.assertLessEqual(len(r["cleanup"]["diagnostics"]), rb.MAX_DIAG)
+        return r
+
+    def killpg_calls(self):
+        return [c for c in self.calls if c[0] == "killpg"]
+
+    def assert_signalled(self, r):
+        self.assertEqual(self.killpg_calls(), [("killpg", self.proc.pid, signal.SIGKILL)])
+        self.assertEqual(r["cleanup"]["group_signal"], "requested")
+
+    def test_selector_construction_failure(self):
+        r = self.abort(OSError, selector=lambda: (_ for _ in ()).throw(OSError(errno.EMFILE, "no fds")))
+        self.assertEqual(r["aborted"]["phase"], "setup")
+        self.assert_signalled(r)
+        self.assertTrue(r["process"]["reaped"])
+
+    def test_register_failure(self):
+        r = self.abort(ValueError, selector=lambda: FlakySelector(("register", 2), ValueError("bad fd")))
+        self.assertEqual(r["aborted"]["phase"], "setup")
+        self.assert_signalled(r)
+
+    def test_set_blocking_failure(self):
+        def bad(fd, flag):
+            raise OSError(errno.EBADF, "bad fd")
+        r = self.abort(OSError, set_blocking=bad)
+        self.assertEqual(r["aborted"]["phase"], "setup")
+        self.assert_signalled(r)
+
+    def test_read_failure(self):
+        os.write(self.proc.w_out, b"x")
+
+        def bad(fd, n):
+            raise OSError(errno.EIO, "io")
+        r = self.abort(OSError, read=bad)
+        self.assertEqual((r["aborted"]["phase"], r["aborted"]["error_type"]), ("capture", "OSError"))
+        self.assert_signalled(r)
+
+    def test_select_failure(self):
+        r = self.abort(OSError, selector=lambda: FlakySelector(("select", 1), OSError(errno.EINVAL, "select")))
+        self.assertEqual(r["aborted"]["phase"], "capture")
+        self.assert_signalled(r)
+
+    def test_keyboard_interrupt_in_select(self):
+        r = self.abort(KeyboardInterrupt, selector=lambda: FlakySelector(("select", 1), KeyboardInterrupt()))
+        self.assertEqual(r["aborted"]["error_type"], "KeyboardInterrupt")
+        self.assert_signalled(r)
+
+    def test_waitpid_failure_sends_no_signal(self):
+        self.eof()
+
+        def bad(pid, opt):
+            raise RuntimeError("wait failed")
+        r = self.abort(RuntimeError, waitpid=bad)
+        self.assertEqual((r["aborted"]["phase"], r["process"]["reaped"]), ("reap", "unknown"))
+        self.assertEqual(self.killpg_calls(), [])
+        self.assertTrue(any("no signal sent" in d for d in r["cleanup"]["diagnostics"]))
+
+    def test_keyboard_interrupt_in_waitpid_sends_no_signal(self):
+        self.eof()
+
+        def bad(pid, opt):
+            raise KeyboardInterrupt()
+        r = self.abort(KeyboardInterrupt, waitpid=bad)
+        self.assertEqual(r["process"]["reaped"], "unknown")
+        self.assertEqual(self.killpg_calls(), [])
+
+    def test_failure_after_reap_sends_no_signal(self):
+        self.eof()
+        r = self.abort(OSError, selector=lambda: FlakySelector(("close", 1), OSError(errno.EIO, "close")))
+        self.assertEqual(r["process"]["reaped"], True)
+        self.assertEqual(r["process"]["exit_code"], 0)
+        self.assertEqual(self.killpg_calls(), [])
+
+    def test_interrupt_during_cleanup_keeps_original(self):
+        def interrupted(*_a):
+            raise KeyboardInterrupt()
+        r = self.abort(OSError, selector=lambda: FlakySelector(("select", 1), OSError(errno.EINVAL, "select")), killpg=interrupted)
+        self.assertTrue(any("cleanup interrupted: KeyboardInterrupt" in d for d in r["cleanup"]["diagnostics"]))
+
+
+class ValidationTest(unittest.TestCase):
+    def never(self, *_a, **_k):
+        raise AssertionError("tool must not start")
+
+    def test_run_case_rejects_bad_numbers(self):
+        ok = dict(timeout=1.0, out_limit=64, err_limit=64, grace=1.0)
+        bad = [("timeout", v) for v in (float("nan"), float("inf"), float("-inf"), 0, -1, True, "5", 3601)]
+        bad += [("grace", v) for v in (float("nan"), float("inf"), 0, -0.5, 61)]
+        bad += [(k, v) for k in ("out_limit", "err_limit") for v in (-2, -1, 0, 1.5, True, (256 << 20) + 1)]
+        for k, v in bad:
+            kw = dict(ok, **{k: v})
+            with self.assertRaises(ValueError, msg="%s=%r" % (k, v)):
+                rb.run_case(["/fake/tool"], HERE, kw["timeout"], kw["out_limit"], kw["err_limit"], kw["grace"], ops=rb.Ops(popen=self.never))
+
+    def test_bounds_inclusive(self):
+        self.assertEqual(rb.StreamCapture(1).want(), 2)
+        rb.StreamCapture(256 << 20)
+        rb.check_seconds("timeout", 3600, rb.MAX_TIMEOUT_S)
+        for v in (0, -1, None):
+            with self.assertRaises(ValueError):
+                rb.StreamCapture(v)
+
+    def test_check_input_and_hash_caps(self):
+        with self.assertRaises(ValueError):
+            rb.check_input(HERE, "x", -1, opener=self.never)
+        with self.assertRaises(ValueError):
+            rb.sha256_capped(sys.executable, 0)
+
+    def test_cli_rejects_before_out_dir(self):
+        base = tmpdir(self)
+        for opt, v in (("--timeout", "nan"), ("--timeout", "inf"), ("--grace", "-1"), ("--max-stdout-bytes", "-1"),
+                       ("--max-stderr-bytes", "0"), ("--max-input-bytes", "0"), ("--max-tool-hash-bytes", str((4 << 30) + 1))):
+            out = os.path.join(base, "o")
+            with mock.patch.object(rb, "run_case", self.never), self.assertRaises(SystemExit):
+                rb.main(["--platform", "linux-llvm", "--fixture-dir", HERE, "--out", out, "--otool", sys.executable,
+                         "--lipo", sys.executable, "--input", "x", opt, v])
+            self.assertFalse(os.path.lexists(out), opt)
+
+
+class ClassifierCapTest(unittest.TestCase):
+    def test_read_capped_rejects_before_open(self):
+        missing = os.path.join(tmpdir(self), "does-not-exist")
+        for cap in (-2, -1, 0, True, 1.0, (1 << 30) + 1):
+            with self.assertRaises(ValueError):
+                cr.read_capped(missing, cap)
+
+    def test_load_rejects_bad_cap(self):
+        missing = os.path.join(tmpdir(self), "no-run")
+        for cap in (-2, 0, True, (256 << 20) + 1):
+            with self.assertRaises(ValueError):
+                cr.load(missing, cap)
+
+    def test_cli_rejects_before_out_dir(self):
+        out = os.path.join(tmpdir(self), "classified")
+        with mock.patch.object(sys, "argv", ["classify_replay.py", tmpdir(self), out, "-2"]), self.assertRaises(SystemExit):
+            cr.main()
+        self.assertFalse(os.path.lexists(out))
+
+
+class InterruptedRunTest(unittest.TestCase):
+    """main() with a run_case double: interrupted after inputs are listed; the run must not classify as passing."""
+
+    def test_interrupted_run_is_not_passing(self):
+        fx, base = tmpdir(self), tmpdir(self)
+        with open(os.path.join(fx, "a.bin"), "wb") as fp:
+            fp.write(b"\xcf\xfa\xed\xfe" + b"\0" * 28)
+        clean = {"rc": "0", "process": {"timed_out": False},
+                 "summary": {"capture_complete": True, "streams_complete": True, "cleanup_certain": True}}
+
+        def fake_run_case(argv, *_a, **_k):
+            if "-L" in argv:
+                e = KeyboardInterrupt()
+                e.replay_receipt = {"rc": "aborted", "aborted": {"phase": "capture"}, "summary": {"capture_complete": False}}
+                e.replay_output = (b"", b"")
+                raise e
+            out = b"arm64\n" if "-archs" in argv else b""
+            return dict(clean), out, b""
+        out = os.path.join(base, "run")
+        with mock.patch.object(rb, "run_case", fake_run_case), self.assertRaises(KeyboardInterrupt):
+            rb.main(["--platform", "linux-llvm", "--fixture-dir", fx, "--out", out, "--otool", sys.executable,
+                     "--lipo", sys.executable, "--file", sys.executable, "--od", sys.executable, "--input", "a.bin", "--arch", "arm64"])
+        with open(os.path.join(out, "run.json")) as fp:
+            self.assertEqual(json.load(fp)["status"], "interrupted")
+        with open(os.path.join(out, "run.txt")) as fp:
+            self.assertIn("status: interrupted\n", fp.read())
+        cls = os.path.join(base, "classified")
+        with mock.patch.object(sys, "argv", ["classify_replay.py", out, cls]):
+            cr.main()
+        with open(os.path.join(cls, "outcomes.json")) as fp:
+            rows = json.load(fp)["files"]
+        self.assertEqual([r["run_status"] for r in rows], ["interrupted"])
+        self.assertFalse(any(e.get("passing_parse") for r in rows for e in r["per_arch"].values()))
+        self.assertEqual(rows[0]["per_arch"]["arm64"]["dependencies"], "aborted")
 
 
 class PreconditionTest(unittest.TestCase):

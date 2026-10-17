@@ -1,0 +1,133 @@
+test_failure_after_reap_sends_no_signal (__main__.AbortTest.test_failure_after_reap_sends_no_signal) ... ok
+test_interrupt_during_cleanup_keeps_original (__main__.AbortTest.test_interrupt_during_cleanup_keeps_original) ... ok
+test_keyboard_interrupt_in_select (__main__.AbortTest.test_keyboard_interrupt_in_select) ... ok
+test_keyboard_interrupt_in_waitpid_sends_no_signal (__main__.AbortTest.test_keyboard_interrupt_in_waitpid_sends_no_signal) ... ok
+test_read_failure (__main__.AbortTest.test_read_failure) ... ok
+test_register_failure (__main__.AbortTest.test_register_failure) ... ok
+test_select_failure (__main__.AbortTest.test_select_failure) ... ok
+test_selector_construction_failure (__main__.AbortTest.test_selector_construction_failure) ... ok
+test_set_blocking_failure (__main__.AbortTest.test_set_blocking_failure) ... ok
+test_waitpid_failure_sends_no_signal (__main__.AbortTest.test_waitpid_failure_sends_no_signal) ... ok
+test_bad_paths (__main__.CheckInputTest.test_bad_paths) ... ok
+test_fifo_not_opened (__main__.CheckInputTest.test_fifo_not_opened) ... ok
+test_regular_ok (__main__.CheckInputTest.test_regular_ok) ... ok
+test_size_checked_before_open (__main__.CheckInputTest.test_size_checked_before_open) ... ok
+test_symlinks_not_followed (__main__.CheckInputTest.test_symlinks_not_followed) ... ok
+test_incomplete_capture_and_oversize_case_are_not_passing (__main__.ClassifierBoundsTest.test_incomplete_capture_and_oversize_case_are_not_passing) ... ok
+test_read_capped (__main__.ClassifierBoundsTest.test_read_capped) ... ok
+test_cli_rejects_before_out_dir (__main__.ClassifierCapTest.test_cli_rejects_before_out_dir) ... ok
+test_load_rejects_bad_cap (__main__.ClassifierCapTest.test_load_rejects_bad_cap) ... ok
+test_read_capped_rejects_before_open (__main__.ClassifierCapTest.test_read_capped_rejects_before_open) ... ok
+test_interrupted_run_is_not_passing (__main__.InterruptedRunTest.test_interrupted_run_is_not_passing) ... ok
+test_ignored_sigchld_refused (__main__.PreconditionTest.test_ignored_sigchld_refused) ... usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: SIGCHLD is ignored; children would be reaped automatically
+ok
+test_clean_completion (__main__.RunCaseTest.test_clean_completion) ... ok
+test_exact_limit_process (__main__.RunCaseTest.test_exact_limit_process) ... ok
+test_first_overflow_ends_case (__main__.RunCaseTest.test_first_overflow_ends_case) ... ok
+test_nonzero_exit_is_recorded_not_judged (__main__.RunCaseTest.test_nonzero_exit_is_recorded_not_judged) ... ok
+test_permission_error_is_not_success (__main__.RunCaseTest.test_permission_error_is_not_success) ... ok
+test_reaped_elsewhere_stops_signals (__main__.RunCaseTest.test_reaped_elsewhere_stops_signals) ... ok
+test_timeout_direct_child (__main__.RunCaseTest.test_timeout_direct_child) ... ok
+test_timeout_with_inherited_pipe (__main__.RunCaseTest.test_timeout_with_inherited_pipe) ... ok
+test_eof_after_cleanup_is_not_complete (__main__.StreamCaptureTest.test_eof_after_cleanup_is_not_complete) ... ok
+test_exact_limit (__main__.StreamCaptureTest.test_exact_limit) ... ok
+test_first_overflow (__main__.StreamCaptureTest.test_first_overflow) ... ok
+test_never_reads_past_limit_plus_one (__main__.StreamCaptureTest.test_never_reads_past_limit_plus_one) ... ok
+test_truncated_without_eof (__main__.StreamCaptureTest.test_truncated_without_eof) ... ok
+test_bounds_inclusive (__main__.ValidationTest.test_bounds_inclusive) ... ok
+test_check_input_and_hash_caps (__main__.ValidationTest.test_check_input_and_hash_caps) ... ok
+test_cli_rejects_before_out_dir (__main__.ValidationTest.test_cli_rejects_before_out_dir) ... usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --timeout must be a finite number in (0, 3600], got nan
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --timeout must be a finite number in (0, 3600], got inf
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --grace must be a finite number in (0, 60], got -1.0
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-stdout-bytes must be an integer in [1, 268435456], got -1
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-stderr-bytes must be an integer in [1, 268435456], got 0
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-input-bytes must be an integer in [1, 4294967296], got 0
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-tool-hash-bytes must be an integer in [1, 4294967296], got 4294967297
+ok
+test_run_case_rejects_bad_numbers (__main__.ValidationTest.test_run_case_rejects_bad_numbers) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 2.338s
+
+OK
+classify_replay: 1 files

@@ -5,8 +5,10 @@ usage: python -I classify_replay.py RUN_DIR OUT_DIR [MAX_CASE_BYTES]
 Writes OUT_DIR/outcomes.json and OUT_DIR/outcomes.md (OUT_DIR must be new).
 An outcome is about what the tool printed. "parsed_by_tool" does not mean dyld
 would load the file, and anything else is not passing.
-Every file is read with a cap. A case file over MAX_CASE_BYTES (default 8 MiB), or a
-replay_bounded.py case whose capture.json is not complete, is not passing.
+Every file is read with a cap. A case file over MAX_CASE_BYTES (an integer in [1, 256 MiB],
+default 8 MiB), or a replay_bounded.py case whose capture.json is not complete, is not passing.
+A replay_bounded.py run without "status: complete" in run.txt is not passing at all. The run
+directory is trusted as written by the wrapper; receipts are not authenticated.
 """
 
 import base64
@@ -26,10 +28,19 @@ def b(v):
 
 
 META_CAP = 16 << 20
+CASE_BYTES = (1, 256 << 20)
+READ_BYTES = (1, 1 << 30)
+
+
+def check_cap(name, cap, lo, hi):
+    if isinstance(cap, bool) or not isinstance(cap, int) or not lo <= cap <= hi:
+        raise ValueError("%s must be an integer in [%d, %d], got %r" % (name, lo, hi, cap))
+    return cap
 
 
 def read_capped(path, cap):
     """(at most cap bytes, True if that was the whole file)."""
+    check_cap("cap", cap, *READ_BYTES)
     with open(path, "rb") as fp:
         data = fp.read(cap + 1)
     return data[:cap], len(data) <= cap
@@ -45,6 +56,8 @@ def read_meta(path):
 def capture_problem(cap):
     """None if a replay_bounded.py capture record says the case is complete."""
     sm = cap.get("summary", {})
+    if cap.get("aborted"):
+        return "aborted"
     if sm.get("capture_complete"):
         return None
     if cap.get("process", {}).get("timed_out"):
@@ -57,6 +70,7 @@ def capture_problem(cap):
 
 
 def load(run, cap=8 << 20):
+    check_cap("cap", cap, *CASE_BYTES)
     cases = {}
     for line in read_meta(os.path.join(run, "index.tsv")).split(b"\n"):
         if not line:
@@ -148,7 +162,10 @@ def outcome(c, want_arch, lipo_archs):
 
 def main():
     run, out = sys.argv[1], sys.argv[2]
-    cap = int(sys.argv[3]) if len(sys.argv) > 3 else 8 << 20
+    try:
+        cap = check_cap("MAX_CASE_BYTES", int(sys.argv[3]) if len(sys.argv) > 3 else 8 << 20, *CASE_BYTES)
+    except ValueError as e:
+        raise SystemExit("classify_replay: %s" % e)
     os.makedirs(out)
     meta = dict(l.split(": ", 1) for l in read_meta(os.path.join(run, "run.txt")).decode().splitlines() if ": " in l)
     cases = load(run, cap)
@@ -226,6 +243,12 @@ def main():
             continue
         c = cases.get("readlink " + l.decode("utf-8", "backslashreplace"))
         links.append({"link": b(l), "rc": c and c["rc"], "target": b(c["stdout"].rstrip(b"\n")) if usable(c) else None})
+    if meta.get("wrapper") == "replay_bounded.py" and meta.get("status") != "complete":
+        # interrupted, failed or unfinished run: nothing in it may pass
+        for row in rows:
+            row["run_status"] = meta.get("status", "missing")
+            for e in row["per_arch"].values():
+                e["passing_parse"] = False
     res = {"platform": meta.get("platform"), "run": meta, "note": "tool parse outcomes only; not loader validity; not runtime evidence",
            "files": rows, "symlinks": links}
     with open(os.path.join(out, "outcomes.json"), "x") as fp:

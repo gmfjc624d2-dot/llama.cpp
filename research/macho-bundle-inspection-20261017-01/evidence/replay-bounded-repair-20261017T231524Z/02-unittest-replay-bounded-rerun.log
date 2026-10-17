@@ -1,0 +1,94 @@
+.....................usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: SIGCHLD is ignored; children would be reaped automatically
+................usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --timeout must be a finite number in (0, 3600], got nan
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --timeout must be a finite number in (0, 3600], got inf
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --grace must be a finite number in (0, 60], got -1.0
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-stdout-bytes must be an integer in [1, 268435456], got -1
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-stderr-bytes must be an integer in [1, 268435456], got 0
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-input-bytes must be an integer in [1, 4294967296], got 0
+usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: --max-tool-hash-bytes must be an integer in [1, 4294967296], got 4294967297
+..
+----------------------------------------------------------------------
+Ran 39 tests in 2.349s
+
+OK
+classify_replay: 1 files

@@ -180,38 +180,74 @@ path (`--otool`, `--lipo`, `--file`, `--od`) plus `/usr/bin/uname` and, on macOS
 `/usr/bin/sw_vers`. A fixture is only ever a path argument to them; no fixture is executed. Tools
 run with `PATH=/usr/bin:/bin LC_ALL=C` and stdin from `/dev/null`.
 
+Two more things are assumed and not checked:
+- the inputs are owned by the caller and stay unchanged during the run;
+- the run directory is trusted and complete only as this wrapper wrote it, with `status: complete` in `run.txt`. Receipts are not authenticated.
+
+`run.json` repeats this under `scope`.
+
 **Inputs.**
 - Only the paths given with `--input` / `--inputs-from` are used, relative to `--fixture-dir`. Absolute paths, `..`, empty components and parent symlinks are refused.
 - Type and size come from `lstat` before anything is opened. Symlinks are recorded with their target (`os.readlink`, data only) and not followed. Non-regular files (FIFO, device, directory) are never opened. Files over `--max-input-bytes` are never opened or hashed.
 - An accepted file is opened with `O_NOFOLLOW|O_NONBLOCK` and re-checked with `fstat` (same device and inode, still regular, still in size). It is hashed by reading at most `max+1` bytes; a file that grows, shrinks or changes is not given a digest.
-- After its cases, the file's `lstat` identity is compared again (`unchanged_after_cases`); the classifier turns a change into `input_changed`.
+- After its cases, the file's `lstat` metadata (device, inode, size, `mtime_ns`) is compared again (`unchanged_after_cases`), and the classifier turns a difference into `input_changed`. This is a metadata check only. It is not content identity under concurrent change: a same-size rewrite that keeps or restores `mtime_ns` is not seen.
 - Remaining gap: the tool opens the path itself, so a swap and swap back between the checks is not detected. Keep the fixture directory private to the run.
 
 **Capture.**
 - stdout and stderr have independent byte limits (`--max-stdout-bytes`, `--max-stderr-bytes`). At most `limit+1` bytes are ever read from a pipe, and only `limit` bytes are kept.
 - The first overflow on either stream ends the case. The other stream is then drained only during the short `--grace` window, so it may not reach EOF.
 - Per stream, `capture.json` records `observed_bytes` (a lower bound when EOF was not seen), `retained_bytes`, `eof` (`capture`, `after_cleanup` or none), `overflow` and `complete`. `retained_sha256` describes only the retained prefix; `complete_sha256` is set only when the stream reached EOF during capture without overflow.
-- `classify_replay.py` now reads every file with a cap (default 8 MiB per case file, 16 MiB per metadata file). An oversize case file is `classifier_read_truncated`; a case whose `capture.json` is not complete is `timeout`, `capture_incomplete`, `cleanup_uncertain` or `process_incomplete`. All of these are not passing.
+- `classify_replay.py` reads every file with a cap: 8 MiB per case file by default, set by the third argument as an integer in [1, 256 MiB]; 16 MiB per metadata file. The cap is checked before any read or output directory, including direct calls to `read_capped` (integer in [1, 1 GiB]) and `load`.
+- An oversize case file is `classifier_read_truncated`. A case whose `capture.json` is not complete is `aborted`, `timeout`, `capture_incomplete`, `cleanup_uncertain` or `process_incomplete`. A `replay_bounded.py` run without `status: complete` makes every row not passing (`run_status`). None of these outcomes passes.
 
 **Process and cleanup.**
 - Each tool runs in a new session (`start_new_session=True`), so it leads its own process group. Nothing is reaped while output is captured, so the child's PID, which is also its group ID, stays reserved.
 - **Natural completion** (both pipes at EOF, then the direct child reaped before the deadline): no signal is sent. After the leader is reaped, the group is never signalled by number.
-- **Timeout or overflow:** `SIGKILL` goes to the owned group while its leader is still unreaped. If that fails, it goes to the direct child. Then comes a bounded drain and a bounded reap.
+- **Timeout or overflow:** `SIGKILL` is requested for the owned group (`killpg`) while its leader is still unreaped. If that call fails, it is requested for the direct child (`kill`). Then come a drain and a reap, each limited by `--grace`. A call that returns success is recorded as `requested` (it was `sent` at `7ef2a9b`). That does not show that every member received the signal or exited.
 - `PermissionError` or any other signal failure, a child not reaped within the grace period, a pipe without EOF after cleanup, or a child reaped by someone else (`ChildProcessError`) is recorded under `summary.reasons`, and `capture_complete` is false. A group that no longer exists (`ESRCH`) is recorded as `no_such_group`.
 - **Claims are kept apart in `capture.json`:**
   - process completion covers the direct child only, from `waitpid`;
   - pipe EOF is reported per stream;
-  - descendants are not tracked. Only members of the owned group at signal time get `SIGKILL`, and only on timeout or overflow. A descendant that left the group or session, or that closed its pipes, is not seen.
+  - descendants are not tracked. `SIGKILL` for the owned group is requested only on timeout, overflow or abort. A descendant that left the group or session, or that closed its pipes, is not seen.
 - **Preconditions:**
   - The wrapper is the tools' only reaper.
   - `SIGCHLD` must not be `SIG_IGN`; the wrapper refuses to start if it is.
   - No handler or thread may reap children (for example `SA_NOCLDWAIT` or `waitpid(-1)`).
   - Run it as a plain command, not inside a host process that reaps children.
-- **Not limited:** the tools' CPU and memory (only wall time per case, `--timeout` plus `--grace`); the wrapper reads a capped amount, but nothing limits what a tool itself allocates.
-- `rc` is the direct child's exit code, `signal:N`, `timeout` or `unknown`. Neither rc 0 nor a complete capture is a validity verdict.
+- **Not limited:** the tools' CPU and memory. The wrapper reads a capped amount, but nothing limits what a tool itself allocates.
+- **Time:** `--timeout` and `--grace` are nominal budgets of the wrapper's own loop. Scheduling, polling steps and slow system calls can exceed them; they are not an OS-enforced execution bound.
+- `rc` is the direct child's exit code, `signal:N`, `timeout`, `aborted` or `unknown`. Neither rc 0 nor a complete capture is a validity verdict.
 
-**Linux measurement in this session** (`evidence/replay-bounded-tests-*`, `evidence/replay-bounded-linux-smoke-*`):
-- `tests/test_replay_bounded.py`: 21 tests, OK in four runs (about 2.3 s each). Three runs came before a test-only change that removes the tests' temp directories; those runs left their temp directories behind. One run came after that change and left none. They cover:
+**Failure handling.**
+- From `Popen` returning to the end of the case, one `try` covers selector creation, `set_blocking`/`register`, `select`/`read`, `unregister`/`close` and `waitpid`. On any exception, `KeyboardInterrupt` included, an emergency cleanup runs.
+- `SIGKILL` is requested for the owned group only while the leader is known unreaped and no `waitpid` call was in flight. Pipes and the selector are closed, and the reap is bounded by `--grace`.
+- If the leader was already reaped, or the exception came from or during `waitpid` (reap state unknown), no signal is sent. That child may keep running, and the receipt says so.
+- The original exception is then re-raised unchanged. It carries `replay_receipt`: `rc` `aborted`, the phase, the error type, the separate process / streams / cleanup records, at most 16 diagnostics of at most 200 characters, and `capture_complete` false.
+- `main()` writes that receipt for the case. It then always ends the run with `run.json` and `run.txt` showing `status: interrupted` (`KeyboardInterrupt`) or `failed`; only a run that finished normally gets `complete`.
+- A second interrupt during the emergency cleanup is recorded as `cleanup interrupted` and the original exception is kept. A second interrupt while the receipts are being written can leave a run without `run.txt`, and the classifier refuses such a run.
+- A terminal Ctrl-C does not reach the tools, because each runs in a new session. The wrapper's own cleanup is the only one; no outer supervisor is relied on.
+- An interrupt inside `subprocess.Popen` itself, before it returns, is left to CPython's `Popen`.
+
+**Parameter bounds.** These are checked before any tool starts and before `--out` is created; `run_case`, `StreamCapture`, `check_input` and `sha256_capped` check them for direct callers too.
+- `--timeout`: a finite number in (0, 3600] s.
+- `--grace`: a finite number in (0, 60] s.
+- `--max-stdout-bytes`, `--max-stderr-bytes`: integers in [1, 256 MiB].
+- `--max-input-bytes`, `--max-tool-hash-bytes`: integers in [1, 4 GiB].
+
+NaN, infinity, booleans, non-integers and out-of-range values are refused, so a deadline can't disappear and a cap can't make `os.read(fd, 0)` look like EOF. Exact limit and first overflow behave as before for valid caps.
+
+**Linux measurement in this session** (`evidence/replay-bounded-repair-*`, `evidence/replay-bounded-tests-*`, `evidence/replay-bounded-linux-smoke-*`):
+- After the failure-handling and validation repair: `tests/test_replay_bounded.py`, 39 tests, OK in two runs (about 2.3 s each), no fake process left running. The file parses under the Python 3.9 grammar. The 18 new cases are pure doubles over plain pipes: no child, no signal. They cover:
+  - selector creation, `register`, `set_blocking`, `read`, `select` and `waitpid` failures;
+  - `KeyboardInterrupt` in `select` and in `waitpid`;
+  - a failure after the reap;
+  - an interrupt during cleanup;
+  - invalid numbers for `run_case`, the CLI, `StreamCapture`, `check_input` and `sha256_capped`;
+  - classifier cap checks (`read_capped`, `load`, CLI with `-2`), with no output directory created;
+  - an interrupted `main()` run that the classifier marks not passing.
+
+  Three earlier tests changed only for the `requested` wording and the `Ops` parameter.
+- Earlier, at `7ef2a9b`: `tests/test_replay_bounded.py`, 21 tests, OK in four runs (about 2.3 s each). Three runs came before a test-only change that removes the tests' temp directories; those runs left their temp directories behind. One run came after that change and left none. They cover:
   - pure doubles for byte accounting: exact limit, first overflow, truncation without EOF, EOF after cleanup;
   - native cooperative fakes (`python3 -I -c`, each at most 3 s of natural life): clean completion, non-zero exit, exact limit, first overflow, direct-child timeout, timeout with a grandchild holding the inherited pipes;
   - doubles for `PermissionError` on both signals and for a child reaped elsewhere;
@@ -225,6 +261,20 @@ run with `PATH=/usr/bin:/bin LC_ALL=C` and stdin from `/dev/null`.
   - the symlink was recorded and not followed, and a missing path came out `lstat_failed`;
   - 34 cases, all complete, no group signal needed;
   - the outcomes match the earlier Linux measurements for t01, u03 and m08.
+
+#### macOS first step: one small trusted command (review before running; not run in this session)
+
+Before any fixture replay, check `run_case` on macOS with one small trusted command,
+`/usr/bin/uname -a`. It uses a 5 s nominal timeout, 1 s grace and 4 KiB per stream, and creates
+no files:
+
+```sh
+cd llama.cpp/research/macho-bundle-inspection-20261017-01
+/usr/bin/python3 -I -c 'import importlib.util, json; s = importlib.util.spec_from_file_location("rb", "scripts/replay_bounded.py"); m = importlib.util.module_from_spec(s); s.loader.exec_module(m); r, o, e = m.run_case(["/usr/bin/uname", "-a"], ".", 5.0, 4096, 4096, 1.0); print(json.dumps({k: r[k] for k in ("rc", "process", "cleanup", "summary")}, indent=1)); print(o.decode("utf-8", "replace"))'
+```
+
+Expected: `rc` `"0"`, `summary.capture_complete` true and `cleanup.group_signal` `"not_sent"`. Any
+other result stops here, before the tests and the replay below.
 
 #### macOS qualification (review before running; not run in this session)
 
@@ -250,9 +300,9 @@ OTOOL=$(xcrun --find otool); LIPO=$(xcrun --find lipo); echo "$OTOOL" "$LIPO"   
 /usr/bin/python3 -I scripts/classify_replay.py "$RUN/raw" "$RUN/classified"
 ```
 
-- Worst case: 6 inputs x 10 cases + 6 identity cases = 66 cases. Each takes at most 24 s of wall time (20 s timeout, plus up to 2 s of drain and 2 s of reap after `SIGKILL`) and keeps at most 1 MiB + 64 KiB of output, so about 70 MiB in all. Typical runs take seconds.
+- Worst case: 6 inputs x 10 cases + 6 identity cases = 66 cases. Each has a nominal budget of 24 s (20 s timeout, plus 2 s of drain and 2 s of reap after a `SIGKILL` request) and keeps at most 1 MiB + 64 KiB of output, so about 70 MiB in all. The budget is not an OS-enforced bound. Typical runs take seconds.
 - These macOS behaviours have **not been observed** and are what the qualification checks:
-  - `killpg` on a group whose leader is a zombie (`sent` or `no_such_group`; the tests accept either only where that is expected);
+  - `killpg` on a group whose leader is a zombie (`requested` or `no_such_group`; the tests accept either only where that is expected);
   - `kqueue`-based selectors on pipes;
   - `start_new_session`;
   - how `/usr/bin/python3` starts the fakes.
