@@ -1,15 +1,21 @@
 #include "arg.h"
+#include "base64.hpp"
+#include "build-info.h"
 #include "common.h"
 #include "console.h"
+#include "json.h"
 #include "log.h"
 #include "sampling.h"
 #include "llama.h"
 #include "chat.h"
 
+#include <atomic>
+#include <cerrno>
 #include <clocale>
 #include <cstdio>
 #include <cstring>
 #include <ctime>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -17,6 +23,7 @@
 #include <vector>
 
 #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+#include <fcntl.h>
 #include <signal.h>
 #include <unistd.h>
 #elif defined (_WIN32)
@@ -25,7 +32,10 @@
 #define NOMINMAX
 #endif
 #include <windows.h>
+#include <fcntl.h>
+#include <io.h>
 #include <signal.h>
+#include <sys/stat.h>
 #endif
 
 #if defined(_MSC_VER)
@@ -37,6 +47,267 @@ static common_sampler          ** g_smpl;
 static common_params            * g_params;
 static bool is_interacting  = false;
 static bool need_insert_eot = false;
+
+// last signal recorded by the --completion-report handler, 0 if none
+static std::atomic<int> g_report_signal{0};
+
+enum completion_stop {
+    COMPLETION_STOP_NONE,
+    COMPLETION_STOP_EOG,
+    COMPLETION_STOP_TOKEN_LIMIT,
+    COMPLETION_STOP_ANTIPROMPT,
+    COMPLETION_STOP_CONTEXT_LIMIT,
+    COMPLETION_STOP_CANCELLED,
+    COMPLETION_STOP_RUNTIME_FAILURE,
+    COMPLETION_STOP_UNSUPPORTED,
+};
+
+static const char * completion_stop_name(completion_stop stop) {
+    switch (stop) {
+        case COMPLETION_STOP_EOG:             return "eog";
+        case COMPLETION_STOP_TOKEN_LIMIT:     return "token_limit";
+        case COMPLETION_STOP_ANTIPROMPT:      return "antiprompt";
+        case COMPLETION_STOP_CONTEXT_LIMIT:   return "context_limit";
+        case COMPLETION_STOP_CANCELLED:       return "cancelled";
+        case COMPLETION_STOP_RUNTIME_FAILURE: return "runtime_failure";
+        case COMPLETION_STOP_UNSUPPORTED:     return "unsupported";
+        default:                              return "none";
+    }
+}
+
+// what --completion-report observed, see tools/completion/README.md for the fields
+struct completion_report {
+    std::string path;
+
+    completion_stop reason = COMPLETION_STOP_NONE;
+    std::string     error_stage;
+    std::string     unsupported;
+    int             signal = 0;
+
+    int32_t n_predict    = 0;
+    int32_t n_ctx        = -1;
+    int32_t n_prompt     = -1;
+    int32_t n_ctx_shifts = 0;
+    bool    in_loop      = false;
+    bool    special      = false;
+
+    // sampled tokens and their pieces, rendered with `special`
+    std::vector<llama_token> tokens;
+    std::string              bytes;
+    bool                     last_eog     = false;
+    size_t                   last_n_bytes = 0;
+
+    llama_token  eog_token  = LLAMA_TOKEN_NULL;
+    const char * eog_origin = nullptr;
+
+    int          ap_text_idx     = -1;
+    const char * ap_text_origin  = nullptr;
+    int          ap_token_idx    = -1;
+    const char * ap_token_origin = nullptr;
+
+    bool enabled() const {
+        return !path.empty();
+    }
+
+    void add_token(llama_context * ctx, llama_token id) {
+        const std::string piece = common_token_to_piece(ctx, id, special);
+        tokens.push_back(id);
+        bytes += piece;
+        last_eog     = llama_vocab_is_eog(llama_model_get_vocab(llama_get_model(ctx)), id);
+        last_n_bytes = piece.size();
+    }
+
+    // text match at [pos, pos + len) of the last n_prev tokens of the sampler history
+    void add_antiprompt_text(llama_context * ctx, int idx, const std::string & history, size_t pos, size_t len, int n_prev) {
+        // the history renders special tokens, so measure the sampled pieces the same way
+        size_t n_gen = 0;
+        for (size_t i = 0; i < tokens.size() && i < (size_t) n_prev; i++) {
+            n_gen += common_token_to_piece(ctx, tokens[tokens.size() - 1 - i], true).size();
+        }
+        const size_t gen_start = history.size() > n_gen ? history.size() - n_gen : 0;
+
+        ap_text_idx    = idx;
+        ap_text_origin = pos >= gen_start ? "generated" : (pos + len > gen_start ? "prompt_and_generated" : "prompt");
+    }
+
+    void add_antiprompt_token(int idx) {
+        ap_token_idx    = idx;
+        ap_token_origin = tokens.empty() ? "prompt" : "generated";
+    }
+
+    void add_eog(llama_token id) {
+        eog_token  = id;
+        eog_origin = tokens.empty() ? "prompt" : "generated";
+    }
+
+    // detail is the error stage, or the option for COMPLETION_STOP_UNSUPPORTED
+    int finish(completion_stop stop, const char * detail, int rc);
+};
+
+// non-interactive, decoder-only runs with a finite budget only
+static const char * completion_report_unsupported(const common_params & params) {
+    if (params.interactive || params.interactive_first) {
+        return "interactive";
+    }
+    if (params.conversation_mode == COMMON_CONVERSATION_MODE_ENABLED) {
+        return "conversation";
+    }
+    if (params.n_predict < 0) {
+        return "n_predict";
+    }
+    if (!params.path_prompt_cache.empty()) {
+        return "prompt_cache";
+    }
+    if (params.grp_attn_n != 1) {
+        return "self_extend";
+    }
+    return nullptr;
+}
+
+static std::string completion_report_dump(const completion_report & r) {
+#if defined (_WIN32)
+    const int64_t pid = GetCurrentProcessId();
+#else
+    const int64_t pid = getpid();
+#endif
+
+    common_json j = {
+        {"schema",         "llama-completion-report"},
+        {"schema_version", 1},
+        {"mode",           "completion"},
+        {"build", {
+            {"llama_version", llama_version()},
+            {"build_number",  llama_build_number()},
+            {"commit",        llama_commit()},
+            {"compiler",      llama_compiler()},
+            {"target",        llama_build_target()},
+        }},
+        {"pid",    pid},
+        {"reason", completion_stop_name(r.reason)},
+    };
+
+    j["error"] = nullptr;
+    if (r.reason == COMPLETION_STOP_RUNTIME_FAILURE || r.reason == COMPLETION_STOP_UNSUPPORTED) {
+        j["error"] = {
+            {"stage", r.error_stage},
+            {"code",  nullptr},
+        };
+        j["error"]["unsupported"] = r.unsupported.empty() ? common_json(nullptr) : common_json(r.unsupported);
+    }
+    j["signal"]           = r.signal != 0 ? common_json(r.signal) : common_json(nullptr);
+    j["n_predict"]        = r.n_predict;
+    j["n_ctx"]            = r.n_ctx >= 0 ? common_json(r.n_ctx) : common_json(nullptr);
+    j["n_prompt_tokens"]  = r.n_prompt >= 0 ? common_json(r.n_prompt) : common_json(nullptr);
+    j["n_generated"]      = r.tokens.size();
+    j["budget_exhausted"] = r.in_loop ? common_json((int64_t) r.tokens.size() == r.n_predict) : common_json(nullptr);
+    j["n_context_shifts"] = r.n_ctx_shifts;
+
+    j["last_token"] = nullptr;
+    if (!r.tokens.empty()) {
+        j["last_token"] = {
+            {"id",      r.tokens.back()},
+            {"eog",     r.last_eog},
+            {"n_bytes", r.last_n_bytes},
+        };
+    }
+
+    j["eog"] = nullptr;
+    if (r.eog_origin) {
+        j["eog"] = {
+            {"id",     r.eog_token},
+            {"origin", r.eog_origin},
+        };
+    }
+
+    j["antiprompt"] = nullptr;
+    if (r.ap_text_origin || r.ap_token_origin) {
+        j["antiprompt"] = common_json::object();
+        j["antiprompt"]["text"]  = nullptr;
+        j["antiprompt"]["token"] = nullptr;
+        if (r.ap_text_origin) {
+            j["antiprompt"]["text"] = {
+                {"index",  r.ap_text_idx},
+                {"origin", r.ap_text_origin},
+            };
+        }
+        if (r.ap_token_origin) {
+            j["antiprompt"]["token"] = {
+                {"index",  r.ap_token_idx},
+                {"origin", r.ap_token_origin},
+            };
+        }
+    }
+
+    j["generated"] = {
+        {"render_special", r.special},
+        {"n_bytes",        r.bytes.size()},
+        {"base64",         base64::encode(r.bytes)},
+    };
+
+    return j.dump(2) + "\n";
+}
+
+// create the file exclusively so that an existing file is never replaced
+static bool completion_report_publish(const std::string & path, const std::string & data) {
+#if defined (_WIN32)
+    const int fd = _open(path.c_str(), _O_WRONLY | _O_CREAT | _O_EXCL | _O_BINARY, _S_IREAD | _S_IWRITE);
+    FILE * f = fd < 0 ? nullptr : _fdopen(fd, "wb");
+#else
+    const int fd = open(path.c_str(), O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
+    FILE * f = fd < 0 ? nullptr : fdopen(fd, "wb");
+#endif
+    if (f == nullptr) {
+        LOG_ERR("%s: failed to create report file '%s': %s\n", __func__, path.c_str(), strerror(errno));
+        if (fd >= 0) {
+#if defined (_WIN32)
+            _close(fd);
+#else
+            close(fd);
+#endif
+            std::remove(path.c_str());
+        }
+        return false;
+    }
+
+    bool ok = fwrite(data.data(), 1, data.size(), f) == data.size();
+    ok = fflush(f) == 0 && ok;
+    ok = fclose(f)  == 0 && ok;
+    if (!ok) {
+        LOG_ERR("%s: failed to write report file '%s': %s\n", __func__, path.c_str(), strerror(errno));
+        std::remove(path.c_str());
+    }
+    return ok;
+}
+
+int completion_report::finish(completion_stop stop, const char * detail, int rc) {
+    if (!enabled()) {
+        return rc;
+    }
+
+    reason = stop;
+    if (stop == COMPLETION_STOP_UNSUPPORTED) {
+        error_stage = "config";
+        unsupported = detail;
+    } else {
+        error_stage = detail;
+    }
+    if (stop != COMPLETION_STOP_CANCELLED) {
+        signal = g_report_signal;
+    }
+
+    std::string data;
+    try {
+        data = completion_report_dump(*this);
+    } catch (const std::exception & e) {
+        LOG_ERR("%s: failed to serialize report: %s\n", __func__, e.what());
+        return rc != 0 ? rc : 1;
+    }
+
+    if (!completion_report_publish(path, data)) {
+        return rc != 0 ? rc : 1;
+    }
+    return rc;
+}
 
 static void print_usage(int argc, char ** argv) {
     (void) argc;
@@ -80,6 +351,13 @@ static void sigint_handler(int signo) {
 }
 #endif
 
+#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+// only records the signal, the generation loop checks it
+static void report_signal_handler(int signo) {
+    g_report_signal = signo;
+}
+#endif
+
 // satisfies -Wmissing-declarations
 int llama_completion(int argc, char ** argv);
 
@@ -101,6 +379,25 @@ int llama_completion(int argc, char ** argv) {
     // (note for later: this is a slightly awkward choice)
     console::init(params.simple_io, params.use_color);
     atexit([]() { console::cleanup(); });
+
+    completion_report report;
+    report.path      = params.path_completion_report;
+    report.n_predict = params.n_predict;
+    report.special   = params.special;
+
+    if (report.enabled()) {
+        std::error_code ec;
+        if (std::filesystem::exists(std::filesystem::symlink_status(report.path, ec))) {
+            LOG_ERR("%s: report file '%s' already exists, not overwriting it\n", __func__, report.path.c_str());
+            return 1;
+        }
+
+        const char * unsupported = completion_report_unsupported(params);
+        if (unsupported) {
+            LOG_ERR("%s: --completion-report does not support %s\n", __func__, unsupported);
+            return report.finish(COMPLETION_STOP_UNSUPPORTED, unsupported, 1);
+        }
+    }
 
     if (params.embedding) {
         LOG_ERR("************\n");
@@ -148,7 +445,7 @@ int llama_completion(int argc, char ** argv) {
 
     if (ctx == NULL) {
         LOG_ERR("%s: error: unable to create context\n", __func__);
-        return 1;
+        return report.finish(COMPLETION_STOP_RUNTIME_FAILURE, "init", 1);
     }
 
     llama_memory_t mem = llama_get_memory(ctx);
@@ -163,6 +460,8 @@ int llama_completion(int argc, char ** argv) {
     const int n_ctx_train = llama_model_n_ctx_train(model);
     const int n_ctx = llama_n_ctx(ctx);
 
+    report.n_ctx = n_ctx;
+
     if (n_ctx > n_ctx_train) {
         LOG_WRN("%s: model was trained on only %d context tokens (%d specified)\n", __func__, n_ctx_train, n_ctx);
     }
@@ -175,6 +474,14 @@ int llama_completion(int argc, char ** argv) {
             params.conversation_mode = COMMON_CONVERSATION_MODE_ENABLED;
         } else {
             params.conversation_mode = COMMON_CONVERSATION_MODE_DISABLED;
+        }
+    }
+
+    if (report.enabled()) {
+        const char * unsupported = llama_model_has_encoder(model) ? "encoder_decoder" : completion_report_unsupported(params);
+        if (unsupported) {
+            LOG_ERR("%s: --completion-report does not support %s\n", __func__, unsupported);
+            return report.finish(COMPLETION_STOP_UNSUPPORTED, unsupported, 1);
         }
     }
 
@@ -293,14 +600,16 @@ int llama_completion(int argc, char ** argv) {
             LOG_WRN("embd_inp was considered empty and bos was added: %s\n", string_from(ctx, embd_inp).c_str());
         } else {
             LOG_ERR("input is empty\n");
-            return -1;
+            return report.finish(COMPLETION_STOP_RUNTIME_FAILURE, "prompt_empty", -1);
         }
     }
+
+    report.n_prompt = (int32_t) embd_inp.size();
 
     // Tokenize negative prompt
     if ((int) embd_inp.size() > n_ctx - 4) {
         LOG_ERR("%s: prompt is too long (%d tokens, max %d)\n", __func__, (int) embd_inp.size(), n_ctx - 4);
-        return 1;
+        return report.finish(COMPLETION_STOP_RUNTIME_FAILURE, "prompt_too_long", 1);
     }
 
     bool session_do_save = false;
@@ -400,6 +709,12 @@ int llama_completion(int argc, char ** argv) {
         sigint_action.sa_handler = sigint_handler;
         sigemptyset (&sigint_action.sa_mask);
         sigint_action.sa_flags = 0;
+        if (report.enabled()) {
+            // cooperative stop, a second signal of the same kind gets the default action
+            sigint_action.sa_handler = report_signal_handler;
+            sigint_action.sa_flags   = SA_RESTART | SA_RESETHAND;
+            sigaction(SIGTERM, &sigint_action, NULL);
+        }
         sigaction(SIGINT, &sigint_action, NULL);
 #elif defined (_WIN32)
         auto console_ctrl_handler = +[](DWORD ctrl_type) -> BOOL {
@@ -514,13 +829,15 @@ int llama_completion(int argc, char ** argv) {
 
     std::vector<llama_token> embd;
 
-    // single-token antiprompts
+    // single-token antiprompts and their index in params.antiprompt
     std::vector<llama_token> antiprompt_token;
+    std::vector<int>         antiprompt_token_idx;
 
-    for (const std::string & antiprompt : params.antiprompt) {
-        auto ids = ::common_tokenize(ctx, antiprompt, false, true);
+    for (size_t i = 0; i < params.antiprompt.size(); i++) {
+        auto ids = ::common_tokenize(ctx, params.antiprompt[i], false, true);
         if (ids.size() == 1) {
             antiprompt_token.push_back(ids[0]);
+            antiprompt_token_idx.push_back((int) i);
         }
     }
 
@@ -541,7 +858,16 @@ int llama_completion(int argc, char ** argv) {
         embd_inp.push_back(decoder_start_token_id);
     }
 
+    completion_stop stop = COMPLETION_STOP_NONE;
+    report.in_loop = true;
+
     while ((n_remain != 0 && !is_antiprompt) || params.interactive) {
+        if (g_report_signal != 0) {
+            report.signal = g_report_signal;
+            stop = COMPLETION_STOP_CANCELLED;
+            break;
+        }
+
         // predict
         if (!embd.empty()) {
             // Note: (n_ctx - 4) here is to match the logic for commandline prompt handling via
@@ -567,11 +893,13 @@ int llama_completion(int argc, char ** argv) {
                 if (n_past + (int) embd.size() >= n_ctx) {
                     if (!params.ctx_shift){
                         LOG_WRN("\n\n%s: context full and context shift is disabled => stopping\n", __func__);
+                        stop = COMPLETION_STOP_CONTEXT_LIMIT;
                         break;
                     }
 
                     if (params.n_predict == -2) {
                         LOG_WRN("\n\n%s: context full and n_predict == %d => stopping\n", __func__, params.n_predict);
+                        stop = COMPLETION_STOP_CONTEXT_LIMIT;
                         break;
                     }
 
@@ -585,6 +913,7 @@ int llama_completion(int argc, char ** argv) {
                     llama_memory_seq_add(mem, 0, params.n_keep + n_discard, n_past, -n_discard);
 
                     n_past -= n_discard;
+                    report.n_ctx_shifts++;
 
                     LOG_DBG("after swap: n_past = %d\n", n_past);
 
@@ -644,7 +973,8 @@ int llama_completion(int argc, char ** argv) {
                 const bool save_now = session_do_save && is_last_batch;
                 session_tokens.insert(session_tokens.end(), embd.begin(), embd.end());
                 if (!common_prompt_batch_decode(ctx, session_tokens, embd.size(), n_past, params.n_batch, path_session, save_now)) {
-                    return 1;
+                    // the helper only reports failure, the llama_process() return code is not known here
+                    return report.finish(COMPLETION_STOP_RUNTIME_FAILURE, report.tokens.empty() ? "decode_prompt" : "decode_generated", 1);
                 }
                 n_session_consumed += embd.size();
                 if (save_now) {
@@ -667,6 +997,10 @@ int llama_completion(int argc, char ** argv) {
             const llama_token id = common_sampler_sample(smpl, ctx, -1);
 
             common_sampler_accept(smpl, id, /* accept_grammar= */ true);
+
+            if (report.enabled()) {
+                report.add_token(ctx, id);
+            }
 
             // LOG_DBG("last: %s\n", string_from(ctx, smpl->prev.to_vector()).c_str());
 
@@ -738,17 +1072,22 @@ int llama_completion(int argc, char ** argv) {
                 // Check if each of the reverse prompts appears at the end of the output.
                 // If we're not running interactively, the reverse prompt might be tokenized with some following characters
                 // so we'll compensate for that by widening the search window a bit.
-                for (std::string & antiprompt : params.antiprompt) {
+                for (size_t i = 0; i < params.antiprompt.size(); i++) {
+                    const std::string & antiprompt = params.antiprompt[i];
                     size_t extra_padding = params.interactive ? 0 : 2;
                     size_t search_start_pos = last_output.length() > static_cast<size_t>(antiprompt.length() + extra_padding)
                         ? last_output.length() - static_cast<size_t>(antiprompt.length() + extra_padding)
                         : 0;
 
-                    if (last_output.find(antiprompt, search_start_pos) != std::string::npos) {
+                    const size_t match_pos = last_output.find(antiprompt, search_start_pos);
+                    if (match_pos != std::string::npos) {
                         if (params.interactive) {
                             is_interacting = true;
                         }
                         is_antiprompt = true;
+                        if (report.enabled()) {
+                            report.add_antiprompt_text(ctx, (int) i, last_output, match_pos, antiprompt.length(), n_prev);
+                        }
                         break;
                     }
                 }
@@ -757,12 +1096,13 @@ int llama_completion(int argc, char ** argv) {
                 // avoid calling common_sampler_last() if last_output is empty
                 if (!last_output.empty()) {
                     llama_token last_token = common_sampler_last(smpl);
-                    for (auto token : antiprompt_token) {
-                        if (token == last_token) {
+                    for (size_t i = 0; i < antiprompt_token.size(); i++) {
+                        if (antiprompt_token[i] == last_token) {
                             if (params.interactive) {
                                 is_interacting = true;
                             }
                             is_antiprompt = true;
+                            report.add_antiprompt_token(antiprompt_token_idx[i]);
                             break;
                         }
                     }
@@ -927,6 +1267,8 @@ int llama_completion(int argc, char ** argv) {
         // end of generation
         if (!embd.empty() && llama_vocab_is_eog(vocab, embd.back()) && !(params.interactive)) {
             LOG(" [end of text]\n");
+            report.add_eog(embd.back());
+            stop = COMPLETION_STOP_EOG;
             break;
         }
 
@@ -937,6 +1279,13 @@ int llama_completion(int argc, char ** argv) {
             is_interacting = true;
         }
     }
+
+    if (stop == COMPLETION_STOP_NONE) {
+        // the loop condition ended generation, an antiprompt takes precedence over the budget
+        stop = is_antiprompt ? COMPLETION_STOP_ANTIPROMPT : COMPLETION_STOP_TOKEN_LIMIT;
+    }
+
+    const int ret = report.finish(stop, "", stop == COMPLETION_STOP_CANCELLED ? 128 + report.signal : 0);
 
     if (!path_session.empty() && params.prompt_cache_all && !params.prompt_cache_ro) {
         LOG("\n%s: saving final output to session file '%s'\n", __func__, path_session.c_str());
@@ -951,5 +1300,5 @@ int llama_completion(int argc, char ** argv) {
 
     llama_backend_free();
 
-    return 0;
+    return ret;
 }

@@ -1889,6 +1889,14 @@ common_params_context common_params_parser_init(common_params & params, llama_ex
         }
     ).set_examples({LLAMA_EXAMPLE_COMPLETION}));
     add_opt(common_arg(
+        {"--completion-report"}, "FNAME",
+        "write a JSON report on why generation stopped to FNAME (fails if FNAME exists)\n"
+        "requires a non-interactive run without conversation mode and -n N with N >= 0",
+        [](common_params & params, const std::string & value) {
+            params.path_completion_report = value;
+        }
+    ).set_examples({LLAMA_EXAMPLE_COMPLETION}));
+    add_opt(common_arg(
         {"-r", "--reverse-prompt"}, "PROMPT",
         "halt generation at PROMPT, return control in interactive mode\n",
         [](common_params & params, const std::string & value) {

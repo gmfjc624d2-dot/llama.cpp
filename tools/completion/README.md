@@ -13,6 +13,7 @@ This example program allows you to use various LLaMA language models easily and 
 7. [Generation Flags](#generation-flags)
 8. [Performance Tuning and Memory Options](#performance-tuning-and-memory-options)
 9. [Additional Options](#additional-options)
+10. [Completion Report](#completion-report)
 
 ## Quick Start
 
@@ -236,6 +237,7 @@ llama-completion.exe -m models\gemma-1.1-7b-it.Q4_K_M.gguf --ignore-eos -n -1
 | `--prompt-cache FNAME` | file to cache prompt state for faster startup (default: none) |
 | `--prompt-cache-all` | if specified, saves user input and generations to cache as well |
 | `--prompt-cache-ro` | if specified, uses the prompt cache but does not update it |
+| `--completion-report FNAME` | write a JSON report on why generation stopped to FNAME (fails if FNAME exists)<br/>requires a non-interactive run without conversation mode and -n N with N >= 0 |
 | `-r, --reverse-prompt PROMPT` | halt generation at PROMPT, return control in interactive mode |
 | `-sp, --special` | special tokens output enabled (default: false) |
 | `-cnv, --conversation, -no-cnv, --no-conversation` | whether to run in conversation mode:<br/>- does not print special tokens and suffix/prefix<br/>- interactive mode is also enabled<br/>(default: auto enabled if chat template is available) |
@@ -582,3 +584,158 @@ These options provide extra functionality and customization when running the LLa
 -   `-mg i, --main-gpu i`: When using multiple GPUs this option controls which GPU is used for small tensors for which the overhead of splitting the computation across all GPUs is not worthwhile. The GPU in question will use slightly more VRAM to store a scratch buffer for temporary results. By default GPU 0 is used.
 -   `-ts SPLIT, --tensor-split SPLIT`: When using multiple devices this option controls how tensors should be split across devices. `SPLIT` is a comma-separated list of non-negative values that assigns the proportion of data that each device should get in order. For example, "3,2" will assign 60% of the data to device 0 and 40% to device 1. By default, the data is split in proportion to VRAM, but this may not be optimal for performance. The list of the devices which are being used is printed on startup and can be different from the device list given by `--list-devices` or e.g. `nvidia-smi`.
 -   `-hfr URL --hf-repo URL`: The url to the Hugging Face model repository. Used in conjunction with `--hf-file` or `-hff`. The model is downloaded and stored in the file provided by `-m` or `--model`. If `-m` is not provided, the model is auto-stored in the path specified by the `LLAMA_CACHE` environment variable  or in an OS-specific local cache.
+
+## Completion Report
+
+`--completion-report FNAME` writes one JSON object to `FNAME` that says how the generation of this invocation ended. Without the option, `llama-completion` behaves as before: same console output, same exit status, no file.
+
+```sh
+./llama-completion -m model.gguf -no-cnv -p "Once upon a time" -n 64 --completion-report report.json
+```
+
+### Supported runs
+
+The report supports one non-interactive completion with a decoder-only model:
+
+- no `-i` / `-if`, and conversation mode off (`-no-cnv`, or no chat template in the model)
+- `-n N` with `N >= 0` (the default `-1` and `-2` are not supported)
+- no `--prompt-cache`, no self-extend (`-gan` must be 1), no encoder-decoder model
+
+Anything else stops with exit status 1 and a report with `reason` `unsupported`. `FNAME` must not exist yet, a dangling symlink counts as existing. If it exists, the run stops with exit status 1 before loading the model, and the existing file is not changed.
+
+### Example
+
+From the synthetic test model in `tests/test-completion-report.py`: the model sampled 12 tokens, the last one is `</s>`, and `-r "</s>"` also matched that token.
+
+```json
+{
+  "schema": "llama-completion-report",
+  "schema_version": 1,
+  "mode": "completion",
+  "build": {
+    "llama_version": "0.7.0-dev",
+    "build_number": 1,
+    "commit": "ceefd16",
+    "compiler": "GNU 13.3.0",
+    "target": "Linux x86_64"
+  },
+  "pid": 3163,
+  "reason": "eog",
+  "error": null,
+  "signal": null,
+  "n_predict": 20,
+  "n_ctx": 4096,
+  "n_prompt_tokens": 2,
+  "n_generated": 12,
+  "budget_exhausted": false,
+  "n_context_shifts": 0,
+  "last_token": {
+    "id": 2,
+    "eog": true,
+    "n_bytes": 0
+  },
+  "eog": {
+    "id": 2,
+    "origin": "generated"
+  },
+  "antiprompt": {
+    "text": {
+      "index": 0,
+      "origin": "generated"
+    },
+    "token": {
+      "index": 0,
+      "origin": "generated"
+    }
+  },
+  "generated": {
+    "render_special": false,
+    "n_bytes": 19,
+    "base64": "QQDigqxbZW5kIG9mIHRleHRd8A=="
+  }
+}
+```
+
+### Fields
+
+| Field | Meaning |
+| ----- | ------- |
+| `schema`, `schema_version` | always `"llama-completion-report"` and `1` for this format |
+| `mode` | always `"completion"`: one non-interactive completion, see above |
+| `build` | `llama_version()` from libllama, and the build number, commit, compiler and target compiled into llama-common, see [Build identity](#build-identity) |
+| `pid` | process id of the `llama-completion` process that wrote the report |
+| `reason` | how generation ended, see [Reasons](#reasons) |
+| `error` | `null`, except for `runtime_failure` and `unsupported`: `stage` (string), `code` (always `null`, see below), `unsupported` (option name for `unsupported`, else `null`) |
+| `signal` | for `cancelled`: the signal that stopped the run. For other reasons: a signal that the report handler recorded but that did not stop the run (for example during a failed decode). `null` if none |
+| `n_predict` | the configured `-n` value |
+| `n_ctx` | context size from `llama_n_ctx()` (can be larger than `-c`, it is padded), `null` before a context exists |
+| `n_prompt_tokens` | number of prompt tokens after tokenization, including BOS, `null` before tokenization |
+| `n_generated` | number of tokens returned by the sampler in this run, including a sampled EOG token |
+| `budget_exhausted` | `n_generated == n_predict` when the generation loop ended; `null` if the run stopped before the loop |
+| `n_context_shifts` | number of context shifts done (only with `--context-shift`) |
+| `last_token` | the last sampled token: `id`, `eog` (`llama_vocab_is_eog()`), `n_bytes` (length of its piece in `generated`); `null` if nothing was sampled |
+| `eog` | set only for `reason` `eog`: the EOG token `id` that ended generation and its `origin`, `generated` (sampled) or `prompt` (the last token of a prompt batch) |
+| `antiprompt` | `null`, or the antiprompt checks that matched in the step that ended generation: `text` and `token`, each `null` or `{index, origin}`, see [Antiprompts](#antiprompts) |
+| `generated` | the generated bytes: `render_special` (`-sp`), `n_bytes` (exact length), `base64` (standard alphabet, padded) |
+
+### Reasons
+
+The reason comes from the branch of the generation loop that ended the run, not from console text or the exit status. No reason means that the generated text is complete in any semantic sense: `eog` only says that the model sampled an EOG token.
+
+| `reason` | Branch | Exit status |
+| -------- | ------ | ----------- |
+| `eog` | the end-of-generation check: the last token of the step is an EOG token. This check breaks out of the loop before the loop condition is evaluated again, so it wins over an exhausted budget or an antiprompt match in the same step; those stay visible in `budget_exhausted` and `antiprompt` | 0 |
+| `antiprompt` | the loop condition ended the loop because an antiprompt matched. If the budget ran out in the same step, `budget_exhausted` is `true` (antiprompt takes precedence over the budget) | 0 |
+| `token_limit` | the loop condition ended the loop because `n_predict` tokens were sampled and no antiprompt matched | 0 |
+| `context_limit` | before a decode, `n_past + n_tokens >= n_ctx` with context shift disabled. The token sampled last is counted but was never decoded. A run that samples its last budget token first is `token_limit`, even if the next decode would not have fit | 0 |
+| `cancelled` | SIGINT or SIGTERM was recorded and seen at the start of a loop iteration, see [Cancellation](#cancellation) | 128 + signal |
+| `runtime_failure` | `error.stage` is `init` (model or context could not be created), `prompt_empty`, `prompt_too_long`, `decode_prompt` or `decode_generated` (`common_prompt_batch_decode()` returned false before or after the first sampled token) | as before: 1, or 255 for `prompt_empty` |
+| `unsupported` | `error.stage` is `config` and `error.unsupported` is `interactive`, `conversation`, `n_predict`, `prompt_cache`, `self_extend` or `encoder_decoder` | 1 |
+
+`error.code` is always `null`: the decode helper only returns success or failure, the `llama_process()` return code is not known at that point. A signal that arrives during a failed decode does not turn a `runtime_failure` into `cancelled`.
+
+If the report cannot be serialized or written, the file is removed and the exit status is 1 (or the nonzero status of the run).
+
+### Generated bytes
+
+`generated` holds the pieces of all sampled tokens, in order, captured right after sampling with `common_token_to_piece(ctx, id, special)`, where `special` is the `-sp` flag (`render_special`). With `render_special` `false`, control tokens such as `</s>` have an empty piece, but they are still counted in `n_generated`. With `-sp`, the piece of a sampled EOG token (for example `</s>`) is part of the bytes.
+
+The bytes do not include prompt tokens, the console marker ` [end of text]`, or any other console output, and they do not depend on `--display-prompt` or the batch size. Nothing is trimmed or replaced: whitespace, antiprompt text, literal marker text, NUL bytes and incomplete or invalid UTF-8 are kept as they are. The console prints pieces with `%s`, so it stops at a NUL byte, the report does not.
+
+### Antiprompts
+
+The report does not change how antiprompts (`-r`) are matched. After the prompt is queued, each step runs two checks:
+
+- text: the last 32 tokens of the sampler history are rendered with special tokens, and each antiprompt is searched in the last `length + 2` bytes, the first matching antiprompt wins. A stop string that is followed by more than 2 bytes in the same piece is not found. This is not a general byte-level stop matcher.
+- token: antiprompts that tokenize to exactly one token are compared with the last token.
+
+Both checks are reported separately, with the antiprompt `index` in the order of the `-r` options. Because the history renders special tokens, a single-token antiprompt that matches usually matches as text in the same step. `origin` is `generated` if the match is within the bytes of sampled tokens, `prompt` if it is within the prompt, and `prompt_and_generated` if it spans both. For `token`, `origin` is `prompt` if no token was sampled yet.
+
+The prompt is checked after its last batch is queued and before that batch is decoded. A match there, or an EOG token at the end of a prompt batch, ends the run with `n_generated` 0 and `origin` `prompt`.
+
+### Publication and consumers
+
+The report is serialized completely in memory. Then `FNAME` is created with exclusive create (`O_CREAT | O_EXCL`, `_O_EXCL` on Windows), so an existing file, including one created while the model ran, is never replaced. The data is written with one `fwrite`, then flushed and closed. The write is not atomic and not durable: there is no `fsync` and no rename. A crash or `SIGKILL` during the write can leave a truncated file.
+
+The report is written right after the generation loop. Later steps, such as printing timings and freeing the model, are not covered by the report, only by the exit status.
+
+A consumer must treat the result as unobserved, not as a successful end, unless all of these hold:
+
+1. it started the process with an `FNAME` that did not exist, and it has the exit status of that process
+2. `FNAME` exists and its whole content parses as one JSON object with this `schema` and `schema_version` (a file cut inside the object never parses, because the object ends with its closing `}`)
+3. `pid` is the pid of that process (a stale report from another run fails here)
+4. `generated.base64` decodes to exactly `generated.n_bytes` bytes
+
+A missing report (for example after `SIGKILL`, a crash, an abort, a signal before the handler is installed, or `--help`) is not a result.
+
+### Cancellation
+
+With `--completion-report` on Linux and macOS, SIGINT and SIGTERM get a handler that only stores the signal number in an atomic variable (`SA_RESTART | SA_RESETHAND`). The generation loop checks it at the start of each iteration, that is before the decode of each prompt batch and each sampled token, and then ends the run with `reason` `cancelled`. The tokens sampled until then are in the report. A decode that is running is not interrupted, GPU (for example Metal) work is not preempted. A second signal of the same kind uses the default action and ends the process without a report.
+
+Signals that arrive before the handler is installed (argument parsing, model and context loading, tokenization) use the default action, so there is no report. Without `--completion-report`, the old Ctrl+C handler is used as before. On Windows, report mode also keeps the old Ctrl+C handler, which exits with status 130 without a report.
+
+Tested: Linux x86_64 with SIGINT and SIGTERM, both raised inside the process during a decode (test shim) and sent from another process, and SIGKILL (no report). macOS and Windows are not tested.
+
+### Build identity
+
+`build.llama_version` is `llama_version()` from the loaded libllama. This function is in `include/llama.h` at b11696 but not at b9842; the report targets b11696 and is not backported. `build_number`, `commit`, `compiler` and `target` come from the build info of llama-common, made from the git checkout at build time; in a shallow clone `build_number` is not the release number. None of these values identify the binary or the model. Keep the source revision, the binary hash and the model file hash yourself.

@@ -239,6 +239,10 @@ static void test(void) {
     argv = {"binary_name", "-lm", "hello"};
     assert(false == common_params_parse(argv.size(), list_str_to_char(argv).data(), params, LLAMA_EXAMPLE_COMMON));
 
+    // --completion-report is only for llama-completion
+    argv = {"binary_name", "--completion-report", "report.json"};
+    assert(false == common_params_parse(argv.size(), list_str_to_char(argv).data(), params, LLAMA_EXAMPLE_CLI));
+
     printf("test-arg-parser: test valid usage\n\n");
 
     argv = {"binary_name", "-m", "model_file.gguf"};
@@ -258,6 +262,14 @@ static void test(void) {
     assert(params.model.path == "abc.gguf");
     assert(params.n_predict == 6789);
     assert(params.n_batch == 9090);
+
+    {
+        common_params report_params;
+        assert(report_params.path_completion_report.empty());
+        argv = {"binary_name", "-m", "model_file.gguf", "--completion-report", "report.json"};
+        assert(true == common_params_parse(argv.size(), list_str_to_char(argv).data(), report_params, LLAMA_EXAMPLE_COMPLETION));
+        assert(report_params.path_completion_report == "report.json");
+    }
 
     // --draft cannot be used outside llama-speculative
     argv = {"binary_name", "--spec-draft-n-max", "123"};

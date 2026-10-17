@@ -299,6 +299,26 @@ llama_build_and_test(test-thread-safety.cpp ARGS -m "${MODEL_DEST}" -ngl 99 -p "
 set_tests_properties(test-thread-safety PROPERTIES FIXTURES_REQUIRED test-download-model)
 
 llama_build_and_test(test-arg-parser.cpp)
+
+# llama-completion --completion-report against a generated model, see the script for details
+if (LLAMA_BUILD_TOOLS AND NOT WIN32)
+    find_package(Python3 COMPONENTS Interpreter)
+    if (Python3_Interpreter_FOUND)
+        set(COMPLETION_REPORT_ARGS
+            ${CMAKE_CURRENT_SOURCE_DIR}/test-completion-report.py
+            --bin-dir  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+            --vocab    ${PROJECT_SOURCE_DIR}/models/ggml-vocab-llama-spm.gguf
+            --gguf-py  ${PROJECT_SOURCE_DIR}/gguf-py
+            --work-dir ${CMAKE_CURRENT_BINARY_DIR}/completion-report)
+        # fault injection uses LD_PRELOAD, so it needs a Linux build with shared libs
+        if (BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+            add_library(test-completion-report-shim MODULE test-completion-report-shim.c)
+            target_link_libraries(test-completion-report-shim PRIVATE llama ${CMAKE_DL_LIBS})
+            list(APPEND COMPLETION_REPORT_ARGS --shim $<TARGET_FILE:test-completion-report-shim>)
+        endif()
+        llama_test_cmd(${Python3_EXECUTABLE} NAME test-completion-report LABEL python ARGS ${COMPLETION_REPORT_ARGS})
+    endif()
+endif()
 llama_build_and_test(test-model-resolution.cpp)
 # the test serves its repos from an httplib server, and the library links it privately
 target_link_libraries(test-model-resolution PRIVATE cpp-httplib)
