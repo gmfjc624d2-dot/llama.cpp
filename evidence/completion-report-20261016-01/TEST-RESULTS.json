@@ -1,0 +1,393 @@
+{
+  "platform": "Linux x86_64 (Ubuntu 24.04.5, GCC 13.3.0, CPU backend, GGML_NATIVE=ON, shared libs), see logs/420f01a/environment.txt",
+  "final_run": {
+    "source": "420f01a4f0b6514d1880e9d347157ebed25d2edb",
+    "log": "logs/420f01a/test-completion-report-full.log",
+    "results": "runs/runs-420f01a/run-20261017T003818Z-8279/results.json",
+    "counts": {
+      "PASS": 55,
+      "FAIL": 0,
+      "ERROR": 0,
+      "NOT_EXECUTED": 7
+    }
+  },
+  "by_requirement": {
+    "A budget": [
+      {
+        "test": "SyntheticTests.test_a_budget_zero",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_a_budget_one",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_a_eog_in_last_budget_slot",
+        "status": "PASS"
+      }
+    ],
+    "B eog": [
+      {
+        "test": "SyntheticTests.test_b_eog_empty_piece",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_b_literal_marker_is_text",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_b_eog_render_special",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_b_eog_from_prompt",
+        "status": "PASS"
+      }
+    ],
+    "C antiprompt": [
+      {
+        "test": "SyntheticTests.test_c_antiprompt_across_pieces",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_c_antiprompt_single_piece_and_index",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_c_antiprompt_and_budget",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_c_antiprompt_single_token",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_c_antiprompt_and_eog",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_c_antiprompt_from_prompt",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_c_antiprompt_across_boundary",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_c_antiprompt_window_limit",
+        "status": "PASS"
+      }
+    ],
+    "D boundary": [
+      {
+        "test": "SyntheticTests.test_d_display_prompt_does_not_change_output",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_d_batch_size_one",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_d_one_token_prompt",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_d_conversation_auto_off",
+        "status": "PASS"
+      }
+    ],
+    "E context": [
+      {
+        "test": "SyntheticTests.test_e_context_limit",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_e_budget_ends_before_context",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_e_context_shift",
+        "status": "PASS"
+      }
+    ],
+    "F cancellation": [
+      {
+        "test": "SyntheticTests.test_f_external_sigint",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_f_external_sigterm",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_f_sigkill_leaves_no_report",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_f_incomplete_report_rejected",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_f_sigint_cooperative",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_f_sigterm_cooperative",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_f_signal_during_prompt",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_f_signal_with_failure_is_failure",
+        "status": "PASS"
+      }
+    ],
+    "G failure": [
+      {
+        "test": "SyntheticTests.test_g_missing_model",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_invalid_model",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_prompt_too_long",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_unsupported",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_unsupported_encoder_decoder",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_existing_destination",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_dangling_symlink_destination",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_missing_directory",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticTests.test_g_write_failure",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_g_decode_failure_prompt",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_g_decode_failure_generated",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_g_destination_created_during_run",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_g_publish_swap_fdopen_failure",
+        "status": "PASS"
+      },
+      {
+        "test": "FaultTests.test_g_publish_swap_write_failure",
+        "status": "PASS"
+      }
+    ],
+    "H bytes": [
+      {
+        "test": "SyntheticTests.test_h_bytes_round_trip",
+        "status": "PASS"
+      }
+    ],
+    "I legacy": [
+      {
+        "test": "LegacyTests.test_i_no_report_created",
+        "status": "PASS"
+      },
+      {
+        "test": "LegacyTests.test_i_same_as_base",
+        "status": "PASS"
+      },
+      {
+        "test": "LegacyTests.test_i_legacy_sigint",
+        "status": "PASS"
+      }
+    ],
+    "model-agnostic cases on the synthetic model": [
+      {
+        "test": "SyntheticModelTests.test_budget_zero",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticModelTests.test_budget_small",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticModelTests.test_forced_eog",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticModelTests.test_antiprompt_from_previous_output",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticModelTests.test_display_prompt",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticModelTests.test_context_limit",
+        "status": "PASS"
+      },
+      {
+        "test": "SyntheticModelTests.test_external_sigint",
+        "status": "PASS"
+      }
+    ],
+    "real-model integration": [
+      {
+        "test": "RealModelTests.test_budget_zero",
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "test": "RealModelTests.test_budget_small",
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "test": "RealModelTests.test_forced_eog",
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "test": "RealModelTests.test_antiprompt_from_previous_output",
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "test": "RealModelTests.test_display_prompt",
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "test": "RealModelTests.test_context_limit",
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "test": "RealModelTests.test_external_sigint",
+        "status": "NOT_EXECUTED"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "what": "configure base ceefd16",
+      "log": "logs/base-ceefd16/base-configure.log",
+      "exit": 0
+    },
+    {
+      "what": "build base llama-completion",
+      "log": "logs/base-ceefd16/base-build.log",
+      "exit": 0
+    },
+    {
+      "what": "build base test-arg-parser",
+      "log": "logs/base-ceefd16/base-build-test-arg-parser.log",
+      "exit": 0
+    },
+    {
+      "what": "6df3172 configure+build",
+      "log": "(not kept, see logs/6df3172/ctest-test-completion-report-EXCERPT.txt)",
+      "exit": 0
+    },
+    {
+      "what": "6df3172 ctest -R test-completion-report",
+      "log": "logs/6df3172/ctest-test-completion-report-EXCERPT.txt",
+      "exit": 8,
+      "note": "results writer crash in the test driver after all cases ran; fixed in 95de7ea; full log deleted, excerpt only"
+    },
+    {
+      "what": "95de7ea configure",
+      "log": "logs/95de7ea/build-configure.log",
+      "exit": 0
+    },
+    {
+      "what": "95de7ea build",
+      "log": "logs/95de7ea/build-targets.log",
+      "exit": 0
+    },
+    {
+      "what": "95de7ea ctest -R test-completion-report",
+      "log": "logs/95de7ea/ctest-test-completion-report.log",
+      "exit": 0
+    },
+    {
+      "what": "95de7ea full suite with --base-bin",
+      "log": "logs/95de7ea/test-completion-report-full.log",
+      "exit": 0,
+      "counts": "53 PASS, 7 NOT_EXECUTED",
+      "artifacts": "archives/run-95de7ea-cr-final.tar.gz"
+    },
+    {
+      "what": "pre-fix publish tests (95de7ea binaries, new tests), first version",
+      "log": "logs/prefix-race-95de7ea/test-publish-failures-prefix.log",
+      "exit": 1,
+      "note": "expected: 3 ERROR, the unrelated file / partial report was removed by name"
+    },
+    {
+      "what": "pre-fix publish tests (95de7ea binaries, new tests), explicit asserts",
+      "log": "logs/prefix-race-95de7ea/test-publish-failures-prefix-2.log",
+      "exit": 1,
+      "note": "expected: 3 FAIL with messages; artifacts in runs/runs-prefix-race"
+    },
+    {
+      "what": "420f01a configure",
+      "log": "logs/420f01a/build-configure.log",
+      "exit": 0
+    },
+    {
+      "what": "420f01a build",
+      "log": "logs/420f01a/build-targets.log",
+      "exit": 0,
+      "warnings": 0
+    },
+    {
+      "what": "420f01a ctest -R test-completion-report",
+      "log": "logs/420f01a/ctest-test-completion-report.log",
+      "exit": 0
+    },
+    {
+      "what": "420f01a full suite with --base-bin",
+      "log": "logs/420f01a/test-completion-report-full.log",
+      "exit": 0,
+      "counts": "55 PASS, 7 NOT_EXECUTED"
+    },
+    {
+      "what": "420f01a test-arg-parser",
+      "log": "logs/420f01a/test-arg-parser-420f01a.log",
+      "exit": 1,
+      "note": "fails in the network section (http://ggml.ai/ denied by the session egress policy); new --completion-report checks run before it and pass"
+    },
+    {
+      "what": "ceefd16 test-arg-parser",
+      "log": "logs/420f01a/test-arg-parser-base-ceefd16.log",
+      "exit": 1,
+      "note": "same failure at the same point, pre-existing"
+    },
+    {
+      "what": "static checks (flake8, ty, git diff --check, ASCII, llama_version header)",
+      "log": "logs/420f01a/static-checks.log",
+      "exit": 0
+    },
+    {
+      "what": "dev runs on the uncommitted tree (ceefd16 build info)",
+      "log": "logs/dev-uncommitted/cr-dev-run1.log",
+      "exit": 1,
+      "note": "first run: 8 failures (legacy stderr normalization, T5 fixture path); kept as failed-run evidence, artifacts in archives/dev-uncommitted-*.tar.gz"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+## uname -a
+Linux vm 6.18.44-fc-v139 #1 SMP PREEMPT_DYNAMIC @0 x86_64 x86_64 x86_64 GNU/Linux
+## os-release
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+VERSION_ID="24.04"
+## lscpu
+Architecture:                            x86_64
+CPU(s):                                  4
+Model name:                              Intel(R) Xeon(R) Processor @ 2.10GHz
+## compilers/tools
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+cmake version 3.28.3
+ninja 1.11.1
+Python 3.13.16
+numpy 2.5.3
+ldd (Ubuntu GLIBC 2.39-0ubuntu8.9) 2.39
+## llama-completion --version
+version: 0.7.0-dev (build 3, commit 95de7ea)
+built with GNU 13.3.0 for Linux x86_64
+## base llama-completion --version
+version: 0.7.0-dev (build 1, commit ceefd16)
+built with GNU 13.3.0 for Linux x86_64
+## CMakeCache (selected)
+BUILD_SHARED_LIBS:BOOL=ON
+CMAKE_BUILD_TYPE:STRING=Release
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
+GGML_CPU:BOOL=ON
+GGML_CUDA:BOOL=OFF
+GGML_METAL:BOOL=OFF
+GGML_NATIVE:BOOL=ON
+GGML_VULKAN:BOOL=OFF
+LLAMA_BUILD_TESTS:BOOL=ON

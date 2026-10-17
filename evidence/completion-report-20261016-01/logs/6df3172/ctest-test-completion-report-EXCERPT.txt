@@ -1,0 +1,53 @@
+EXCERPT, NOT THE ORIGINAL LOG
+
+What: `ctest -R test-completion-report --output-on-failure --timeout 1800` in a clean build of commit
+6df3172e2f39725cf6d3b54c63419a626b44e15e (build dir build-final, Linux x86_64, same environment as
+logs/420f01a/environment.txt). Exit status 8.
+
+Why only an excerpt: the full log file (evidence-logs/ctest-test-completion-report.log in the session
+scratchpad) was deleted by the agent with `rm -f evidence-logs/*.log` before rebuilding at 95de7ea. The
+build dir with the case files was removed too. The lines below are copied from the tool output that the
+session showed at the time; nothing else of that run is kept.
+
+Cause: test driver bug, not llama-completion. unittest.TestSuite drops each test from the suite after it
+runs, so result_records() walked a suite of None entries after runner.run(). All 60 test methods had
+already finished when the results writer raised: 60 run, 8 skipped as NOT_EXECUTED (listed below), and the
+session greps for '... FAIL', '... ERROR', 'FAIL:' and 'ERROR:' found none, so the other 52 ended with 'ok'.
+Fix: commit 95de7ea8a6bfa95567b7cd6d64f8f1ccf1b2cbcc ("tests : collect test ids before the run in test-completion-report.py").
+
+--- tail of the ctest log as shown in the session ---
+Total Test time (real) =  10.82 sec
+
+The following tests FAILED:
+	 42 - test-completion-report (Failed)
+Errors while running CTest
+exit=8
+
+--- grep of the same log as shown in the session ---
+Ran 60 tests in 8.268s
+AttributeError: 'NoneType' object has no attribute 'id'
+
+--- traceback as shown in the session ---
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 890, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 885, in main
+    json.dump(result_records(suite, res), f, indent=2)
+              ~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 837, in result_records
+    records = {tid: {"test": tid, "status": "PASS", "detail": ""} for tid in test_ids(suite)}
+                                                                             ~~~~~~~~^^^^^^^
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 832, in test_ids
+    yield t.id()
+          ^^^^
+AttributeError: 'NoneType' object has no attribute 'id'
+
+--- test lines that were not "ok", as shown in the session ---
+test_antiprompt_from_previous_output (__main__.RealModelTests.test_antiprompt_from_previous_output) ... skipped 'NOT_EXECUTED: no real model'
+test_budget_small (__main__.RealModelTests.test_budget_small) ... skipped 'NOT_EXECUTED: no real model'
+test_budget_zero (__main__.RealModelTests.test_budget_zero) ... skipped 'NOT_EXECUTED: no real model'
+test_context_limit (__main__.RealModelTests.test_context_limit) ... skipped 'NOT_EXECUTED: no real model'
+test_display_prompt (__main__.RealModelTests.test_display_prompt) ... skipped 'NOT_EXECUTED: no real model'
+test_external_sigint (__main__.RealModelTests.test_external_sigint) ... skipped 'NOT_EXECUTED: no real model'
+test_forced_eog (__main__.RealModelTests.test_forced_eog) ... skipped 'NOT_EXECUTED: no real model'
+test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) ... skipped 'NOT_EXECUTED: no --base-bin'

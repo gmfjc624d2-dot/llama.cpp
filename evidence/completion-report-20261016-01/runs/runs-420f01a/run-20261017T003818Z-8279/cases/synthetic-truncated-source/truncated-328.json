@@ -1,0 +1,16 @@
+{
+  "schema": "llama-completion-report",
+  "schema_version": 1,
+  "mode": "completion",
+  "build": {
+    "llama_version": "0.7.0-dev",
+    "build_number": 4,
+    "commit": "420f01a",
+    "compiler": "GNU 13.3.0",
+    "target": "Linux x86_64"
+  },
+  "pid": 8400,
+  "reason": "token_limit",
+  "error": null,
+  "signal": null,
+  "n

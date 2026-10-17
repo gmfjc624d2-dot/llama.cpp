@@ -1,0 +1,17 @@
+[
+  {
+    "test": "__main__.SyntheticTests.test_g_write_failure",
+    "status": "ERROR",
+    "detail": "__main__.SyntheticTests.test_g_write_failure: Traceback (most recent call last):\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 614, in test_g_write_failure\n    self.assertEqual(os.path.getsize(r.path), 64)\n                     ~~~~~~~~~~~~~~~^^^^^^^^\n  File \"<frozen genericpath>\", line 86, in getsize\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003402Z-6898/cases/synthetic-write-failure/report.json'\n\n"
+  },
+  {
+    "test": "__main__.FaultTests.test_g_publish_swap_fdopen_failure",
+    "status": "ERROR",
+    "detail": "__main__.FaultTests.test_g_publish_swap_fdopen_failure: Traceback (most recent call last):\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 701, in test_g_publish_swap_fdopen_failure\n    moved = self.run_swap(\"swap-fdopen-failure\", \"swap_fail\")\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 692, in run_swap\n    with open(path, \"rb\") as f:\n         ~~~~^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003402Z-6898/cases/fault-swap-fdopen-failure-target/report.json'\n\n"
+  },
+  {
+    "test": "__main__.FaultTests.test_g_publish_swap_write_failure",
+    "status": "ERROR",
+    "detail": "__main__.FaultTests.test_g_publish_swap_write_failure: Traceback (most recent call last):\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 705, in test_g_publish_swap_write_failure\n    moved = self.run_swap(\"swap-write-failure\", \"swap\", preexec_fn=limit_file_size)\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 692, in run_swap\n    with open(path, \"rb\") as f:\n         ~~~~^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003402Z-6898/cases/fault-swap-write-failure-target/report.json'\n\n"
+  }
+]

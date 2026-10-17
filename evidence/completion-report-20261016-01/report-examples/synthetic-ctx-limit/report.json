@@ -1,0 +1,34 @@
+{
+  "schema": "llama-completion-report",
+  "schema_version": 1,
+  "mode": "completion",
+  "build": {
+    "llama_version": "0.7.0-dev",
+    "build_number": 4,
+    "commit": "420f01a",
+    "compiler": "GNU 13.3.0",
+    "target": "Linux x86_64"
+  },
+  "pid": 8380,
+  "reason": "context_limit",
+  "error": null,
+  "signal": null,
+  "n_predict": 1000,
+  "n_ctx": 256,
+  "n_prompt_tokens": 2,
+  "n_generated": 254,
+  "budget_exhausted": false,
+  "n_context_shifts": 0,
+  "last_token": {
+    "id": 1023,
+    "eog": false,
+    "n_bytes": 4
+  },
+  "eog": null,
+  "antiprompt": null,
+  "generated": {
+    "render_special": false,
+    "n_bytes": 1184,
+    "base64": "IG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28gdGhyZWUgb25lIHR3byB0aHJlZSBvbmUgdHdvIHRocmVlIG9uZSB0d28="
+  }
+}

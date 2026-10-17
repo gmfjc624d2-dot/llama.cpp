@@ -1,0 +1,7 @@
+0.00.001.069 I llama_completion: llama backend init
+0.00.003.199 I llama_completion: load the model and apply lora adapter, if any
+0.00.087.648 I cmn          init: llama threadpool init, n_threads = 2
+0.00.091.406 I 
+0.00.091.498 I system_info: n_threads = 2 (n_threads_batch = 2) / 4 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX_VNNI = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VBMI = 1 | AVX512_VNNI = 1 | AVX512_BF16 = 1 | AMX_INT8 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.00.091.498 I 
+0.00.091.953 E llama_completion: prompt is too long (302 tokens, max 252)

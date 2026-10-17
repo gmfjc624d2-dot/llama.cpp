@@ -1,0 +1,139 @@
+{
+  "request": "public-completion-report-20261016-01",
+  "upstream": "https://github.com/ggml-org/llama.cpp",
+  "fork": "https://github.com/gmfjc624d2-dot/llama.cpp",
+  "branch": "claude/pensive-fermi-tpr2cj",
+  "base": {
+    "tag": "b11696",
+    "commit": "ceefd16daa2093730bf3340315fa2b84b286ddbc",
+    "verified": "git ls-remote https://github.com/ggml-org/llama.cpp refs/tags/b11696 -> ceefd16daa2093730bf3340315fa2b84b286ddbc"
+  },
+  "comparison_only": {
+    "tag": "b9842",
+    "commit": "6f4f53f2b7da54fcdbbecaaa734337c337ad6176"
+  },
+  "fork_master_at_start": "6420cf5dd588c68e48657a0bbd82bb3bd5ac7209 (not modified)",
+  "source_commits": [
+    {
+      "commit": "6df3172e2f39725cf6d3b54c63419a626b44e15e",
+      "author": "Claude <noreply@anthropic.com>",
+      "subject": "completion : add --completion-report to record why generation stopped"
+    },
+    {
+      "commit": "95de7ea8a6bfa95567b7cd6d64f8f1ccf1b2cbcc",
+      "author": "Claude <noreply@anthropic.com>",
+      "subject": "tests : collect test ids before the run in test-completion-report.py"
+    },
+    {
+      "commit": "420f01a4f0b6514d1880e9d347157ebed25d2edb",
+      "author": "Claude <noreply@anthropic.com>",
+      "subject": "completion : keep a failed report file instead of removing it by name"
+    }
+  ],
+  "source_head": "420f01a4f0b6514d1880e9d347157ebed25d2edb",
+  "evidence_commit": "the commit that adds this directory, on top of source_head",
+  "changed_files": [
+    {
+      "path": "common/arg.cpp",
+      "status": "M",
+      "sha256": "b41b630dddf0750f2b9ce9860aa106060ddf01a04315bcd4af57ab0df413c46c",
+      "git_blob": "8aca7a86c7ab9581fc56eb489d307a81ad9e3948",
+      "bytes": 224020,
+      "insertions": 8,
+      "deletions": 0,
+      "base_sha256": "a10b6e6af910366c5c1abb89e47a7c6711fc1f10708b5fbfd8b59ba1a11d0f4a"
+    },
+    {
+      "path": "common/common.h",
+      "status": "M",
+      "sha256": "7f8c0cc5dac97d95e76650cfca55554cc6b80badf732f203decdf92785792686",
+      "git_blob": "5a80216f8d2718bcf1a75f05c772170fb74ab880",
+      "bytes": 57193,
+      "insertions": 1,
+      "deletions": 0,
+      "base_sha256": "32219bbe2a93e9f71cc1ae90aa4ff7f9b2d30cb6ffe2c0198089a455928bb597"
+    },
+    {
+      "path": "tests/CMakeLists.txt",
+      "status": "M",
+      "sha256": "e675d075a5f9f14080d3a22e078c2b6b7179c91b1716b4abe3c1d2972481f46f",
+      "git_blob": "99a9062dd9fe3affabd24adffd69c28c9ab4f1ef",
+      "bytes": 17642,
+      "insertions": 20,
+      "deletions": 0,
+      "base_sha256": "d1e60fec1ea04cfce88095c7c462c177a60f7b0ce4c0ed94f35f5b9b5e48eed4"
+    },
+    {
+      "path": "tests/test-arg-parser.cpp",
+      "status": "M",
+      "sha256": "033a8ea343e63fc8c07b49b136928e994da6ed43c537a1fc7d4ca0c6b0c7bb29",
+      "git_blob": "1db26876deb4bca02a3a078c876607940d287ce1",
+      "bytes": 18234,
+      "insertions": 12,
+      "deletions": 0,
+      "base_sha256": "f3362876172141d85a5beb2cd51c44366cc2890ec7ae0523d549a8a60ddd31e9"
+    },
+    {
+      "path": "tests/test-completion-report-shim.c",
+      "status": "A",
+      "sha256": "81b97517f984d3acd42b24b7bc93170ecfcd150b11ac8937b5abf4dc39e1196d",
+      "git_blob": "a512b846b2a93d14b6d1ece612bf3dfe655e174f",
+      "bytes": 3834,
+      "insertions": 113,
+      "deletions": 0,
+      "base_sha256": null
+    },
+    {
+      "path": "tests/test-completion-report.py",
+      "status": "A",
+      "sha256": "f8af907451ecb5cf5583a6f5e8c79aa83f99058c0a93777a5e52e93fdb461434",
+      "git_blob": "ac0f023474482d93ae3b0b3f06b15844f44ebd7b",
+      "bytes": 42762,
+      "insertions": 945,
+      "deletions": 0,
+      "base_sha256": null
+    },
+    {
+      "path": "tools/completion/README.md",
+      "status": "M",
+      "sha256": "9bf54324420ff0838553dd0d4997de6871700988e51086c0e14787d4178acd3d",
+      "git_blob": "ab13b808d2c90fdf2dfb076f82bafb7f2ae488f1",
+      "bytes": 69992,
+      "insertions": 160,
+      "deletions": 0,
+      "base_sha256": "3603dfe848d32bfe6c6566a28cdb18802b5d60c4cc988142eec240da6ad58cb6"
+    },
+    {
+      "path": "tools/completion/completion.cpp",
+      "status": "M",
+      "sha256": "13ef66e0f945bdab75a97f5c9db3e25864d2a0111bfa36adecd41085cb1380e2",
+      "git_blob": "0d3bc82df964b89f7b6e2b1e715a2cd04c3a718d",
+      "bytes": 51293,
+      "insertions": 363,
+      "deletions": 12,
+      "base_sha256": "0dde1fed7b17e9b37ad0cf3e125210dd1c316364cf2924f24d0f41c38538677b"
+    }
+  ],
+  "patches": [
+    {
+      "file": "patches/0001-completion-add-completion-report-to-record-why-gener.patch",
+      "sha256": "7a8c4fbfd44fdb014d7c65225d589db65a617ca0119c80a5ed74e8a2441b5120"
+    },
+    {
+      "file": "patches/0002-tests-collect-test-ids-before-the-run-in-test-comple.patch",
+      "sha256": "ebad85b75d8dcce6301597c972876e39a2d40eb43c315801724f522dc254d121"
+    },
+    {
+      "file": "patches/0003-completion-keep-a-failed-report-file-instead-of-remo.patch",
+      "sha256": "d8076fd428abd6413667408f54035d658aada82fad530b60109dfb4e07206ce8"
+    },
+    {
+      "file": "patches/ceefd16..420f01a.diff",
+      "sha256": "cbef95e9ef2a117bd9bb99b1ed2251a5c3458dcc30b69aefa21d5db8c013c802"
+    }
+  ],
+  "llama_version_header": {
+    "b11696": "include/llama.h:478: LLAMA_API const char * llama_version(void);",
+    "b9842": "not present (git grep exit 1), see logs/420f01a/static-checks.log"
+  }
+}

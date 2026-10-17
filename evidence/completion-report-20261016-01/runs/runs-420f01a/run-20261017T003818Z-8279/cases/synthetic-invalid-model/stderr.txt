@@ -1,0 +1,13 @@
+0.00.001.036 I llama_completion: llama backend init
+0.00.002.357 I llama_completion: load the model and apply lora adapter, if any
+0.00.002.453 E gguf_init_from_reader: this GGUF file is version 4294967295 but this software only supports up to version 3
+0.00.002.454 E gguf_init_from_reader: failed to read header
+0.00.002.553 E llama_model_load: error loading model: llama_model_loader: failed to load model from /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-420f01a/run-20261017T003818Z-8279/invalid.gguf
+0.00.002.573 E llama_model_load_from_file_impl: failed to load model
+0.00.002.607 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
+0.00.002.621 E gguf_init_from_reader: this GGUF file is version 4294967295 but this software only supports up to version 3
+0.00.002.621 E gguf_init_from_reader: failed to read header
+0.00.002.628 E llama_model_load: error loading model: llama_model_loader: failed to load model from /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-420f01a/run-20261017T003818Z-8279/invalid.gguf
+0.00.002.629 E llama_model_load_from_file_impl: failed to load model
+0.00.002.631 E cmn  common_init_: failed to load model '/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-420f01a/run-20261017T003818Z-8279/invalid.gguf'
+0.00.002.634 E llama_completion: error: unable to create context

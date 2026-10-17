@@ -1,0 +1,27 @@
+{
+  "cmd": [
+    "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-final/bin/llama-completion",
+    "-m",
+    "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003426Z-6933/synthetic.gguf",
+    "-t",
+    "2",
+    "--temp",
+    "0",
+    "--top-k",
+    "1",
+    "-s",
+    "1",
+    "-no-cnv",
+    "-p",
+    "stop",
+    "-n",
+    "2",
+    "--completion-report",
+    "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003426Z-6933/cases/fault-swap-write-failure-target/report.json"
+  ],
+  "env": {
+    "LD_PRELOAD": "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-final/bin/libtest-completion-report-shim.so",
+    "CR_SHIM_FDOPEN": "swap:/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003426Z-6933/cases/fault-swap-write-failure-target/report.json"
+  },
+  "returncode": 1
+}

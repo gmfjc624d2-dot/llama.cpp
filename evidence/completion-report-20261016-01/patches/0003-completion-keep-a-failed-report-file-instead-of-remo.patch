@@ -1,0 +1,317 @@
+From 420f01a4f0b6514d1880e9d347157ebed25d2edb Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sat, 17 Oct 2026 00:35:31 +0000
+Subject: [PATCH 3/3] completion : keep a failed report file instead of
+ removing it by name
+
+After the exclusive create, another process can rename the file and put
+an unrelated file at the same path; removing by name could delete it. A
+failed write now leaves the empty or partial file and returns nonzero,
+consumers reject it (documented rule, also checks the exit status).
+
+Require std::atomic<int> to be always lock-free where the signal handler
+is built.
+
+Tests: fdopen hook in the shim that moves the new report and puts an
+unrelated file at its path, before fdopen or write failure; a new run
+dir per test invocation so earlier case dirs are never removed.
+
+Request: public-completion-report-20261016-01
+
+Assisted-by: Claude Opus 5.5
+Claude-Session: https://claude.ai/code/session_01SE3fPBMbUgupugrMZjDUcf
+---
+ tests/test-completion-report-shim.c | 49 +++++++++++++++++++++
+ tests/test-completion-report.py     | 67 ++++++++++++++++++++++++++---
+ tools/completion/README.md          |  7 ++-
+ tools/completion/completion.cpp     |  8 ++--
+ 4 files changed, 119 insertions(+), 12 deletions(-)
+
+diff --git a/tests/test-completion-report-shim.c b/tests/test-completion-report-shim.c
+index a9d0739..a512b84 100644
+--- a/tests/test-completion-report-shim.c
++++ b/tests/test-completion-report-shim.c
+@@ -5,14 +5,19 @@
+ //   CR_SHIM_ACTION=sigterm       raise SIGTERM, then decode
+ //   CR_SHIM_ACTION=sigint_fail   raise SIGINT, then fail
+ //   CR_SHIM_ACTION=touch:PATH    create PATH (exclusive), then decode
++// acts on the fdopen() of the report file (CR_SHIM_FDOPEN), like another process would:
++//   CR_SHIM_FDOPEN=swap:PATH       rename PATH to PATH.moved, create an unrelated file at PATH, then fdopen
++//   CR_SHIM_FDOPEN=swap_fail:PATH  same, then fail with EMFILE
+ #define _GNU_SOURCE
+ #include "llama.h"
+ 
+ #include <dlfcn.h>
++#include <errno.h>
+ #include <signal.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <sys/stat.h>
+ 
+ typedef int32_t (*llama_process_fn)(struct llama_context *, enum llama_process_type, struct llama_batch_ext *);
+ 
+@@ -62,3 +67,47 @@ int32_t llama_process(struct llama_context * ctx, enum llama_process_type type,
+     }
+     return real(ctx, type, batch);
+ }
++
++FILE * fdopen(int fd, const char * mode) {
++    static FILE * (*real)(int, const char *) = NULL;
++    static int done = 0;
++    if (real == NULL) {
++        *(void **) &real = dlsym(RTLD_NEXT, "fdopen");
++    }
++
++    const char * spec = getenv("CR_SHIM_FDOPEN");
++    const char * path = spec ? strchr(spec, ':') : NULL;
++    if (done || path == NULL) {
++        return real(fd, mode);
++    }
++    path++;
++
++    // only the fd that was opened for PATH
++    struct stat st_fd;
++    struct stat st_path;
++    if (fstat(fd, &st_fd) != 0 || stat(path, &st_path) != 0 || st_fd.st_dev != st_path.st_dev || st_fd.st_ino != st_path.st_ino) {
++        return real(fd, mode);
++    }
++    done = 1;
++
++    char moved[4096];
++    snprintf(moved, sizeof(moved), "%s.moved", path);
++    if (rename(path, moved) != 0) {
++        fprintf(stderr, "test-completion-report-shim: rename failed\n");
++        abort();
++    }
++    FILE * f = fopen(path, "wx");
++    if (f == NULL) {
++        fprintf(stderr, "test-completion-report-shim: cannot create unrelated file\n");
++        abort();
++    }
++    fputs("unrelated file\n", f);
++    fclose(f);
++    fprintf(stderr, "test-completion-report-shim: fdopen: moved the report to %s and created an unrelated file at %s\n", moved, path);
++
++    if (strncmp(spec, "swap_fail:", 10) == 0) {
++        errno = EMFILE;
++        return NULL;
++    }
++    return real(fd, mode);
++}
+diff --git a/tests/test-completion-report.py b/tests/test-completion-report.py
+index 722355d..ac0f023 100755
+--- a/tests/test-completion-report.py
++++ b/tests/test-completion-report.py
+@@ -19,11 +19,11 @@ import json
+ import os
+ import re
+ import resource
+-import shutil
+ import signal
+ import subprocess
+ import sys
+ import threading
++import time
+ import unittest
+ 
+ ARGS = argparse.Namespace()
+@@ -55,6 +55,17 @@ class Unobserved(Exception):
+     pass
+ 
+ 
++# exit status for each reason, see tools/completion/README.md
++EXIT_STATUS = {
++    "eog":             {0},
++    "token_limit":     {0},
++    "antiprompt":      {0},
++    "context_limit":   {0},
++    "runtime_failure": {1, 255},
++    "unsupported":     {1},
++}
++
++
+ def add_vocab(w, r):
+     tokens = r.fields["tokenizer.ggml.tokens"].contents()
+     w.add_vocab_size(len(tokens))
+@@ -212,6 +223,12 @@ def load_report(path, pid, returncode):
+     data = base64.b64decode(obj["generated"]["base64"], validate=True)
+     if len(data) != obj["generated"]["n_bytes"]:
+         raise Unobserved("n_bytes does not match the decoded data")
++    if obj["reason"] == "cancelled" and isinstance(obj.get("signal"), int):
++        expected = {128 + obj["signal"]}
++    else:
++        expected = EXIT_STATUS.get(obj["reason"], set())
++    if returncode not in expected:
++        raise Unobserved(f"exit status {returncode} does not match reason {obj['reason']}")
+     return obj, data
+ 
+ 
+@@ -230,9 +247,8 @@ class Result:
+ 
+ 
+ def case_dir(name):
++    # each run dir is new, so a case dir (and its report path) is never reused
+     d = os.path.join(ARGS.work_dir, "cases", name)
+-    if os.path.exists(d):
+-        shutil.rmtree(d)
+     os.makedirs(d)
+     return d
+ 
+@@ -305,6 +321,12 @@ def run_and_signal(name, args, model, sig, report=True, binary=None, min_bytes=3
+     return Result(cmd, proc, bytes(out), bytes(err), path, d)
+ 
+ 
++def limit_file_size():
++    """files written by the child fail after 64 bytes with EFBIG"""
++    signal.signal(signal.SIGXFSZ, signal.SIG_IGN)
++    resource.setrlimit(resource.RLIMIT_FSIZE, (64, 64))
++
++
+ class Base(unittest.TestCase):
+     model = None
+ 
+@@ -602,13 +624,14 @@ class SyntheticTests(Base):
+         self.assertFalse(os.path.lexists(path))
+ 
+     def test_g_write_failure(self):
+-        def limit_file_size():
+-            signal.signal(signal.SIGXFSZ, signal.SIG_IGN)
+-            resource.setrlimit(resource.RLIMIT_FSIZE, (64, 64))
+         r = self.run_s("write-failure", ["-p", "stop", "-n", "2"], preexec_fn=limit_file_size)
+         self.assertEqual(r.rc, 1)
+         self.assertIn(b"failed to write report file", r.stderr)
+-        self.assertFalse(os.path.lexists(r.path))
++        # the partial file is kept, the exit status and the consumer rules reject it
++        self.assertTrue(os.path.exists(r.path), "the partial report was removed")
++        self.assertEqual(os.path.getsize(r.path), 64)
++        with self.assertRaises(Unobserved):
++            r.report()
+ 
+     # H. byte transport through the real serialization path
+     def test_h_bytes_round_trip(self):
+@@ -675,6 +698,32 @@ class FaultTests(Base):
+         rep, data = self.ok(self.run_f("sigint-prompt", ["-p", "loop", "-n", "10"], 1, "sigint"), "cancelled", rc=130)
+         self.assertEqual(rep["n_generated"], 1)
+ 
++    def run_swap(self, name, spec, preexec_fn=None):
++        """another actor moves the new report away and puts an unrelated file at its path before fdopen()"""
++        d = case_dir("fault-" + name + "-target")
++        path = os.path.join(d, "report.json")
++        env = {"LD_PRELOAD": ARGS.shim, "CR_SHIM_FDOPEN": spec + ":" + path}
++        r = run("fault-" + name, ["-no-cnv", "-p", "stop", "-n", "2"], ARGS.synthetic_model, env_extra=env, report_path=path, preexec_fn=preexec_fn)
++        self.assertIn(b"test-completion-report-shim: fdopen: moved the report", r.stderr)
++        self.assertEqual(r.rc, 1)
++        # the unrelated file at the report path is not removed or changed
++        self.assertTrue(os.path.exists(path), "the unrelated file at the report path was removed")
++        with open(path, "rb") as f:
++            self.assertEqual(f.read(), b"unrelated file\n")
++        with self.assertRaises(Unobserved):
++            load_report(path, r.pid, r.rc)
++        with self.assertRaises(Unobserved):
++            load_report(path + ".moved", r.pid, r.rc)
++        return path + ".moved"
++
++    def test_g_publish_swap_fdopen_failure(self):
++        moved = self.run_swap("swap-fdopen-failure", "swap_fail")
++        self.assertEqual(os.path.getsize(moved), 0)
++
++    def test_g_publish_swap_write_failure(self):
++        moved = self.run_swap("swap-write-failure", "swap", preexec_fn=limit_file_size)
++        self.assertEqual(os.path.getsize(moved), 64)
++
+     def test_g_destination_created_during_run(self):
+         d = case_dir("fault-created-during-run-target")
+         path = os.path.join(d, "report.json")
+@@ -857,7 +906,11 @@ def main():
+     p.parse_args(namespace=ARGS)
+ 
+     ARGS.completion = os.path.join(ARGS.bin_dir, "llama-completion")
++    # a new run dir for every invocation, earlier runs and their reports are kept
+     os.makedirs(ARGS.work_dir, exist_ok=True)
++    ARGS.work_dir = os.path.join(ARGS.work_dir, time.strftime("run-%Y%m%dT%H%M%SZ", time.gmtime()) + f"-{os.getpid()}")
++    os.makedirs(ARGS.work_dir)
++    sys.stderr.write(f"test-completion-report: run dir {ARGS.work_dir}\n")
+ 
+     ARGS.synthetic_model = os.path.join(ARGS.work_dir, "synthetic.gguf")
+     TOK, EOS = make_model(ARGS.vocab, ARGS.synthetic_model, ARGS.gguf_py)
+diff --git a/tools/completion/README.md b/tools/completion/README.md
+index 423ac3e..ab13b80 100644
+--- a/tools/completion/README.md
++++ b/tools/completion/README.md
+@@ -694,7 +694,7 @@ The reason comes from the branch of the generation loop that ended the run, not
+ 
+ `error.code` is always `null`: the decode helper only returns success or failure, the `llama_process()` return code is not known at that point. A signal that arrives during a failed decode does not turn a `runtime_failure` into `cancelled`.
+ 
+-If the report cannot be serialized or written, the file is removed and the exit status is 1 (or the nonzero status of the run).
++If the report cannot be serialized, no file is created. If it cannot be written completely, the file is kept as it is, possibly empty or incomplete, see [Publication and consumers](#publication-and-consumers). In both cases the exit status is 1 (or the nonzero status of the run).
+ 
+ ### Generated bytes
+ 
+@@ -717,6 +717,8 @@ The prompt is checked after its last batch is queued and before that batch is de
+ 
+ The report is serialized completely in memory. Then `FNAME` is created with exclusive create (`O_CREAT | O_EXCL`, `_O_EXCL` on Windows), so an existing file, including one created while the model ran, is never replaced. The data is written with one `fwrite`, then flushed and closed. The write is not atomic and not durable: there is no `fsync` and no rename. A crash or `SIGKILL` during the write can leave a truncated file.
+ 
++If `fdopen`, the write, the flush or the close fails, the file is not removed: after the exclusive create, another process can rename the file and put a different file at `FNAME`, and removing by name would remove that file. So a failed write can leave an empty or incomplete file at `FNAME` (or wherever it was moved), together with a nonzero exit status. The consumer rules below reject it.
++
+ The report is written right after the generation loop. Later steps, such as printing timings and freeing the model, are not covered by the report, only by the exit status.
+ 
+ A consumer must treat the result as unobserved, not as a successful end, unless all of these hold:
+@@ -725,12 +727,13 @@ A consumer must treat the result as unobserved, not as a successful end, unless
+ 2. `FNAME` exists and its whole content parses as one JSON object with this `schema` and `schema_version` (a file cut inside the object never parses, because the object ends with its closing `}`)
+ 3. `pid` is the pid of that process (a stale report from another run fails here)
+ 4. `generated.base64` decodes to exactly `generated.n_bytes` bytes
++5. the exit status is the one listed for `reason` in [Reasons](#reasons) (for `cancelled`: 128 + `signal`); a complete file next to another status, for example from a failed close or a crash after the report, is not a result
+ 
+ A missing report (for example after `SIGKILL`, a crash, an abort, a signal before the handler is installed, or `--help`) is not a result.
+ 
+ ### Cancellation
+ 
+-With `--completion-report` on Linux and macOS, SIGINT and SIGTERM get a handler that only stores the signal number in an atomic variable (`SA_RESTART | SA_RESETHAND`). The generation loop checks it at the start of each iteration, that is before the decode of each prompt batch and each sampled token, and then ends the run with `reason` `cancelled`. The tokens sampled until then are in the report. A decode that is running is not interrupted, GPU (for example Metal) work is not preempted. A second signal of the same kind uses the default action and ends the process without a report.
++With `--completion-report` on Linux and macOS, SIGINT and SIGTERM get a handler that only stores the signal number in a `std::atomic<int>` (`SA_RESTART | SA_RESETHAND`). It does not allocate, log, write the report or call into the model. An atomic access is signal-safe only if it is lock-free, so the build fails where `std::atomic<int>::is_always_lock_free` is false. The handler can run on any thread; the main thread reads the value. The generation loop checks it at the start of each iteration, that is before the decode of each prompt batch and each sampled token, and then ends the run with `reason` `cancelled`. The tokens sampled until then are in the report. A decode that is running is not interrupted, GPU (for example Metal) work is not preempted. A second signal of the same kind uses the default action and ends the process without a report.
+ 
+ Signals that arrive before the handler is installed (argument parsing, model and context loading, tokenization) use the default action, so there is no report. Without `--completion-report`, the old Ctrl+C handler is used as before. On Windows, report mode also keeps the old Ctrl+C handler, which exits with status 130 without a report.
+ 
+diff --git a/tools/completion/completion.cpp b/tools/completion/completion.cpp
+index be08e77..0d3bc82 100644
+--- a/tools/completion/completion.cpp
++++ b/tools/completion/completion.cpp
+@@ -248,6 +248,7 @@ static std::string completion_report_dump(const completion_report & r) {
+ }
+ 
+ // create the file exclusively so that an existing file is never replaced
++// on failure the file is kept: removing it by name could remove another file that took its place
+ static bool completion_report_publish(const std::string & path, const std::string & data) {
+ #if defined (_WIN32)
+     const int fd = _open(path.c_str(), _O_WRONLY | _O_CREAT | _O_EXCL | _O_BINARY, _S_IREAD | _S_IWRITE);
+@@ -264,7 +265,6 @@ static bool completion_report_publish(const std::string & path, const std::strin
+ #else
+             close(fd);
+ #endif
+-            std::remove(path.c_str());
+         }
+         return false;
+     }
+@@ -273,8 +273,7 @@ static bool completion_report_publish(const std::string & path, const std::strin
+     ok = fflush(f) == 0 && ok;
+     ok = fclose(f)  == 0 && ok;
+     if (!ok) {
+-        LOG_ERR("%s: failed to write report file '%s': %s\n", __func__, path.c_str(), strerror(errno));
+-        std::remove(path.c_str());
++        LOG_ERR("%s: failed to write report file '%s', it can be incomplete: %s\n", __func__, path.c_str(), strerror(errno));
+     }
+     return ok;
+ }
+@@ -352,6 +351,9 @@ static void sigint_handler(int signo) {
+ #endif
+ 
+ #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
++// a std::atomic access is signal-safe only if it is lock-free
++static_assert(std::atomic<int>::is_always_lock_free, "g_report_signal must be lock-free, it is written in a signal handler");
++
+ // only records the signal, the generation loop checks it
+ static void report_signal_handler(int signo) {
+     g_report_signal = signo;
+-- 
+2.43.0
+

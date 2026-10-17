@@ -1,0 +1,17 @@
+[
+  {
+    "test": "__main__.SyntheticTests.test_g_write_failure",
+    "status": "FAIL",
+    "detail": "__main__.SyntheticTests.test_g_write_failure: Traceback (most recent call last):\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 614, in test_g_write_failure\n    self.assertTrue(os.path.exists(r.path), \"the partial report was removed\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : the partial report was removed\n\n"
+  },
+  {
+    "test": "__main__.FaultTests.test_g_publish_swap_fdopen_failure",
+    "status": "FAIL",
+    "detail": "__main__.FaultTests.test_g_publish_swap_fdopen_failure: Traceback (most recent call last):\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 703, in test_g_publish_swap_fdopen_failure\n    moved = self.run_swap(\"swap-fdopen-failure\", \"swap_fail\")\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 693, in run_swap\n    self.assertTrue(os.path.exists(path), \"the unrelated file at the report path was removed\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : the unrelated file at the report path was removed\n\n"
+  },
+  {
+    "test": "__main__.FaultTests.test_g_publish_swap_write_failure",
+    "status": "FAIL",
+    "detail": "__main__.FaultTests.test_g_publish_swap_write_failure: Traceback (most recent call last):\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 707, in test_g_publish_swap_write_failure\n    moved = self.run_swap(\"swap-write-failure\", \"swap\", preexec_fn=limit_file_size)\n  File \"/home/user/llama.cpp/tests/test-completion-report.py\", line 693, in run_swap\n    self.assertTrue(os.path.exists(path), \"the unrelated file at the report path was removed\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : the unrelated file at the report path was removed\n\n"
+  }
+]

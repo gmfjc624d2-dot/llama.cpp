@@ -1,0 +1,1 @@
+0.00.001.063 E llama_completion: --completion-report does not support conversation

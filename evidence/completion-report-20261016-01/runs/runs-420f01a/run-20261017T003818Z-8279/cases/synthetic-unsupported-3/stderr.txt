@@ -1,0 +1,1 @@
+0.00.000.951 E llama_completion: --completion-report does not support n_predict

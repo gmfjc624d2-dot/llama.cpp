@@ -1,0 +1,15 @@
+{
+  "synthetic_model": {
+    "path": "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003426Z-6933/synthetic.gguf",
+    "sha256": "e6b7da70efd3f514fd2aca757e668e33fa6746d6177449a979ba5d91b891d2ef",
+    "vocab": "models/ggml-vocab-llama-spm.gguf",
+    "vocab_sha256": "16c3724582d59aa8bf84711894e833f916ee46a31d80e21312759c48bf8d0e69"
+  },
+  "synthetic_t5_model": {
+    "path": "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003426Z-6933/synthetic-t5.gguf",
+    "sha256": "a3fa8bed1a502f154571f127e0526919a3c0ded9c27dc8b76b375462f9a58814"
+  },
+  "real_model": null,
+  "base_bin": null,
+  "shim": "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-final/bin/libtest-completion-report-shim.so"
+}

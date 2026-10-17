@@ -1,0 +1,29 @@
+{
+  "cmd": [
+    "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-420f01a/bin/llama-completion",
+    "-m",
+    "/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-420f01a/run-20261017T003818Z-8279/synthetic.gguf",
+    "-t",
+    "2",
+    "--temp",
+    "0",
+    "--top-k",
+    "1",
+    "-s",
+    "1",
+    "-no-cnv",
+    "-p",
+    "loop",
+    "-c",
+    "512",
+    "-n",
+    "2000000",
+    "--context-shift",
+    "--no-display-prompt"
+  ],
+  "env": {
+    "external_signal": 2,
+    "stdout_bytes_before_signal": 32
+  },
+  "returncode": 130
+}

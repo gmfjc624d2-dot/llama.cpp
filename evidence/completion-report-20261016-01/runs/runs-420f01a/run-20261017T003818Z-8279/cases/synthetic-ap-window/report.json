@@ -1,0 +1,37 @@
+{
+  "schema": "llama-completion-report",
+  "schema_version": 1,
+  "mode": "completion",
+  "build": {
+    "llama_version": "0.7.0-dev",
+    "build_number": 4,
+    "commit": "420f01a",
+    "compiler": "GNU 13.3.0",
+    "target": "Linux x86_64"
+  },
+  "pid": 8340,
+  "reason": "eog",
+  "error": null,
+  "signal": null,
+  "n_predict": 10,
+  "n_ctx": 4096,
+  "n_prompt_tokens": 2,
+  "n_generated": 5,
+  "budget_exhausted": false,
+  "n_context_shifts": 0,
+  "last_token": {
+    "id": 2,
+    "eog": true,
+    "n_bytes": 0
+  },
+  "eog": {
+    "id": 2,
+    "origin": "generated"
+  },
+  "antiprompt": null,
+  "generated": {
+    "render_special": false,
+    "n_bytes": 15,
+    "base64": "U1RPUCBhZnRlciBtb3Jl"
+  }
+}

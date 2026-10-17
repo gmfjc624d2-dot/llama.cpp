@@ -1,0 +1,5 @@
+0.00.001.124 I llama_completion: llama backend init
+0.00.002.484 I llama_completion: load the model and apply lora adapter, if any
+0.00.084.669 I cmn          init: llama threadpool init, n_threads = 2
+0.00.084.765 W init: embeddings required but some input tokens were not marked as outputs -> overriding
+0.00.089.253 E llama_completion: --completion-report does not support encoder_decoder

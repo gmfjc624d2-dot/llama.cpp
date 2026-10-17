@@ -1,0 +1,312 @@
+[
+  {
+    "test": "__main__.SyntheticTests.test_a_budget_one",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_a_budget_zero",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_a_eog_in_last_budget_slot",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_b_eog_empty_piece",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_b_eog_from_prompt",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_b_eog_render_special",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_b_literal_marker_is_text",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_across_boundary",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_across_pieces",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_and_budget",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_and_eog",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_from_prompt",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_single_piece_and_index",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_single_token",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_c_antiprompt_window_limit",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_d_batch_size_one",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_d_conversation_auto_off",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_d_display_prompt_does_not_change_output",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_d_one_token_prompt",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_e_budget_ends_before_context",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_e_context_limit",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_e_context_shift",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_f_external_sigint",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_f_external_sigterm",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_f_incomplete_report_rejected",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_f_sigkill_leaves_no_report",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_dangling_symlink_destination",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_existing_destination",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_invalid_model",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_missing_directory",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_missing_model",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_prompt_too_long",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_unsupported",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_unsupported_encoder_decoder",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_g_write_failure",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticTests.test_h_bytes_round_trip",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_f_sigint_cooperative",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_f_signal_during_prompt",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_f_signal_with_failure_is_failure",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_f_sigterm_cooperative",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_g_decode_failure_generated",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_g_decode_failure_prompt",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_g_destination_created_during_run",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_g_publish_swap_fdopen_failure",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.FaultTests.test_g_publish_swap_write_failure",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticModelTests.test_antiprompt_from_previous_output",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticModelTests.test_budget_small",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticModelTests.test_budget_zero",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticModelTests.test_context_limit",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticModelTests.test_display_prompt",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticModelTests.test_external_sigint",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.SyntheticModelTests.test_forced_eog",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.RealModelTests.test_antiprompt_from_previous_output",
+    "status": "NOT_EXECUTED",
+    "detail": "__main__.RealModelTests.test_antiprompt_from_previous_output: NOT_EXECUTED: no real model\n"
+  },
+  {
+    "test": "__main__.RealModelTests.test_budget_small",
+    "status": "NOT_EXECUTED",
+    "detail": "__main__.RealModelTests.test_budget_small: NOT_EXECUTED: no real model\n"
+  },
+  {
+    "test": "__main__.RealModelTests.test_budget_zero",
+    "status": "NOT_EXECUTED",
+    "detail": "__main__.RealModelTests.test_budget_zero: NOT_EXECUTED: no real model\n"
+  },
+  {
+    "test": "__main__.RealModelTests.test_context_limit",
+    "status": "NOT_EXECUTED",
+    "detail": "__main__.RealModelTests.test_context_limit: NOT_EXECUTED: no real model\n"
+  },
+  {
+    "test": "__main__.RealModelTests.test_display_prompt",
+    "status": "NOT_EXECUTED",
+    "detail": "__main__.RealModelTests.test_display_prompt: NOT_EXECUTED: no real model\n"
+  },
+  {
+    "test": "__main__.RealModelTests.test_external_sigint",
+    "status": "NOT_EXECUTED",
+    "detail": "__main__.RealModelTests.test_external_sigint: NOT_EXECUTED: no real model\n"
+  },
+  {
+    "test": "__main__.RealModelTests.test_forced_eog",
+    "status": "NOT_EXECUTED",
+    "detail": "__main__.RealModelTests.test_forced_eog: NOT_EXECUTED: no real model\n"
+  },
+  {
+    "test": "__main__.LegacyTests.test_i_legacy_sigint",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.LegacyTests.test_i_no_report_created",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "__main__.LegacyTests.test_i_same_as_base",
+    "status": "PASS",
+    "detail": ""
+  }
+]
