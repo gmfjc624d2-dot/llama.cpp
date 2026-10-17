@@ -1,0 +1,3 @@
+bundles/b09-weak-missing/main:
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libggml-blas.dylib (compatibility version 1.0.0, current version 1.0.0, weak)

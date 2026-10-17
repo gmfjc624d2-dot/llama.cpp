@@ -1,0 +1,1 @@
+llvm-otool-18: error: 'parse/m08-cmdsize-unaligned.bin': truncated or malformed object (load command 6 cmdsize not a multiple of 8)

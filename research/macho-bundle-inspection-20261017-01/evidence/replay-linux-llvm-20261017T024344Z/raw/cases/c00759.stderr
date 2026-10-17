@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m14-duplicate-id-dylib.bin': truncated or malformed object (more than one LC_ID_DYLIB command)

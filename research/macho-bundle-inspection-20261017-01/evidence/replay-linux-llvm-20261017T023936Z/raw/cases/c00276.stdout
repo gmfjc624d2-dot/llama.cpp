@@ -1,0 +1,2 @@
+bundles/b07-missing-arch/libx86only.dylib:
+	@rpath/libx86only.dylib (compatibility version 1.0.0, current version 1.0.0)

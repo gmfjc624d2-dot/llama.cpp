@@ -1,0 +1,1 @@
+llvm-otool-18: error: 'parse/m20-fat-overlapping-slices.bin': truncated or malformed fat file (offset: 16400 for cputype (16777223) cpusubtype (3) not aligned on it's alignment (2^14))

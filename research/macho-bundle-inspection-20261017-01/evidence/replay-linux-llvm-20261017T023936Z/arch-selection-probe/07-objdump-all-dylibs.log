@@ -1,0 +1,4 @@
+parse/u03-fat-per-slice-rpaths.bin (architecture x86_64):
+	@rpath/libu.dylib (compatibility version 1.0.0, current version 1.0.0)
+parse/u03-fat-per-slice-rpaths.bin (architecture arm64):
+	@rpath/libu.dylib (compatibility version 1.0.0, current version 1.0.0)

@@ -1,0 +1,906 @@
+c00001	identity uname
+c00002	identity otool --version
+c00003	identity lipo --version
+c00004	identity file --version
+c00005	identity sha256
+c00006	readlink bundles/b01-flat-good/libggml.dylib
+c00007	readlink bundles/b06-symlinks/lib/ext
+c00008	readlink bundles/b06-symlinks/lib/libabs.dylib
+c00009	readlink bundles/b06-symlinks/lib/libbroken.dylib
+c00010	readlink bundles/b06-symlinks/lib/libescape.dylib
+c00011	readlink bundles/b06-symlinks/lib/libinternal.dylib
+c00012	readlink bundles/b06-symlinks/lib/libloop.dylib
+c00013	readlink bundles/b06-symlinks/lib/libloop2.dylib
+c00014	readlink bundles/b12-root-symlink/main
+c00015	readlink bundles/b21-loader-path-symlink-dir/lib
+c00016	file bundles/_decoy-dyld/libggml.dylib
+c00017	lipo-info bundles/_decoy-dyld/libggml.dylib
+c00018	lipo-archs bundles/_decoy-dyld/libggml.dylib
+c00019	otool-fatheaders bundles/_decoy-dyld/libggml.dylib
+c00020	otool-loadcommands all bundles/_decoy-dyld/libggml.dylib
+c00021	otool-loadcommands arm64 bundles/_decoy-dyld/libggml.dylib
+c00022	otool-dependencies arm64 bundles/_decoy-dyld/libggml.dylib
+c00023	otool-loadcommands x86_64 bundles/_decoy-dyld/libggml.dylib
+c00024	otool-dependencies x86_64 bundles/_decoy-dyld/libggml.dylib
+c00025	file bundles/_decoy-dyld/libllama.dylib
+c00026	lipo-info bundles/_decoy-dyld/libllama.dylib
+c00027	lipo-archs bundles/_decoy-dyld/libllama.dylib
+c00028	otool-fatheaders bundles/_decoy-dyld/libllama.dylib
+c00029	otool-loadcommands all bundles/_decoy-dyld/libllama.dylib
+c00030	otool-loadcommands arm64 bundles/_decoy-dyld/libllama.dylib
+c00031	otool-dependencies arm64 bundles/_decoy-dyld/libllama.dylib
+c00032	otool-loadcommands x86_64 bundles/_decoy-dyld/libllama.dylib
+c00033	otool-dependencies x86_64 bundles/_decoy-dyld/libllama.dylib
+c00034	file bundles/_decoy-dyld/libmissing.dylib
+c00035	lipo-info bundles/_decoy-dyld/libmissing.dylib
+c00036	lipo-archs bundles/_decoy-dyld/libmissing.dylib
+c00037	otool-fatheaders bundles/_decoy-dyld/libmissing.dylib
+c00038	otool-loadcommands all bundles/_decoy-dyld/libmissing.dylib
+c00039	otool-loadcommands arm64 bundles/_decoy-dyld/libmissing.dylib
+c00040	otool-dependencies arm64 bundles/_decoy-dyld/libmissing.dylib
+c00041	otool-loadcommands x86_64 bundles/_decoy-dyld/libmissing.dylib
+c00042	otool-dependencies x86_64 bundles/_decoy-dyld/libmissing.dylib
+c00043	file bundles/_outside/b06-symlinks/libescape.dylib
+c00044	lipo-info bundles/_outside/b06-symlinks/libescape.dylib
+c00045	lipo-archs bundles/_outside/b06-symlinks/libescape.dylib
+c00046	otool-fatheaders bundles/_outside/b06-symlinks/libescape.dylib
+c00047	otool-loadcommands all bundles/_outside/b06-symlinks/libescape.dylib
+c00048	otool-loadcommands arm64 bundles/_outside/b06-symlinks/libescape.dylib
+c00049	otool-dependencies arm64 bundles/_outside/b06-symlinks/libescape.dylib
+c00050	otool-loadcommands x86_64 bundles/_outside/b06-symlinks/libescape.dylib
+c00051	otool-dependencies x86_64 bundles/_outside/b06-symlinks/libescape.dylib
+c00052	file bundles/_outside/b13-dotdot-escape/libx.dylib
+c00053	lipo-info bundles/_outside/b13-dotdot-escape/libx.dylib
+c00054	lipo-archs bundles/_outside/b13-dotdot-escape/libx.dylib
+c00055	otool-fatheaders bundles/_outside/b13-dotdot-escape/libx.dylib
+c00056	otool-loadcommands all bundles/_outside/b13-dotdot-escape/libx.dylib
+c00057	otool-loadcommands arm64 bundles/_outside/b13-dotdot-escape/libx.dylib
+c00058	otool-dependencies arm64 bundles/_outside/b13-dotdot-escape/libx.dylib
+c00059	otool-loadcommands x86_64 bundles/_outside/b13-dotdot-escape/libx.dylib
+c00060	otool-dependencies x86_64 bundles/_outside/b13-dotdot-escape/libx.dylib
+c00061	file bundles/b01-flat-good/README.txt
+c00062	lipo-info bundles/b01-flat-good/README.txt
+c00063	lipo-archs bundles/b01-flat-good/README.txt
+c00064	otool-fatheaders bundles/b01-flat-good/README.txt
+c00065	otool-loadcommands all bundles/b01-flat-good/README.txt
+c00066	otool-loadcommands arm64 bundles/b01-flat-good/README.txt
+c00067	otool-dependencies arm64 bundles/b01-flat-good/README.txt
+c00068	otool-loadcommands x86_64 bundles/b01-flat-good/README.txt
+c00069	otool-dependencies x86_64 bundles/b01-flat-good/README.txt
+c00070	file bundles/b01-flat-good/libggml-base.dylib
+c00071	lipo-info bundles/b01-flat-good/libggml-base.dylib
+c00072	lipo-archs bundles/b01-flat-good/libggml-base.dylib
+c00073	otool-fatheaders bundles/b01-flat-good/libggml-base.dylib
+c00074	otool-loadcommands all bundles/b01-flat-good/libggml-base.dylib
+c00075	otool-loadcommands arm64 bundles/b01-flat-good/libggml-base.dylib
+c00076	otool-dependencies arm64 bundles/b01-flat-good/libggml-base.dylib
+c00077	otool-loadcommands x86_64 bundles/b01-flat-good/libggml-base.dylib
+c00078	otool-dependencies x86_64 bundles/b01-flat-good/libggml-base.dylib
+c00079	file bundles/b01-flat-good/libggml-cpu.dylib
+c00080	lipo-info bundles/b01-flat-good/libggml-cpu.dylib
+c00081	lipo-archs bundles/b01-flat-good/libggml-cpu.dylib
+c00082	otool-fatheaders bundles/b01-flat-good/libggml-cpu.dylib
+c00083	otool-loadcommands all bundles/b01-flat-good/libggml-cpu.dylib
+c00084	otool-loadcommands arm64 bundles/b01-flat-good/libggml-cpu.dylib
+c00085	otool-dependencies arm64 bundles/b01-flat-good/libggml-cpu.dylib
+c00086	otool-loadcommands x86_64 bundles/b01-flat-good/libggml-cpu.dylib
+c00087	otool-dependencies x86_64 bundles/b01-flat-good/libggml-cpu.dylib
+c00088	file bundles/b01-flat-good/libggml.0.dylib
+c00089	lipo-info bundles/b01-flat-good/libggml.0.dylib
+c00090	lipo-archs bundles/b01-flat-good/libggml.0.dylib
+c00091	otool-fatheaders bundles/b01-flat-good/libggml.0.dylib
+c00092	otool-loadcommands all bundles/b01-flat-good/libggml.0.dylib
+c00093	otool-loadcommands arm64 bundles/b01-flat-good/libggml.0.dylib
+c00094	otool-dependencies arm64 bundles/b01-flat-good/libggml.0.dylib
+c00095	otool-loadcommands x86_64 bundles/b01-flat-good/libggml.0.dylib
+c00096	otool-dependencies x86_64 bundles/b01-flat-good/libggml.0.dylib
+c00097	file bundles/b01-flat-good/libllama.dylib
+c00098	lipo-info bundles/b01-flat-good/libllama.dylib
+c00099	lipo-archs bundles/b01-flat-good/libllama.dylib
+c00100	otool-fatheaders bundles/b01-flat-good/libllama.dylib
+c00101	otool-loadcommands all bundles/b01-flat-good/libllama.dylib
+c00102	otool-loadcommands arm64 bundles/b01-flat-good/libllama.dylib
+c00103	otool-dependencies arm64 bundles/b01-flat-good/libllama.dylib
+c00104	otool-loadcommands x86_64 bundles/b01-flat-good/libllama.dylib
+c00105	otool-dependencies x86_64 bundles/b01-flat-good/libllama.dylib
+c00106	file bundles/b01-flat-good/llama-cli
+c00107	lipo-info bundles/b01-flat-good/llama-cli
+c00108	lipo-archs bundles/b01-flat-good/llama-cli
+c00109	otool-fatheaders bundles/b01-flat-good/llama-cli
+c00110	otool-loadcommands all bundles/b01-flat-good/llama-cli
+c00111	otool-loadcommands arm64 bundles/b01-flat-good/llama-cli
+c00112	otool-dependencies arm64 bundles/b01-flat-good/llama-cli
+c00113	otool-loadcommands x86_64 bundles/b01-flat-good/llama-cli
+c00114	otool-dependencies x86_64 bundles/b01-flat-good/llama-cli
+c00115	file bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00116	lipo-info bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00117	lipo-archs bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00118	otool-fatheaders bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00119	otool-loadcommands all bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00120	otool-loadcommands arm64 bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00121	otool-dependencies arm64 bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00122	otool-loadcommands x86_64 bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00123	otool-dependencies x86_64 bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so
+c00124	file bundles/b02-nested-inherited-rpath/bin/llama-server
+c00125	lipo-info bundles/b02-nested-inherited-rpath/bin/llama-server
+c00126	lipo-archs bundles/b02-nested-inherited-rpath/bin/llama-server
+c00127	otool-fatheaders bundles/b02-nested-inherited-rpath/bin/llama-server
+c00128	otool-loadcommands all bundles/b02-nested-inherited-rpath/bin/llama-server
+c00129	otool-loadcommands arm64 bundles/b02-nested-inherited-rpath/bin/llama-server
+c00130	otool-dependencies arm64 bundles/b02-nested-inherited-rpath/bin/llama-server
+c00131	otool-loadcommands x86_64 bundles/b02-nested-inherited-rpath/bin/llama-server
+c00132	otool-dependencies x86_64 bundles/b02-nested-inherited-rpath/bin/llama-server
+c00133	file bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00134	lipo-info bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00135	lipo-archs bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00136	otool-fatheaders bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00137	otool-loadcommands all bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00138	otool-loadcommands arm64 bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00139	otool-dependencies arm64 bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00140	otool-loadcommands x86_64 bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00141	otool-dependencies x86_64 bundles/b02-nested-inherited-rpath/lib/libggml.dylib
+c00142	file bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00143	lipo-info bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00144	lipo-archs bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00145	otool-fatheaders bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00146	otool-loadcommands all bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00147	otool-loadcommands arm64 bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00148	otool-dependencies arm64 bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00149	otool-loadcommands x86_64 bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00150	otool-dependencies x86_64 bundles/b02-nested-inherited-rpath/lib/libllama.dylib
+c00151	file bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00152	lipo-info bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00153	lipo-archs bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00154	otool-fatheaders bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00155	otool-loadcommands all bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00156	otool-loadcommands arm64 bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00157	otool-dependencies arm64 bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00158	otool-loadcommands x86_64 bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00159	otool-dependencies x86_64 bundles/b02-nested-inherited-rpath/lib/sub/libnested.dylib
+c00160	file bundles/b03-build-rpath/libggml-base.dylib
+c00161	lipo-info bundles/b03-build-rpath/libggml-base.dylib
+c00162	lipo-archs bundles/b03-build-rpath/libggml-base.dylib
+c00163	otool-fatheaders bundles/b03-build-rpath/libggml-base.dylib
+c00164	otool-loadcommands all bundles/b03-build-rpath/libggml-base.dylib
+c00165	otool-loadcommands arm64 bundles/b03-build-rpath/libggml-base.dylib
+c00166	otool-dependencies arm64 bundles/b03-build-rpath/libggml-base.dylib
+c00167	otool-loadcommands x86_64 bundles/b03-build-rpath/libggml-base.dylib
+c00168	otool-dependencies x86_64 bundles/b03-build-rpath/libggml-base.dylib
+c00169	file bundles/b03-build-rpath/libggml.dylib
+c00170	lipo-info bundles/b03-build-rpath/libggml.dylib
+c00171	lipo-archs bundles/b03-build-rpath/libggml.dylib
+c00172	otool-fatheaders bundles/b03-build-rpath/libggml.dylib
+c00173	otool-loadcommands all bundles/b03-build-rpath/libggml.dylib
+c00174	otool-loadcommands arm64 bundles/b03-build-rpath/libggml.dylib
+c00175	otool-dependencies arm64 bundles/b03-build-rpath/libggml.dylib
+c00176	otool-loadcommands x86_64 bundles/b03-build-rpath/libggml.dylib
+c00177	otool-dependencies x86_64 bundles/b03-build-rpath/libggml.dylib
+c00178	file bundles/b03-build-rpath/libllama.dylib
+c00179	lipo-info bundles/b03-build-rpath/libllama.dylib
+c00180	lipo-archs bundles/b03-build-rpath/libllama.dylib
+c00181	otool-fatheaders bundles/b03-build-rpath/libllama.dylib
+c00182	otool-loadcommands all bundles/b03-build-rpath/libllama.dylib
+c00183	otool-loadcommands arm64 bundles/b03-build-rpath/libllama.dylib
+c00184	otool-dependencies arm64 bundles/b03-build-rpath/libllama.dylib
+c00185	otool-loadcommands x86_64 bundles/b03-build-rpath/libllama.dylib
+c00186	otool-dependencies x86_64 bundles/b03-build-rpath/libllama.dylib
+c00187	file bundles/b03-build-rpath/llama-cli
+c00188	lipo-info bundles/b03-build-rpath/llama-cli
+c00189	lipo-archs bundles/b03-build-rpath/llama-cli
+c00190	otool-fatheaders bundles/b03-build-rpath/llama-cli
+c00191	otool-loadcommands all bundles/b03-build-rpath/llama-cli
+c00192	otool-loadcommands arm64 bundles/b03-build-rpath/llama-cli
+c00193	otool-dependencies arm64 bundles/b03-build-rpath/llama-cli
+c00194	otool-loadcommands x86_64 bundles/b03-build-rpath/llama-cli
+c00195	otool-dependencies x86_64 bundles/b03-build-rpath/llama-cli
+c00196	file bundles/b04-system-and-external/app
+c00197	lipo-info bundles/b04-system-and-external/app
+c00198	lipo-archs bundles/b04-system-and-external/app
+c00199	otool-fatheaders bundles/b04-system-and-external/app
+c00200	otool-loadcommands all bundles/b04-system-and-external/app
+c00201	otool-loadcommands arm64 bundles/b04-system-and-external/app
+c00202	otool-dependencies arm64 bundles/b04-system-and-external/app
+c00203	otool-loadcommands x86_64 bundles/b04-system-and-external/app
+c00204	otool-dependencies x86_64 bundles/b04-system-and-external/app
+c00205	file bundles/b04-system-and-external/lib/libok.dylib
+c00206	lipo-info bundles/b04-system-and-external/lib/libok.dylib
+c00207	lipo-archs bundles/b04-system-and-external/lib/libok.dylib
+c00208	otool-fatheaders bundles/b04-system-and-external/lib/libok.dylib
+c00209	otool-loadcommands all bundles/b04-system-and-external/lib/libok.dylib
+c00210	otool-loadcommands arm64 bundles/b04-system-and-external/lib/libok.dylib
+c00211	otool-dependencies arm64 bundles/b04-system-and-external/lib/libok.dylib
+c00212	otool-loadcommands x86_64 bundles/b04-system-and-external/lib/libok.dylib
+c00213	otool-dependencies x86_64 bundles/b04-system-and-external/lib/libok.dylib
+c00214	file bundles/b05-cycle/libA.dylib
+c00215	lipo-info bundles/b05-cycle/libA.dylib
+c00216	lipo-archs bundles/b05-cycle/libA.dylib
+c00217	otool-fatheaders bundles/b05-cycle/libA.dylib
+c00218	otool-loadcommands all bundles/b05-cycle/libA.dylib
+c00219	otool-loadcommands arm64 bundles/b05-cycle/libA.dylib
+c00220	otool-dependencies arm64 bundles/b05-cycle/libA.dylib
+c00221	otool-loadcommands x86_64 bundles/b05-cycle/libA.dylib
+c00222	otool-dependencies x86_64 bundles/b05-cycle/libA.dylib
+c00223	file bundles/b05-cycle/libB.dylib
+c00224	lipo-info bundles/b05-cycle/libB.dylib
+c00225	lipo-archs bundles/b05-cycle/libB.dylib
+c00226	otool-fatheaders bundles/b05-cycle/libB.dylib
+c00227	otool-loadcommands all bundles/b05-cycle/libB.dylib
+c00228	otool-loadcommands arm64 bundles/b05-cycle/libB.dylib
+c00229	otool-dependencies arm64 bundles/b05-cycle/libB.dylib
+c00230	otool-loadcommands x86_64 bundles/b05-cycle/libB.dylib
+c00231	otool-dependencies x86_64 bundles/b05-cycle/libB.dylib
+c00232	file bundles/b05-cycle/main
+c00233	lipo-info bundles/b05-cycle/main
+c00234	lipo-archs bundles/b05-cycle/main
+c00235	otool-fatheaders bundles/b05-cycle/main
+c00236	otool-loadcommands all bundles/b05-cycle/main
+c00237	otool-loadcommands arm64 bundles/b05-cycle/main
+c00238	otool-dependencies arm64 bundles/b05-cycle/main
+c00239	otool-loadcommands x86_64 bundles/b05-cycle/main
+c00240	otool-dependencies x86_64 bundles/b05-cycle/main
+c00241	file bundles/b06-symlinks/bin/tool
+c00242	lipo-info bundles/b06-symlinks/bin/tool
+c00243	lipo-archs bundles/b06-symlinks/bin/tool
+c00244	otool-fatheaders bundles/b06-symlinks/bin/tool
+c00245	otool-loadcommands all bundles/b06-symlinks/bin/tool
+c00246	otool-loadcommands arm64 bundles/b06-symlinks/bin/tool
+c00247	otool-dependencies arm64 bundles/b06-symlinks/bin/tool
+c00248	otool-loadcommands x86_64 bundles/b06-symlinks/bin/tool
+c00249	otool-dependencies x86_64 bundles/b06-symlinks/bin/tool
+c00250	file bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00251	lipo-info bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00252	lipo-archs bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00253	otool-fatheaders bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00254	otool-loadcommands all bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00255	otool-loadcommands arm64 bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00256	otool-dependencies arm64 bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00257	otool-loadcommands x86_64 bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00258	otool-dependencies x86_64 bundles/b06-symlinks/lib/real/libinternal.1.dylib
+c00259	file bundles/b07-missing-arch/libfat.dylib
+c00260	lipo-info bundles/b07-missing-arch/libfat.dylib
+c00261	lipo-archs bundles/b07-missing-arch/libfat.dylib
+c00262	otool-fatheaders bundles/b07-missing-arch/libfat.dylib
+c00263	otool-loadcommands all bundles/b07-missing-arch/libfat.dylib
+c00264	otool-loadcommands arm64 bundles/b07-missing-arch/libfat.dylib
+c00265	otool-dependencies arm64 bundles/b07-missing-arch/libfat.dylib
+c00266	otool-loadcommands x86_64 bundles/b07-missing-arch/libfat.dylib
+c00267	otool-dependencies x86_64 bundles/b07-missing-arch/libfat.dylib
+c00268	file bundles/b07-missing-arch/libx86only.dylib
+c00269	lipo-info bundles/b07-missing-arch/libx86only.dylib
+c00270	lipo-archs bundles/b07-missing-arch/libx86only.dylib
+c00271	otool-fatheaders bundles/b07-missing-arch/libx86only.dylib
+c00272	otool-loadcommands all bundles/b07-missing-arch/libx86only.dylib
+c00273	otool-loadcommands arm64 bundles/b07-missing-arch/libx86only.dylib
+c00274	otool-dependencies arm64 bundles/b07-missing-arch/libx86only.dylib
+c00275	otool-loadcommands x86_64 bundles/b07-missing-arch/libx86only.dylib
+c00276	otool-dependencies x86_64 bundles/b07-missing-arch/libx86only.dylib
+c00277	file bundles/b07-missing-arch/main
+c00278	lipo-info bundles/b07-missing-arch/main
+c00279	lipo-archs bundles/b07-missing-arch/main
+c00280	otool-fatheaders bundles/b07-missing-arch/main
+c00281	otool-loadcommands all bundles/b07-missing-arch/main
+c00282	otool-loadcommands arm64 bundles/b07-missing-arch/main
+c00283	otool-dependencies arm64 bundles/b07-missing-arch/main
+c00284	otool-loadcommands x86_64 bundles/b07-missing-arch/main
+c00285	otool-dependencies x86_64 bundles/b07-missing-arch/main
+c00286	file bundles/b08-universal-broken-slice/libu.dylib
+c00287	lipo-info bundles/b08-universal-broken-slice/libu.dylib
+c00288	lipo-archs bundles/b08-universal-broken-slice/libu.dylib
+c00289	otool-fatheaders bundles/b08-universal-broken-slice/libu.dylib
+c00290	otool-loadcommands all bundles/b08-universal-broken-slice/libu.dylib
+c00291	otool-loadcommands arm64 bundles/b08-universal-broken-slice/libu.dylib
+c00292	otool-dependencies arm64 bundles/b08-universal-broken-slice/libu.dylib
+c00293	otool-loadcommands x86_64 bundles/b08-universal-broken-slice/libu.dylib
+c00294	otool-dependencies x86_64 bundles/b08-universal-broken-slice/libu.dylib
+c00295	file bundles/b08-universal-broken-slice/main
+c00296	lipo-info bundles/b08-universal-broken-slice/main
+c00297	lipo-archs bundles/b08-universal-broken-slice/main
+c00298	otool-fatheaders bundles/b08-universal-broken-slice/main
+c00299	otool-loadcommands all bundles/b08-universal-broken-slice/main
+c00300	otool-loadcommands arm64 bundles/b08-universal-broken-slice/main
+c00301	otool-dependencies arm64 bundles/b08-universal-broken-slice/main
+c00302	otool-loadcommands x86_64 bundles/b08-universal-broken-slice/main
+c00303	otool-dependencies x86_64 bundles/b08-universal-broken-slice/main
+c00304	file bundles/b09-weak-missing/main
+c00305	lipo-info bundles/b09-weak-missing/main
+c00306	lipo-archs bundles/b09-weak-missing/main
+c00307	otool-fatheaders bundles/b09-weak-missing/main
+c00308	otool-loadcommands all bundles/b09-weak-missing/main
+c00309	otool-loadcommands arm64 bundles/b09-weak-missing/main
+c00310	otool-dependencies arm64 bundles/b09-weak-missing/main
+c00311	otool-loadcommands x86_64 bundles/b09-weak-missing/main
+c00312	otool-dependencies x86_64 bundles/b09-weak-missing/main
+c00313	file bundles/b10-unknown-lc-dep/libunk.dylib
+c00314	lipo-info bundles/b10-unknown-lc-dep/libunk.dylib
+c00315	lipo-archs bundles/b10-unknown-lc-dep/libunk.dylib
+c00316	otool-fatheaders bundles/b10-unknown-lc-dep/libunk.dylib
+c00317	otool-loadcommands all bundles/b10-unknown-lc-dep/libunk.dylib
+c00318	otool-loadcommands arm64 bundles/b10-unknown-lc-dep/libunk.dylib
+c00319	otool-dependencies arm64 bundles/b10-unknown-lc-dep/libunk.dylib
+c00320	otool-loadcommands x86_64 bundles/b10-unknown-lc-dep/libunk.dylib
+c00321	otool-dependencies x86_64 bundles/b10-unknown-lc-dep/libunk.dylib
+c00322	file bundles/b10-unknown-lc-dep/main
+c00323	lipo-info bundles/b10-unknown-lc-dep/main
+c00324	lipo-archs bundles/b10-unknown-lc-dep/main
+c00325	otool-fatheaders bundles/b10-unknown-lc-dep/main
+c00326	otool-loadcommands all bundles/b10-unknown-lc-dep/main
+c00327	otool-loadcommands arm64 bundles/b10-unknown-lc-dep/main
+c00328	otool-dependencies arm64 bundles/b10-unknown-lc-dep/main
+c00329	otool-loadcommands x86_64 bundles/b10-unknown-lc-dep/main
+c00330	otool-dependencies x86_64 bundles/b10-unknown-lc-dep/main
+c00331	file bundles/b11-malformed-dep/libtrunc.dylib
+c00332	lipo-info bundles/b11-malformed-dep/libtrunc.dylib
+c00333	lipo-archs bundles/b11-malformed-dep/libtrunc.dylib
+c00334	otool-fatheaders bundles/b11-malformed-dep/libtrunc.dylib
+c00335	otool-loadcommands all bundles/b11-malformed-dep/libtrunc.dylib
+c00336	otool-loadcommands arm64 bundles/b11-malformed-dep/libtrunc.dylib
+c00337	otool-dependencies arm64 bundles/b11-malformed-dep/libtrunc.dylib
+c00338	otool-loadcommands x86_64 bundles/b11-malformed-dep/libtrunc.dylib
+c00339	otool-dependencies x86_64 bundles/b11-malformed-dep/libtrunc.dylib
+c00340	file bundles/b11-malformed-dep/main
+c00341	lipo-info bundles/b11-malformed-dep/main
+c00342	lipo-archs bundles/b11-malformed-dep/main
+c00343	otool-fatheaders bundles/b11-malformed-dep/main
+c00344	otool-loadcommands all bundles/b11-malformed-dep/main
+c00345	otool-loadcommands arm64 bundles/b11-malformed-dep/main
+c00346	otool-dependencies arm64 bundles/b11-malformed-dep/main
+c00347	otool-loadcommands x86_64 bundles/b11-malformed-dep/main
+c00348	otool-dependencies x86_64 bundles/b11-malformed-dep/main
+c00349	file bundles/b12-root-symlink/real/main
+c00350	lipo-info bundles/b12-root-symlink/real/main
+c00351	lipo-archs bundles/b12-root-symlink/real/main
+c00352	otool-fatheaders bundles/b12-root-symlink/real/main
+c00353	otool-loadcommands all bundles/b12-root-symlink/real/main
+c00354	otool-loadcommands arm64 bundles/b12-root-symlink/real/main
+c00355	otool-dependencies arm64 bundles/b12-root-symlink/real/main
+c00356	otool-loadcommands x86_64 bundles/b12-root-symlink/real/main
+c00357	otool-dependencies x86_64 bundles/b12-root-symlink/real/main
+c00358	file bundles/b13-dotdot-escape/main
+c00359	lipo-info bundles/b13-dotdot-escape/main
+c00360	lipo-archs bundles/b13-dotdot-escape/main
+c00361	otool-fatheaders bundles/b13-dotdot-escape/main
+c00362	otool-loadcommands all bundles/b13-dotdot-escape/main
+c00363	otool-loadcommands arm64 bundles/b13-dotdot-escape/main
+c00364	otool-dependencies arm64 bundles/b13-dotdot-escape/main
+c00365	otool-loadcommands x86_64 bundles/b13-dotdot-escape/main
+c00366	otool-dependencies x86_64 bundles/b13-dotdot-escape/main
+c00367	file bundles/b14-undecodable-dep/main
+c00368	lipo-info bundles/b14-undecodable-dep/main
+c00369	lipo-archs bundles/b14-undecodable-dep/main
+c00370	otool-fatheaders bundles/b14-undecodable-dep/main
+c00371	otool-loadcommands all bundles/b14-undecodable-dep/main
+c00372	otool-loadcommands arm64 bundles/b14-undecodable-dep/main
+c00373	otool-dependencies arm64 bundles/b14-undecodable-dep/main
+c00374	otool-loadcommands x86_64 bundles/b14-undecodable-dep/main
+c00375	otool-dependencies x86_64 bundles/b14-undecodable-dep/main
+c00376	file bundles/b15-duplicate-rpath/libok.dylib
+c00377	lipo-info bundles/b15-duplicate-rpath/libok.dylib
+c00378	lipo-archs bundles/b15-duplicate-rpath/libok.dylib
+c00379	otool-fatheaders bundles/b15-duplicate-rpath/libok.dylib
+c00380	otool-loadcommands all bundles/b15-duplicate-rpath/libok.dylib
+c00381	otool-loadcommands arm64 bundles/b15-duplicate-rpath/libok.dylib
+c00382	otool-dependencies arm64 bundles/b15-duplicate-rpath/libok.dylib
+c00383	otool-loadcommands x86_64 bundles/b15-duplicate-rpath/libok.dylib
+c00384	otool-dependencies x86_64 bundles/b15-duplicate-rpath/libok.dylib
+c00385	file bundles/b15-duplicate-rpath/main
+c00386	lipo-info bundles/b15-duplicate-rpath/main
+c00387	lipo-archs bundles/b15-duplicate-rpath/main
+c00388	otool-fatheaders bundles/b15-duplicate-rpath/main
+c00389	otool-loadcommands all bundles/b15-duplicate-rpath/main
+c00390	otool-loadcommands arm64 bundles/b15-duplicate-rpath/main
+c00391	otool-dependencies arm64 bundles/b15-duplicate-rpath/main
+c00392	otool-loadcommands x86_64 bundles/b15-duplicate-rpath/main
+c00393	otool-dependencies x86_64 bundles/b15-duplicate-rpath/main
+c00394	file bundles/b16-case-mismatch/libggml.dylib
+c00395	lipo-info bundles/b16-case-mismatch/libggml.dylib
+c00396	lipo-archs bundles/b16-case-mismatch/libggml.dylib
+c00397	otool-fatheaders bundles/b16-case-mismatch/libggml.dylib
+c00398	otool-loadcommands all bundles/b16-case-mismatch/libggml.dylib
+c00399	otool-loadcommands arm64 bundles/b16-case-mismatch/libggml.dylib
+c00400	otool-dependencies arm64 bundles/b16-case-mismatch/libggml.dylib
+c00401	otool-loadcommands x86_64 bundles/b16-case-mismatch/libggml.dylib
+c00402	otool-dependencies x86_64 bundles/b16-case-mismatch/libggml.dylib
+c00403	file bundles/b16-case-mismatch/main
+c00404	lipo-info bundles/b16-case-mismatch/main
+c00405	lipo-archs bundles/b16-case-mismatch/main
+c00406	otool-fatheaders bundles/b16-case-mismatch/main
+c00407	otool-loadcommands all bundles/b16-case-mismatch/main
+c00408	otool-loadcommands arm64 bundles/b16-case-mismatch/main
+c00409	otool-dependencies arm64 bundles/b16-case-mismatch/main
+c00410	otool-loadcommands x86_64 bundles/b16-case-mismatch/main
+c00411	otool-dependencies x86_64 bundles/b16-case-mismatch/main
+c00412	file bundles/b17-dependency-is-executable/helper
+c00413	lipo-info bundles/b17-dependency-is-executable/helper
+c00414	lipo-archs bundles/b17-dependency-is-executable/helper
+c00415	otool-fatheaders bundles/b17-dependency-is-executable/helper
+c00416	otool-loadcommands all bundles/b17-dependency-is-executable/helper
+c00417	otool-loadcommands arm64 bundles/b17-dependency-is-executable/helper
+c00418	otool-dependencies arm64 bundles/b17-dependency-is-executable/helper
+c00419	otool-loadcommands x86_64 bundles/b17-dependency-is-executable/helper
+c00420	otool-dependencies x86_64 bundles/b17-dependency-is-executable/helper
+c00421	file bundles/b17-dependency-is-executable/main
+c00422	lipo-info bundles/b17-dependency-is-executable/main
+c00423	lipo-archs bundles/b17-dependency-is-executable/main
+c00424	otool-fatheaders bundles/b17-dependency-is-executable/main
+c00425	otool-loadcommands all bundles/b17-dependency-is-executable/main
+c00426	otool-loadcommands arm64 bundles/b17-dependency-is-executable/main
+c00427	otool-dependencies arm64 bundles/b17-dependency-is-executable/main
+c00428	otool-loadcommands x86_64 bundles/b17-dependency-is-executable/main
+c00429	otool-dependencies x86_64 bundles/b17-dependency-is-executable/main
+c00430	file bundles/b18-dyld-environment/main
+c00431	lipo-info bundles/b18-dyld-environment/main
+c00432	lipo-archs bundles/b18-dyld-environment/main
+c00433	otool-fatheaders bundles/b18-dyld-environment/main
+c00434	otool-loadcommands all bundles/b18-dyld-environment/main
+c00435	otool-loadcommands arm64 bundles/b18-dyld-environment/main
+c00436	otool-dependencies arm64 bundles/b18-dyld-environment/main
+c00437	otool-loadcommands x86_64 bundles/b18-dyld-environment/main
+c00438	otool-dependencies x86_64 bundles/b18-dyld-environment/main
+c00439	file bundles/b19-dependency-kinds/liblazy.dylib
+c00440	lipo-info bundles/b19-dependency-kinds/liblazy.dylib
+c00441	lipo-archs bundles/b19-dependency-kinds/liblazy.dylib
+c00442	otool-fatheaders bundles/b19-dependency-kinds/liblazy.dylib
+c00443	otool-loadcommands all bundles/b19-dependency-kinds/liblazy.dylib
+c00444	otool-loadcommands arm64 bundles/b19-dependency-kinds/liblazy.dylib
+c00445	otool-dependencies arm64 bundles/b19-dependency-kinds/liblazy.dylib
+c00446	otool-loadcommands x86_64 bundles/b19-dependency-kinds/liblazy.dylib
+c00447	otool-dependencies x86_64 bundles/b19-dependency-kinds/liblazy.dylib
+c00448	file bundles/b19-dependency-kinds/libload.dylib
+c00449	lipo-info bundles/b19-dependency-kinds/libload.dylib
+c00450	lipo-archs bundles/b19-dependency-kinds/libload.dylib
+c00451	otool-fatheaders bundles/b19-dependency-kinds/libload.dylib
+c00452	otool-loadcommands all bundles/b19-dependency-kinds/libload.dylib
+c00453	otool-loadcommands arm64 bundles/b19-dependency-kinds/libload.dylib
+c00454	otool-dependencies arm64 bundles/b19-dependency-kinds/libload.dylib
+c00455	otool-loadcommands x86_64 bundles/b19-dependency-kinds/libload.dylib
+c00456	otool-dependencies x86_64 bundles/b19-dependency-kinds/libload.dylib
+c00457	file bundles/b19-dependency-kinds/libreexport.dylib
+c00458	lipo-info bundles/b19-dependency-kinds/libreexport.dylib
+c00459	lipo-archs bundles/b19-dependency-kinds/libreexport.dylib
+c00460	otool-fatheaders bundles/b19-dependency-kinds/libreexport.dylib
+c00461	otool-loadcommands all bundles/b19-dependency-kinds/libreexport.dylib
+c00462	otool-loadcommands arm64 bundles/b19-dependency-kinds/libreexport.dylib
+c00463	otool-dependencies arm64 bundles/b19-dependency-kinds/libreexport.dylib
+c00464	otool-loadcommands x86_64 bundles/b19-dependency-kinds/libreexport.dylib
+c00465	otool-dependencies x86_64 bundles/b19-dependency-kinds/libreexport.dylib
+c00466	file bundles/b19-dependency-kinds/libupward.dylib
+c00467	lipo-info bundles/b19-dependency-kinds/libupward.dylib
+c00468	lipo-archs bundles/b19-dependency-kinds/libupward.dylib
+c00469	otool-fatheaders bundles/b19-dependency-kinds/libupward.dylib
+c00470	otool-loadcommands all bundles/b19-dependency-kinds/libupward.dylib
+c00471	otool-loadcommands arm64 bundles/b19-dependency-kinds/libupward.dylib
+c00472	otool-dependencies arm64 bundles/b19-dependency-kinds/libupward.dylib
+c00473	otool-loadcommands x86_64 bundles/b19-dependency-kinds/libupward.dylib
+c00474	otool-dependencies x86_64 bundles/b19-dependency-kinds/libupward.dylib
+c00475	file bundles/b19-dependency-kinds/libweak.dylib
+c00476	lipo-info bundles/b19-dependency-kinds/libweak.dylib
+c00477	lipo-archs bundles/b19-dependency-kinds/libweak.dylib
+c00478	otool-fatheaders bundles/b19-dependency-kinds/libweak.dylib
+c00479	otool-loadcommands all bundles/b19-dependency-kinds/libweak.dylib
+c00480	otool-loadcommands arm64 bundles/b19-dependency-kinds/libweak.dylib
+c00481	otool-dependencies arm64 bundles/b19-dependency-kinds/libweak.dylib
+c00482	otool-loadcommands x86_64 bundles/b19-dependency-kinds/libweak.dylib
+c00483	otool-dependencies x86_64 bundles/b19-dependency-kinds/libweak.dylib
+c00484	file bundles/b19-dependency-kinds/main
+c00485	lipo-info bundles/b19-dependency-kinds/main
+c00486	lipo-archs bundles/b19-dependency-kinds/main
+c00487	otool-fatheaders bundles/b19-dependency-kinds/main
+c00488	otool-loadcommands all bundles/b19-dependency-kinds/main
+c00489	otool-loadcommands arm64 bundles/b19-dependency-kinds/main
+c00490	otool-dependencies arm64 bundles/b19-dependency-kinds/main
+c00491	otool-loadcommands x86_64 bundles/b19-dependency-kinds/main
+c00492	otool-dependencies x86_64 bundles/b19-dependency-kinds/main
+c00493	file bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00494	lipo-info bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00495	lipo-archs bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00496	otool-fatheaders bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00497	otool-loadcommands all bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00498	otool-loadcommands arm64 bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00499	otool-dependencies arm64 bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00500	otool-loadcommands x86_64 bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00501	otool-dependencies x86_64 bundles/b20-dependency-kinds-no-lazy/libload.dylib
+c00502	file bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00503	lipo-info bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00504	lipo-archs bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00505	otool-fatheaders bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00506	otool-loadcommands all bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00507	otool-loadcommands arm64 bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00508	otool-dependencies arm64 bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00509	otool-loadcommands x86_64 bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00510	otool-dependencies x86_64 bundles/b20-dependency-kinds-no-lazy/libreexport.dylib
+c00511	file bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00512	lipo-info bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00513	lipo-archs bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00514	otool-fatheaders bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00515	otool-loadcommands all bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00516	otool-loadcommands arm64 bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00517	otool-dependencies arm64 bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00518	otool-loadcommands x86_64 bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00519	otool-dependencies x86_64 bundles/b20-dependency-kinds-no-lazy/libupward.dylib
+c00520	file bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00521	lipo-info bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00522	lipo-archs bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00523	otool-fatheaders bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00524	otool-loadcommands all bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00525	otool-loadcommands arm64 bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00526	otool-dependencies arm64 bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00527	otool-loadcommands x86_64 bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00528	otool-dependencies x86_64 bundles/b20-dependency-kinds-no-lazy/libweak.dylib
+c00529	file bundles/b20-dependency-kinds-no-lazy/main
+c00530	lipo-info bundles/b20-dependency-kinds-no-lazy/main
+c00531	lipo-archs bundles/b20-dependency-kinds-no-lazy/main
+c00532	otool-fatheaders bundles/b20-dependency-kinds-no-lazy/main
+c00533	otool-loadcommands all bundles/b20-dependency-kinds-no-lazy/main
+c00534	otool-loadcommands arm64 bundles/b20-dependency-kinds-no-lazy/main
+c00535	otool-dependencies arm64 bundles/b20-dependency-kinds-no-lazy/main
+c00536	otool-loadcommands x86_64 bundles/b20-dependency-kinds-no-lazy/main
+c00537	otool-dependencies x86_64 bundles/b20-dependency-kinds-no-lazy/main
+c00538	file bundles/b21-loader-path-symlink-dir/main
+c00539	lipo-info bundles/b21-loader-path-symlink-dir/main
+c00540	lipo-archs bundles/b21-loader-path-symlink-dir/main
+c00541	otool-fatheaders bundles/b21-loader-path-symlink-dir/main
+c00542	otool-loadcommands all bundles/b21-loader-path-symlink-dir/main
+c00543	otool-loadcommands arm64 bundles/b21-loader-path-symlink-dir/main
+c00544	otool-dependencies arm64 bundles/b21-loader-path-symlink-dir/main
+c00545	otool-loadcommands x86_64 bundles/b21-loader-path-symlink-dir/main
+c00546	otool-dependencies x86_64 bundles/b21-loader-path-symlink-dir/main
+c00547	file bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00548	lipo-info bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00549	lipo-archs bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00550	otool-fatheaders bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00551	otool-loadcommands all bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00552	otool-loadcommands arm64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00553	otool-dependencies arm64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00554	otool-loadcommands x86_64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00555	otool-dependencies x86_64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib
+c00556	file bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00557	lipo-info bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00558	lipo-archs bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00559	otool-fatheaders bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00560	otool-loadcommands all bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00561	otool-loadcommands arm64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00562	otool-dependencies arm64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00563	otool-loadcommands x86_64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00564	otool-dependencies x86_64 bundles/b21-loader-path-symlink-dir/versions/A/lib/libfoo.dylib
+c00565	file parse/m01-empty.bin
+c00566	lipo-info parse/m01-empty.bin
+c00567	lipo-archs parse/m01-empty.bin
+c00568	otool-fatheaders parse/m01-empty.bin
+c00569	otool-loadcommands all parse/m01-empty.bin
+c00570	otool-loadcommands arm64 parse/m01-empty.bin
+c00571	otool-dependencies arm64 parse/m01-empty.bin
+c00572	otool-loadcommands x86_64 parse/m01-empty.bin
+c00573	otool-dependencies x86_64 parse/m01-empty.bin
+c00574	file parse/m02-short-magic.bin
+c00575	lipo-info parse/m02-short-magic.bin
+c00576	lipo-archs parse/m02-short-magic.bin
+c00577	otool-fatheaders parse/m02-short-magic.bin
+c00578	otool-loadcommands all parse/m02-short-magic.bin
+c00579	otool-loadcommands arm64 parse/m02-short-magic.bin
+c00580	otool-dependencies arm64 parse/m02-short-magic.bin
+c00581	otool-loadcommands x86_64 parse/m02-short-magic.bin
+c00582	otool-dependencies x86_64 parse/m02-short-magic.bin
+c00583	file parse/m03-truncated-header.bin
+c00584	lipo-info parse/m03-truncated-header.bin
+c00585	lipo-archs parse/m03-truncated-header.bin
+c00586	otool-fatheaders parse/m03-truncated-header.bin
+c00587	otool-loadcommands all parse/m03-truncated-header.bin
+c00588	otool-loadcommands arm64 parse/m03-truncated-header.bin
+c00589	otool-dependencies arm64 parse/m03-truncated-header.bin
+c00590	otool-loadcommands x86_64 parse/m03-truncated-header.bin
+c00591	otool-dependencies x86_64 parse/m03-truncated-header.bin
+c00592	file parse/m04-not-macho-script.bin
+c00593	lipo-info parse/m04-not-macho-script.bin
+c00594	lipo-archs parse/m04-not-macho-script.bin
+c00595	otool-fatheaders parse/m04-not-macho-script.bin
+c00596	otool-loadcommands all parse/m04-not-macho-script.bin
+c00597	otool-loadcommands arm64 parse/m04-not-macho-script.bin
+c00598	otool-dependencies arm64 parse/m04-not-macho-script.bin
+c00599	otool-loadcommands x86_64 parse/m04-not-macho-script.bin
+c00600	otool-dependencies x86_64 parse/m04-not-macho-script.bin
+c00601	file parse/m05-sizeofcmds-beyond-eof.bin
+c00602	lipo-info parse/m05-sizeofcmds-beyond-eof.bin
+c00603	lipo-archs parse/m05-sizeofcmds-beyond-eof.bin
+c00604	otool-fatheaders parse/m05-sizeofcmds-beyond-eof.bin
+c00605	otool-loadcommands all parse/m05-sizeofcmds-beyond-eof.bin
+c00606	otool-loadcommands arm64 parse/m05-sizeofcmds-beyond-eof.bin
+c00607	otool-dependencies arm64 parse/m05-sizeofcmds-beyond-eof.bin
+c00608	otool-loadcommands x86_64 parse/m05-sizeofcmds-beyond-eof.bin
+c00609	otool-dependencies x86_64 parse/m05-sizeofcmds-beyond-eof.bin
+c00610	file parse/m06-ncmds-huge.bin
+c00611	lipo-info parse/m06-ncmds-huge.bin
+c00612	lipo-archs parse/m06-ncmds-huge.bin
+c00613	otool-fatheaders parse/m06-ncmds-huge.bin
+c00614	otool-loadcommands all parse/m06-ncmds-huge.bin
+c00615	otool-loadcommands arm64 parse/m06-ncmds-huge.bin
+c00616	otool-dependencies arm64 parse/m06-ncmds-huge.bin
+c00617	otool-loadcommands x86_64 parse/m06-ncmds-huge.bin
+c00618	otool-dependencies x86_64 parse/m06-ncmds-huge.bin
+c00619	file parse/m07-cmdsize-zero.bin
+c00620	lipo-info parse/m07-cmdsize-zero.bin
+c00621	lipo-archs parse/m07-cmdsize-zero.bin
+c00622	otool-fatheaders parse/m07-cmdsize-zero.bin
+c00623	otool-loadcommands all parse/m07-cmdsize-zero.bin
+c00624	otool-loadcommands arm64 parse/m07-cmdsize-zero.bin
+c00625	otool-dependencies arm64 parse/m07-cmdsize-zero.bin
+c00626	otool-loadcommands x86_64 parse/m07-cmdsize-zero.bin
+c00627	otool-dependencies x86_64 parse/m07-cmdsize-zero.bin
+c00628	file parse/m08-cmdsize-unaligned.bin
+c00629	lipo-info parse/m08-cmdsize-unaligned.bin
+c00630	lipo-archs parse/m08-cmdsize-unaligned.bin
+c00631	otool-fatheaders parse/m08-cmdsize-unaligned.bin
+c00632	otool-loadcommands all parse/m08-cmdsize-unaligned.bin
+c00633	otool-loadcommands arm64 parse/m08-cmdsize-unaligned.bin
+c00634	otool-dependencies arm64 parse/m08-cmdsize-unaligned.bin
+c00635	otool-loadcommands x86_64 parse/m08-cmdsize-unaligned.bin
+c00636	otool-dependencies x86_64 parse/m08-cmdsize-unaligned.bin
+c00637	file parse/m09-cmdsize-overrun.bin
+c00638	lipo-info parse/m09-cmdsize-overrun.bin
+c00639	lipo-archs parse/m09-cmdsize-overrun.bin
+c00640	otool-fatheaders parse/m09-cmdsize-overrun.bin
+c00641	otool-loadcommands all parse/m09-cmdsize-overrun.bin
+c00642	otool-loadcommands arm64 parse/m09-cmdsize-overrun.bin
+c00643	otool-dependencies arm64 parse/m09-cmdsize-overrun.bin
+c00644	otool-loadcommands x86_64 parse/m09-cmdsize-overrun.bin
+c00645	otool-dependencies x86_64 parse/m09-cmdsize-overrun.bin
+c00646	file parse/m10-lcstr-offset-beyond-cmd.bin
+c00647	lipo-info parse/m10-lcstr-offset-beyond-cmd.bin
+c00648	lipo-archs parse/m10-lcstr-offset-beyond-cmd.bin
+c00649	otool-fatheaders parse/m10-lcstr-offset-beyond-cmd.bin
+c00650	otool-loadcommands all parse/m10-lcstr-offset-beyond-cmd.bin
+c00651	otool-loadcommands arm64 parse/m10-lcstr-offset-beyond-cmd.bin
+c00652	otool-dependencies arm64 parse/m10-lcstr-offset-beyond-cmd.bin
+c00653	otool-loadcommands x86_64 parse/m10-lcstr-offset-beyond-cmd.bin
+c00654	otool-dependencies x86_64 parse/m10-lcstr-offset-beyond-cmd.bin
+c00655	file parse/m11-lcstr-no-nul.bin
+c00656	lipo-info parse/m11-lcstr-no-nul.bin
+c00657	lipo-archs parse/m11-lcstr-no-nul.bin
+c00658	otool-fatheaders parse/m11-lcstr-no-nul.bin
+c00659	otool-loadcommands all parse/m11-lcstr-no-nul.bin
+c00660	otool-loadcommands arm64 parse/m11-lcstr-no-nul.bin
+c00661	otool-dependencies arm64 parse/m11-lcstr-no-nul.bin
+c00662	otool-loadcommands x86_64 parse/m11-lcstr-no-nul.bin
+c00663	otool-dependencies x86_64 parse/m11-lcstr-no-nul.bin
+c00664	file parse/m12-unknown-lc.bin
+c00665	lipo-info parse/m12-unknown-lc.bin
+c00666	lipo-archs parse/m12-unknown-lc.bin
+c00667	otool-fatheaders parse/m12-unknown-lc.bin
+c00668	otool-loadcommands all parse/m12-unknown-lc.bin
+c00669	otool-loadcommands arm64 parse/m12-unknown-lc.bin
+c00670	otool-dependencies arm64 parse/m12-unknown-lc.bin
+c00671	otool-loadcommands x86_64 parse/m12-unknown-lc.bin
+c00672	otool-dependencies x86_64 parse/m12-unknown-lc.bin
+c00673	file parse/m13-unknown-lc-req-dyld.bin
+c00674	lipo-info parse/m13-unknown-lc-req-dyld.bin
+c00675	lipo-archs parse/m13-unknown-lc-req-dyld.bin
+c00676	otool-fatheaders parse/m13-unknown-lc-req-dyld.bin
+c00677	otool-loadcommands all parse/m13-unknown-lc-req-dyld.bin
+c00678	otool-loadcommands arm64 parse/m13-unknown-lc-req-dyld.bin
+c00679	otool-dependencies arm64 parse/m13-unknown-lc-req-dyld.bin
+c00680	otool-loadcommands x86_64 parse/m13-unknown-lc-req-dyld.bin
+c00681	otool-dependencies x86_64 parse/m13-unknown-lc-req-dyld.bin
+c00682	file parse/m14-duplicate-id-dylib.bin
+c00683	lipo-info parse/m14-duplicate-id-dylib.bin
+c00684	lipo-archs parse/m14-duplicate-id-dylib.bin
+c00685	otool-fatheaders parse/m14-duplicate-id-dylib.bin
+c00686	otool-loadcommands all parse/m14-duplicate-id-dylib.bin
+c00687	otool-loadcommands arm64 parse/m14-duplicate-id-dylib.bin
+c00688	otool-dependencies arm64 parse/m14-duplicate-id-dylib.bin
+c00689	otool-loadcommands x86_64 parse/m14-duplicate-id-dylib.bin
+c00690	otool-dependencies x86_64 parse/m14-duplicate-id-dylib.bin
+c00691	file parse/m15-lcstr-offset-into-header.bin
+c00692	lipo-info parse/m15-lcstr-offset-into-header.bin
+c00693	lipo-archs parse/m15-lcstr-offset-into-header.bin
+c00694	otool-fatheaders parse/m15-lcstr-offset-into-header.bin
+c00695	otool-loadcommands all parse/m15-lcstr-offset-into-header.bin
+c00696	otool-loadcommands arm64 parse/m15-lcstr-offset-into-header.bin
+c00697	otool-dependencies arm64 parse/m15-lcstr-offset-into-header.bin
+c00698	otool-loadcommands x86_64 parse/m15-lcstr-offset-into-header.bin
+c00699	otool-dependencies x86_64 parse/m15-lcstr-offset-into-header.bin
+c00700	file parse/m16-segment-size-mismatch.bin
+c00701	lipo-info parse/m16-segment-size-mismatch.bin
+c00702	lipo-archs parse/m16-segment-size-mismatch.bin
+c00703	otool-fatheaders parse/m16-segment-size-mismatch.bin
+c00704	otool-loadcommands all parse/m16-segment-size-mismatch.bin
+c00705	otool-loadcommands arm64 parse/m16-segment-size-mismatch.bin
+c00706	otool-dependencies arm64 parse/m16-segment-size-mismatch.bin
+c00707	otool-loadcommands x86_64 parse/m16-segment-size-mismatch.bin
+c00708	otool-dependencies x86_64 parse/m16-segment-size-mismatch.bin
+c00709	file parse/m17-section-amplification.bin
+c00710	lipo-info parse/m17-section-amplification.bin
+c00711	lipo-archs parse/m17-section-amplification.bin
+c00712	otool-fatheaders parse/m17-section-amplification.bin
+c00713	otool-loadcommands all parse/m17-section-amplification.bin
+c00714	otool-loadcommands arm64 parse/m17-section-amplification.bin
+c00715	otool-dependencies arm64 parse/m17-section-amplification.bin
+c00716	otool-loadcommands x86_64 parse/m17-section-amplification.bin
+c00717	otool-dependencies x86_64 parse/m17-section-amplification.bin
+c00718	file parse/m18-fat-nfat-huge.bin
+c00719	lipo-info parse/m18-fat-nfat-huge.bin
+c00720	lipo-archs parse/m18-fat-nfat-huge.bin
+c00721	otool-fatheaders parse/m18-fat-nfat-huge.bin
+c00722	otool-loadcommands all parse/m18-fat-nfat-huge.bin
+c00723	otool-loadcommands arm64 parse/m18-fat-nfat-huge.bin
+c00724	otool-dependencies arm64 parse/m18-fat-nfat-huge.bin
+c00725	otool-loadcommands x86_64 parse/m18-fat-nfat-huge.bin
+c00726	otool-dependencies x86_64 parse/m18-fat-nfat-huge.bin
+c00727	file parse/m19-fat-slice-beyond-eof.bin
+c00728	lipo-info parse/m19-fat-slice-beyond-eof.bin
+c00729	lipo-archs parse/m19-fat-slice-beyond-eof.bin
+c00730	otool-fatheaders parse/m19-fat-slice-beyond-eof.bin
+c00731	otool-loadcommands all parse/m19-fat-slice-beyond-eof.bin
+c00732	otool-loadcommands arm64 parse/m19-fat-slice-beyond-eof.bin
+c00733	otool-dependencies arm64 parse/m19-fat-slice-beyond-eof.bin
+c00734	otool-loadcommands x86_64 parse/m19-fat-slice-beyond-eof.bin
+c00735	otool-dependencies x86_64 parse/m19-fat-slice-beyond-eof.bin
+c00736	file parse/m20-fat-overlapping-slices.bin
+c00737	lipo-info parse/m20-fat-overlapping-slices.bin
+c00738	lipo-archs parse/m20-fat-overlapping-slices.bin
+c00739	otool-fatheaders parse/m20-fat-overlapping-slices.bin
+c00740	otool-loadcommands all parse/m20-fat-overlapping-slices.bin
+c00741	otool-loadcommands arm64 parse/m20-fat-overlapping-slices.bin
+c00742	otool-dependencies arm64 parse/m20-fat-overlapping-slices.bin
+c00743	otool-loadcommands x86_64 parse/m20-fat-overlapping-slices.bin
+c00744	otool-dependencies x86_64 parse/m20-fat-overlapping-slices.bin
+c00745	file parse/m21-fat-arch-mismatch.bin
+c00746	lipo-info parse/m21-fat-arch-mismatch.bin
+c00747	lipo-archs parse/m21-fat-arch-mismatch.bin
+c00748	otool-fatheaders parse/m21-fat-arch-mismatch.bin
+c00749	otool-loadcommands all parse/m21-fat-arch-mismatch.bin
+c00750	otool-loadcommands arm64 parse/m21-fat-arch-mismatch.bin
+c00751	otool-dependencies arm64 parse/m21-fat-arch-mismatch.bin
+c00752	otool-loadcommands x86_64 parse/m21-fat-arch-mismatch.bin
+c00753	otool-dependencies x86_64 parse/m21-fat-arch-mismatch.bin
+c00754	file parse/m22-fat-duplicate-arch.bin
+c00755	lipo-info parse/m22-fat-duplicate-arch.bin
+c00756	lipo-archs parse/m22-fat-duplicate-arch.bin
+c00757	otool-fatheaders parse/m22-fat-duplicate-arch.bin
+c00758	otool-loadcommands all parse/m22-fat-duplicate-arch.bin
+c00759	otool-loadcommands arm64 parse/m22-fat-duplicate-arch.bin
+c00760	otool-dependencies arm64 parse/m22-fat-duplicate-arch.bin
+c00761	otool-loadcommands x86_64 parse/m22-fat-duplicate-arch.bin
+c00762	otool-dependencies x86_64 parse/m22-fat-duplicate-arch.bin
+c00763	file parse/m23-java-class-magic.bin
+c00764	lipo-info parse/m23-java-class-magic.bin
+c00765	lipo-archs parse/m23-java-class-magic.bin
+c00766	otool-fatheaders parse/m23-java-class-magic.bin
+c00767	otool-loadcommands all parse/m23-java-class-magic.bin
+c00768	otool-loadcommands arm64 parse/m23-java-class-magic.bin
+c00769	otool-dependencies arm64 parse/m23-java-class-magic.bin
+c00770	otool-loadcommands x86_64 parse/m23-java-class-magic.bin
+c00771	otool-dependencies x86_64 parse/m23-java-class-magic.bin
+c00772	file parse/m24-sizeofcmds-slack.bin
+c00773	lipo-info parse/m24-sizeofcmds-slack.bin
+c00774	lipo-archs parse/m24-sizeofcmds-slack.bin
+c00775	otool-fatheaders parse/m24-sizeofcmds-slack.bin
+c00776	otool-loadcommands all parse/m24-sizeofcmds-slack.bin
+c00777	otool-loadcommands arm64 parse/m24-sizeofcmds-slack.bin
+c00778	otool-dependencies arm64 parse/m24-sizeofcmds-slack.bin
+c00779	otool-loadcommands x86_64 parse/m24-sizeofcmds-slack.bin
+c00780	otool-dependencies x86_64 parse/m24-sizeofcmds-slack.bin
+c00781	file parse/t01-thin-arm64-exe.bin
+c00782	lipo-info parse/t01-thin-arm64-exe.bin
+c00783	lipo-archs parse/t01-thin-arm64-exe.bin
+c00784	otool-fatheaders parse/t01-thin-arm64-exe.bin
+c00785	otool-loadcommands all parse/t01-thin-arm64-exe.bin
+c00786	otool-loadcommands arm64 parse/t01-thin-arm64-exe.bin
+c00787	otool-dependencies arm64 parse/t01-thin-arm64-exe.bin
+c00788	otool-loadcommands x86_64 parse/t01-thin-arm64-exe.bin
+c00789	otool-dependencies x86_64 parse/t01-thin-arm64-exe.bin
+c00790	file parse/t02-thin-arm64-dylib.bin
+c00791	lipo-info parse/t02-thin-arm64-dylib.bin
+c00792	lipo-archs parse/t02-thin-arm64-dylib.bin
+c00793	otool-fatheaders parse/t02-thin-arm64-dylib.bin
+c00794	otool-loadcommands all parse/t02-thin-arm64-dylib.bin
+c00795	otool-loadcommands arm64 parse/t02-thin-arm64-dylib.bin
+c00796	otool-dependencies arm64 parse/t02-thin-arm64-dylib.bin
+c00797	otool-loadcommands x86_64 parse/t02-thin-arm64-dylib.bin
+c00798	otool-dependencies x86_64 parse/t02-thin-arm64-dylib.bin
+c00799	file parse/t03-thin-x86_64-dylib.bin
+c00800	lipo-info parse/t03-thin-x86_64-dylib.bin
+c00801	lipo-archs parse/t03-thin-x86_64-dylib.bin
+c00802	otool-fatheaders parse/t03-thin-x86_64-dylib.bin
+c00803	otool-loadcommands all parse/t03-thin-x86_64-dylib.bin
+c00804	otool-loadcommands arm64 parse/t03-thin-x86_64-dylib.bin
+c00805	otool-dependencies arm64 parse/t03-thin-x86_64-dylib.bin
+c00806	otool-loadcommands x86_64 parse/t03-thin-x86_64-dylib.bin
+c00807	otool-dependencies x86_64 parse/t03-thin-x86_64-dylib.bin
+c00808	file parse/t04-thin-arm64e-dylib.bin
+c00809	lipo-info parse/t04-thin-arm64e-dylib.bin
+c00810	lipo-archs parse/t04-thin-arm64e-dylib.bin
+c00811	otool-fatheaders parse/t04-thin-arm64e-dylib.bin
+c00812	otool-loadcommands all parse/t04-thin-arm64e-dylib.bin
+c00813	otool-loadcommands arm64 parse/t04-thin-arm64e-dylib.bin
+c00814	otool-dependencies arm64 parse/t04-thin-arm64e-dylib.bin
+c00815	otool-loadcommands x86_64 parse/t04-thin-arm64e-dylib.bin
+c00816	otool-dependencies x86_64 parse/t04-thin-arm64e-dylib.bin
+c00817	file parse/t05-build-rpath-exe.bin
+c00818	lipo-info parse/t05-build-rpath-exe.bin
+c00819	lipo-archs parse/t05-build-rpath-exe.bin
+c00820	otool-fatheaders parse/t05-build-rpath-exe.bin
+c00821	otool-loadcommands all parse/t05-build-rpath-exe.bin
+c00822	otool-loadcommands arm64 parse/t05-build-rpath-exe.bin
+c00823	otool-dependencies arm64 parse/t05-build-rpath-exe.bin
+c00824	otool-loadcommands x86_64 parse/t05-build-rpath-exe.bin
+c00825	otool-dependencies x86_64 parse/t05-build-rpath-exe.bin
+c00826	file parse/t06-dyld-environment-exe.bin
+c00827	lipo-info parse/t06-dyld-environment-exe.bin
+c00828	lipo-archs parse/t06-dyld-environment-exe.bin
+c00829	otool-fatheaders parse/t06-dyld-environment-exe.bin
+c00830	otool-loadcommands all parse/t06-dyld-environment-exe.bin
+c00831	otool-loadcommands arm64 parse/t06-dyld-environment-exe.bin
+c00832	otool-dependencies arm64 parse/t06-dyld-environment-exe.bin
+c00833	otool-loadcommands x86_64 parse/t06-dyld-environment-exe.bin
+c00834	otool-dependencies x86_64 parse/t06-dyld-environment-exe.bin
+c00835	file parse/t07-undecodable-path.bin
+c00836	lipo-info parse/t07-undecodable-path.bin
+c00837	lipo-archs parse/t07-undecodable-path.bin
+c00838	otool-fatheaders parse/t07-undecodable-path.bin
+c00839	otool-loadcommands all parse/t07-undecodable-path.bin
+c00840	otool-loadcommands arm64 parse/t07-undecodable-path.bin
+c00841	otool-dependencies arm64 parse/t07-undecodable-path.bin
+c00842	otool-loadcommands x86_64 parse/t07-undecodable-path.bin
+c00843	otool-dependencies x86_64 parse/t07-undecodable-path.bin
+c00844	file parse/t08-duplicate-rpath.bin
+c00845	lipo-info parse/t08-duplicate-rpath.bin
+c00846	lipo-archs parse/t08-duplicate-rpath.bin
+c00847	otool-fatheaders parse/t08-duplicate-rpath.bin
+c00848	otool-loadcommands all parse/t08-duplicate-rpath.bin
+c00849	otool-loadcommands arm64 parse/t08-duplicate-rpath.bin
+c00850	otool-dependencies arm64 parse/t08-duplicate-rpath.bin
+c00851	otool-loadcommands x86_64 parse/t08-duplicate-rpath.bin
+c00852	otool-dependencies x86_64 parse/t08-duplicate-rpath.bin
+c00853	file parse/t09-all-dependency-kinds.bin
+c00854	lipo-info parse/t09-all-dependency-kinds.bin
+c00855	lipo-archs parse/t09-all-dependency-kinds.bin
+c00856	otool-fatheaders parse/t09-all-dependency-kinds.bin
+c00857	otool-loadcommands all parse/t09-all-dependency-kinds.bin
+c00858	otool-loadcommands arm64 parse/t09-all-dependency-kinds.bin
+c00859	otool-dependencies arm64 parse/t09-all-dependency-kinds.bin
+c00860	otool-loadcommands x86_64 parse/t09-all-dependency-kinds.bin
+c00861	otool-dependencies x86_64 parse/t09-all-dependency-kinds.bin
+c00862	file parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00863	lipo-info parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00864	lipo-archs parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00865	otool-fatheaders parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00866	otool-loadcommands all parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00867	otool-loadcommands arm64 parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00868	otool-dependencies arm64 parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00869	otool-loadcommands x86_64 parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00870	otool-dependencies x86_64 parse/u01-fat-x86_64-broken-arm64-ok.bin
+c00871	file parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00872	lipo-info parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00873	lipo-archs parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00874	otool-fatheaders parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00875	otool-loadcommands all parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00876	otool-loadcommands arm64 parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00877	otool-dependencies arm64 parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00878	otool-loadcommands x86_64 parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00879	otool-dependencies x86_64 parse/u02-fat-x86_64-ok-arm64-broken.bin
+c00880	file parse/u03-fat-per-slice-rpaths.bin
+c00881	lipo-info parse/u03-fat-per-slice-rpaths.bin
+c00882	lipo-archs parse/u03-fat-per-slice-rpaths.bin
+c00883	otool-fatheaders parse/u03-fat-per-slice-rpaths.bin
+c00884	otool-loadcommands all parse/u03-fat-per-slice-rpaths.bin
+c00885	otool-loadcommands arm64 parse/u03-fat-per-slice-rpaths.bin
+c00886	otool-dependencies arm64 parse/u03-fat-per-slice-rpaths.bin
+c00887	otool-loadcommands x86_64 parse/u03-fat-per-slice-rpaths.bin
+c00888	otool-dependencies x86_64 parse/u03-fat-per-slice-rpaths.bin
+c00889	file parse/u04-fat64-ok.bin
+c00890	lipo-info parse/u04-fat64-ok.bin
+c00891	lipo-archs parse/u04-fat64-ok.bin
+c00892	otool-fatheaders parse/u04-fat64-ok.bin
+c00893	otool-loadcommands all parse/u04-fat64-ok.bin
+c00894	otool-loadcommands arm64 parse/u04-fat64-ok.bin
+c00895	otool-dependencies arm64 parse/u04-fat64-ok.bin
+c00896	otool-loadcommands x86_64 parse/u04-fat64-ok.bin
+c00897	otool-dependencies x86_64 parse/u04-fat64-ok.bin
+c00898	file parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00899	lipo-info parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00900	lipo-archs parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00901	otool-fatheaders parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00902	otool-loadcommands all parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00903	otool-loadcommands arm64 parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00904	otool-dependencies arm64 parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00905	otool-loadcommands x86_64 parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+c00906	otool-dependencies x86_64 parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin

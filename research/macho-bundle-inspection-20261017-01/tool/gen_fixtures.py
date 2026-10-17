@@ -134,6 +134,14 @@ def shrink_sizeofcmds(data):
     return patch_u32(data, 20, struct.unpack_from("<I", data, 20)[0] - 8)
 
 
+def zero_cmdsize(data, index):
+    # set cmdsize of load command <index> to 0 (the table walk can not go on)
+    pos = 32
+    for _ in range(index):
+        pos += struct.unpack_from("<I", data, pos + 4)[0]
+    return patch_u32(data, pos + 4, 0)
+
+
 def fat(slices, magic=FAT_MAGIC, align=14, arch_override=None):
     """slices: [(arch, bytes)]. arch_override: {index: arch} written in fat_arch only."""
     step = 1 << align
@@ -187,6 +195,7 @@ def parse_fixtures(build_root):
         ("arm64", dylib("u03", arch="arm64", id_path=b"@rpath/libu.dylib", rpaths=[b"@loader_path"])),
     ])
     f["u04-fat64-ok"] = fat([("x86_64", good_x86), ("arm64", good_arm)], magic=FAT_MAGIC_64)
+    f["u05-fat-x86_64-cmdsize-zero-arm64-ok"] = fat([("x86_64", zero_cmdsize(good_x86, 3)), ("arm64", good_arm)])
 
     good = exe("m", rpaths=[b"@loader_path"], deps=[("load", SYS)])
     f["m01-empty"] = b""
@@ -343,6 +352,11 @@ def bundles(build_root):
         [("main", exe("b20-main", rpaths=[b"@loader_path"], deps=[(k, b"@rpath/lib%s.dylib" % k.encode()) for k in kinds[:4]]))]
         + [("lib%s.dylib" % k, dylib("b20-" + k, id_path=b"@rpath/lib%s.dylib" % k.encode(), deps=[("load", SYS)])) for k in kinds[:4]]
     ), {})
+    b["b21-loader-path-symlink-dir"] = ({
+        "main": exe("b21-main", rpaths=[b"@loader_path/lib"], deps=[("load", b"@rpath/libfoo.dylib")]),
+        "versions/A/lib/libfoo.dylib": dylib("b21-foo", id_path=b"@rpath/libfoo.dylib", deps=[("load", b"@loader_path/libbar.dylib")]),
+        "versions/A/lib/libbar.dylib": dylib("b21-bar", id_path=b"@rpath/libbar.dylib"),
+    }, {"lib": b"versions/A/lib"})
     outside = {
         "_outside/b06-symlinks/libescape.dylib": dylib("decoy-escape", id_path=b"@rpath/libescape.dylib"),
         "_outside/b13-dotdot-escape/libx.dylib": dylib("decoy-x", id_path=b"@rpath/libx.dylib"),

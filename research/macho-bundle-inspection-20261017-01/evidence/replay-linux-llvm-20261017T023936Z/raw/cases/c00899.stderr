@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin': truncated or malformed object (load command 3 with size less than 8 bytes)

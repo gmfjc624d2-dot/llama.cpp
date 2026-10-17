@@ -1,0 +1,2 @@
+bundles/b21-loader-path-symlink-dir/versions/A/lib/libbar.dylib:
+	@rpath/libbar.dylib (compatibility version 1.0.0, current version 1.0.0)

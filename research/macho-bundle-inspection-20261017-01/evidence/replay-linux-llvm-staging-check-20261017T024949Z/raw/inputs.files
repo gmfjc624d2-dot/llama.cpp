@@ -1,0 +1,6 @@
+bundles/dist/README.txt
+bundles/dist/libggml-base.dylib
+bundles/dist/libggml-cpu.dylib
+bundles/dist/libggml.0.dylib
+bundles/dist/libllama.dylib
+bundles/dist/llama-cli

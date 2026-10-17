@@ -1,0 +1,4 @@
+bundles/b03-build-rpath/libllama.dylib:
+	/tmp/llama-build-7f3a/src/libllama.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libggml.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/tmp/llama-build-7f3a/ggml/src/libggml-base.dylib (compatibility version 1.0.0, current version 1.0.0)

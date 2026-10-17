@@ -1,0 +1,3 @@
+bundles/b19-dependency-kinds/libreexport.dylib:
+	@rpath/libreexport.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1.0.0)

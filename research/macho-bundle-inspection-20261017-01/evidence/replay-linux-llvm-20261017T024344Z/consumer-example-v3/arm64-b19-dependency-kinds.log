@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b19-dependency-kinds/: static parse ok

@@ -1,0 +1,6 @@
+parse/t09-all-dependency-kinds.bin:
+	@rpath/libload.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libweak.dylib (compatibility version 1.0.0, current version 1.0.0, weak)
+	@rpath/libreexport.dylib (compatibility version 1.0.0, current version 1.0.0, reexport)
+	@rpath/libupward.dylib (compatibility version 1.0.0, current version 1.0.0, upward)
+	@rpath/liblazy.dylib (compatibility version 1.0.0, current version 1.0.0, lazy)

@@ -1,0 +1,1 @@
+macho_bundle_inspect: internal error: AttributeError: module 'macholib.mach_o' has no attribute 'CPU_TYPE_ARM64'

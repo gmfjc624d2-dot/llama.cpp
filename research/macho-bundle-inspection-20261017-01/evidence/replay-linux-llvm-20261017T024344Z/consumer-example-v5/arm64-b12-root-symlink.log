@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b12-root-symlink/: no static defect found; 0 relative dependency names not resolved here

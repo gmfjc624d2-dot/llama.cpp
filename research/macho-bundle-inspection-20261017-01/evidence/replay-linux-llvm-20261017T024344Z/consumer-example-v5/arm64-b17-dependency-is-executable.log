@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b17-dependency-is-executable/: no static defect found; 1 relative dependency names not resolved here

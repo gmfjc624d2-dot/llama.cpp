@@ -1,0 +1,7 @@
+platform linux-llvm, arch arm64, bundles/b06-symlinks/: NOT passing
+  bundles/b06-symlinks/lib/ext -> ../../_outside/b06-symlinks: symlink leaves the bundle
+  bundles/b06-symlinks/lib/libabs.dylib -> /usr/lib/libSystem.B.dylib: symlink leaves the bundle
+  bundles/b06-symlinks/lib/libbroken.dylib -> real/libnothere.dylib: broken or directory symlink (not modelled)
+  bundles/b06-symlinks/lib/libescape.dylib -> ../../_outside/b06-symlinks/libescape.dylib: symlink leaves the bundle
+  bundles/b06-symlinks/lib/libloop.dylib -> libloop2.dylib: chained symlink not modelled
+  bundles/b06-symlinks/lib/libloop2.dylib -> libloop.dylib: chained symlink not modelled

@@ -1,0 +1,3 @@
+bundles/b05-cycle/libA.dylib:
+	@rpath/libA.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@loader_path/libB.dylib (compatibility version 1.0.0, current version 1.0.0)

@@ -1,0 +1,2 @@
+bundles/b15-duplicate-rpath/libok.dylib:
+	@rpath/libok.dylib (compatibility version 1.0.0, current version 1.0.0)

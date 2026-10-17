@@ -1,0 +1,1138 @@
+{
+  "schema": "macho-bundle-inspection/1",
+  "mode": "check",
+  "tool": {
+    "name": "macho_bundle_inspect",
+    "version": "0.1.0",
+    "macholib": "1.16.4",
+    "python": "3.13.16",
+    "limits": {
+      "max_file_bytes": 536870912,
+      "max_fat_arch": 32,
+      "max_sizeofcmds": 4194304,
+      "max_ncmds": 65536,
+      "max_walk_entries": 50000,
+      "max_walk_depth": 64,
+      "max_symlink_hops": 32,
+      "max_images": 4096,
+      "max_edges": 100000
+    }
+  },
+  "inputs": {
+    "root_executable": {
+      "text": "llama-cli",
+      "b64": "bGxhbWEtY2xp",
+      "utf8": true
+    },
+    "extra_roots": [],
+    "required_archs": [
+      "arm64"
+    ],
+    "forbidden_build_roots": [
+      {
+        "text": "/private/tmp/llama-build-7f3a",
+        "b64": "L3ByaXZhdGUvdG1wL2xsYW1hLWJ1aWxkLTdmM2E=",
+        "utf8": true
+      },
+      {
+        "text": "/tmp/llama-build-7f3a",
+        "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNh",
+        "utf8": true
+      }
+    ],
+    "system_policy_prefixes": [
+      {
+        "text": "/usr/lib/",
+        "b64": "L3Vzci9saWIv",
+        "utf8": true
+      },
+      {
+        "text": "/System/Library/",
+        "b64": "L1N5c3RlbS9MaWJyYXJ5Lw==",
+        "utf8": true
+      }
+    ],
+    "host_environment_consulted": false,
+    "modelled_contexts": [
+      "own LC_RPATH",
+      "@loader_path",
+      "@executable_path",
+      "absolute path classification"
+    ]
+  },
+  "inventory": [
+    {
+      "path": {
+        "text": "libggml-base.dylib",
+        "b64": "bGliZ2dtbC1iYXNlLmR5bGli",
+        "utf8": true
+      },
+      "type": "file",
+      "mode": "0o755",
+      "size": 432
+    },
+    {
+      "path": {
+        "text": "libggml.dylib",
+        "b64": "bGliZ2dtbC5keWxpYg==",
+        "utf8": true
+      },
+      "type": "file",
+      "mode": "0o755",
+      "size": 432
+    },
+    {
+      "path": {
+        "text": "libllama.dylib",
+        "b64": "bGlibGxhbWEuZHlsaWI=",
+        "utf8": true
+      },
+      "type": "file",
+      "mode": "0o755",
+      "size": 560
+    },
+    {
+      "path": {
+        "text": "llama-cli",
+        "b64": "bGxhbWEtY2xp",
+        "utf8": true
+      },
+      "type": "file",
+      "mode": "0o755",
+      "size": 624
+    }
+  ],
+  "files": [
+    {
+      "path": {
+        "text": "libggml-base.dylib",
+        "b64": "bGliZ2dtbC1iYXNlLmR5bGli",
+        "utf8": true
+      },
+      "size": 432,
+      "sha256": "a5ed0b396f1b2ba1d1ee22c98e8204b46646083f57c314acb8dbbbfe3e6d313b",
+      "fat": null,
+      "slices": [
+        {
+          "offset": 0,
+          "size": 432,
+          "errors": [],
+          "magic": "0xfeedfacf",
+          "bits": 64,
+          "endian": "little",
+          "cputype": 16777228,
+          "cpusubtype": 0,
+          "arch": "arm64",
+          "filetype": 6,
+          "filetype_name": "dylib",
+          "ncmds": 6,
+          "sizeofcmds": 384,
+          "flags": "0x00100085",
+          "load_commands": [
+            {
+              "index": 0,
+              "offset": 32,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 152,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAJgAAABfX1RFWFQAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAsAEAAAAAAAAFAAAABQAAAAEAAAAAAAAAX190ZXh0AAAAAAAAAAAAAF9fVEVYVAAAAAAAAAAAAACgAQAAAAAAAAQAAAAAAAAAoAEAAAIAAAAAAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAA="
+            },
+            {
+              "index": 1,
+              "offset": 184,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 72,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAEgAAABfX0xJTktFRElUAAAAAAAAAEAAAAAAAAAAQAAAAAAAALABAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAA"
+            },
+            {
+              "index": 2,
+              "offset": 256,
+              "cmd": "0x0000000d",
+              "name": "LC_ID_DYLIB",
+              "cmdsize": 56,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DQAAADgAAAAYAAAAAgAAAAAAAQAAAAEAQHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYgAAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "@rpath/libggml-base.dylib",
+                  "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            },
+            {
+              "index": 3,
+              "offset": 312,
+              "cmd": "0x0000001b",
+              "name": "LC_UUID",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GwAAABgAAABy6lGc8Fj5MAP/Y7vOcO0E"
+            },
+            {
+              "index": 4,
+              "offset": 336,
+              "cmd": "0x00000032",
+              "name": "LC_BUILD_VERSION",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "MgAAABgAAAABAAAAAAALAAAADgAAAAAA"
+            },
+            {
+              "index": 5,
+              "offset": 360,
+              "cmd": "0x0000000c",
+              "name": "LC_LOAD_DYLIB",
+              "cmdsize": 56,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DAAAADgAAAAYAAAAAgAAAAAAAQAAAAEAL3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWIAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "/usr/lib/libSystem.B.dylib",
+                  "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            }
+          ],
+          "macholib": {
+            "status": "agree"
+          },
+          "status": "complete",
+          "rpaths": [],
+          "dependencies": [
+            {
+              "lc_index": 5,
+              "text": "/usr/lib/libSystem.B.dylib",
+              "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+              "kind": "load",
+              "command": "LC_LOAD_DYLIB"
+            }
+          ],
+          "id_dylib": {
+            "lc_index": 2,
+            "text": "@rpath/libggml-base.dylib",
+            "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg=="
+          },
+          "dyld_environment": [],
+          "unknown_load_commands": [],
+          "index": 0,
+          "fat_arch": null
+        }
+      ],
+      "container": "thin",
+      "status": "complete"
+    },
+    {
+      "path": {
+        "text": "libggml.dylib",
+        "b64": "bGliZ2dtbC5keWxpYg==",
+        "utf8": true
+      },
+      "size": 432,
+      "sha256": "e177c5684add407b1e39aa28656ee676f56eb9a360f3545b345dec94784fc0e9",
+      "fat": null,
+      "slices": [
+        {
+          "offset": 0,
+          "size": 432,
+          "errors": [],
+          "magic": "0xfeedfacf",
+          "bits": 64,
+          "endian": "little",
+          "cputype": 16777228,
+          "cpusubtype": 0,
+          "arch": "arm64",
+          "filetype": 6,
+          "filetype_name": "dylib",
+          "ncmds": 6,
+          "sizeofcmds": 376,
+          "flags": "0x00100085",
+          "load_commands": [
+            {
+              "index": 0,
+              "offset": 32,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 152,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAJgAAABfX1RFWFQAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAsAEAAAAAAAAFAAAABQAAAAEAAAAAAAAAX190ZXh0AAAAAAAAAAAAAF9fVEVYVAAAAAAAAAAAAACgAQAAAAAAAAQAAAAAAAAAoAEAAAIAAAAAAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAA="
+            },
+            {
+              "index": 1,
+              "offset": 184,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 72,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAEgAAABfX0xJTktFRElUAAAAAAAAAEAAAAAAAAAAQAAAAAAAALABAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAA"
+            },
+            {
+              "index": 2,
+              "offset": 256,
+              "cmd": "0x0000000d",
+              "name": "LC_ID_DYLIB",
+              "cmdsize": 48,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DQAAADAAAAAYAAAAAgAAAAAAAQAAAAEAQHJwYXRoL2xpYmdnbWwuZHlsaWIAAAAA",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "@rpath/libggml.dylib",
+                  "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            },
+            {
+              "index": 3,
+              "offset": 304,
+              "cmd": "0x0000001b",
+              "name": "LC_UUID",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GwAAABgAAAC4/pMSMdl3FzMHTmnY1/WP"
+            },
+            {
+              "index": 4,
+              "offset": 328,
+              "cmd": "0x00000032",
+              "name": "LC_BUILD_VERSION",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "MgAAABgAAAABAAAAAAALAAAADgAAAAAA"
+            },
+            {
+              "index": 5,
+              "offset": 352,
+              "cmd": "0x0000000c",
+              "name": "LC_LOAD_DYLIB",
+              "cmdsize": 56,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DAAAADgAAAAYAAAAAgAAAAAAAQAAAAEAL3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWIAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "/usr/lib/libSystem.B.dylib",
+                  "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            }
+          ],
+          "macholib": {
+            "status": "agree"
+          },
+          "status": "complete",
+          "rpaths": [],
+          "dependencies": [
+            {
+              "lc_index": 5,
+              "text": "/usr/lib/libSystem.B.dylib",
+              "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+              "kind": "load",
+              "command": "LC_LOAD_DYLIB"
+            }
+          ],
+          "id_dylib": {
+            "lc_index": 2,
+            "text": "@rpath/libggml.dylib",
+            "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI="
+          },
+          "dyld_environment": [],
+          "unknown_load_commands": [],
+          "index": 0,
+          "fat_arch": null
+        }
+      ],
+      "container": "thin",
+      "status": "complete"
+    },
+    {
+      "path": {
+        "text": "libllama.dylib",
+        "b64": "bGlibGxhbWEuZHlsaWI=",
+        "utf8": true
+      },
+      "size": 560,
+      "sha256": "e2805f90b41332f3704d2b43b60ac513db63a27f18dafda49ff57da0340b7275",
+      "fat": null,
+      "slices": [
+        {
+          "offset": 0,
+          "size": 560,
+          "errors": [],
+          "magic": "0xfeedfacf",
+          "bits": 64,
+          "endian": "little",
+          "cputype": 16777228,
+          "cpusubtype": 0,
+          "arch": "arm64",
+          "filetype": 6,
+          "filetype_name": "dylib",
+          "ncmds": 8,
+          "sizeofcmds": 504,
+          "flags": "0x00100085",
+          "load_commands": [
+            {
+              "index": 0,
+              "offset": 32,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 152,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAJgAAABfX1RFWFQAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAMAIAAAAAAAAFAAAABQAAAAEAAAAAAAAAX190ZXh0AAAAAAAAAAAAAF9fVEVYVAAAAAAAAAAAAAAgAgAAAAAAAAQAAAAAAAAAIAIAAAIAAAAAAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAA="
+            },
+            {
+              "index": 1,
+              "offset": 184,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 72,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAEgAAABfX0xJTktFRElUAAAAAAAAAEAAAAAAAAAAQAAAAAAAADACAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAA"
+            },
+            {
+              "index": 2,
+              "offset": 256,
+              "cmd": "0x0000000d",
+              "name": "LC_ID_DYLIB",
+              "cmdsize": 72,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DQAAAEgAAAAYAAAAAgAAAAAAAQAAAAEAL3RtcC9sbGFtYS1idWlsZC03ZjNhL3NyYy9saWJsbGFtYS5keWxpYgAAAAAAAAAA",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "/tmp/llama-build-7f3a/src/libllama.dylib",
+                  "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL3NyYy9saWJsbGFtYS5keWxpYg==",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            },
+            {
+              "index": 3,
+              "offset": 328,
+              "cmd": "0x0000001b",
+              "name": "LC_UUID",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GwAAABgAAACw9rUvBup7qNFPkiQdW6xo"
+            },
+            {
+              "index": 4,
+              "offset": 352,
+              "cmd": "0x00000032",
+              "name": "LC_BUILD_VERSION",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "MgAAABgAAAABAAAAAAALAAAADgAAAAAA"
+            },
+            {
+              "index": 5,
+              "offset": 376,
+              "cmd": "0x0000000c",
+              "name": "LC_LOAD_DYLIB",
+              "cmdsize": 48,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DAAAADAAAAAYAAAAAgAAAAAAAQAAAAEAQHJwYXRoL2xpYmdnbWwuZHlsaWIAAAAA",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "@rpath/libggml.dylib",
+                  "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            },
+            {
+              "index": 6,
+              "offset": 424,
+              "cmd": "0x0000000c",
+              "name": "LC_LOAD_DYLIB",
+              "cmdsize": 80,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DAAAAFAAAAAYAAAAAgAAAAAAAQAAAAEAL3RtcC9sbGFtYS1idWlsZC03ZjNhL2dnbWwvc3JjL2xpYmdnbWwtYmFzZS5keWxpYgAAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "/tmp/llama-build-7f3a/ggml/src/libggml-base.dylib",
+                  "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2dnbWwvc3JjL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            },
+            {
+              "index": 7,
+              "offset": 504,
+              "cmd": "0x8000001c",
+              "name": "LC_RPATH",
+              "cmdsize": 32,
+              "requires_dyld": true,
+              "known_to_macholib": true,
+              "raw_b64": "HAAAgCAAAAAMAAAAQGxvYWRlcl9wYXRoAAAAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "path",
+                  "offset": 12,
+                  "nul_terminated": true,
+                  "text": "@loader_path",
+                  "b64": "QGxvYWRlcl9wYXRo",
+                  "utf8": true
+                }
+              ]
+            }
+          ],
+          "macholib": {
+            "status": "agree"
+          },
+          "status": "complete",
+          "rpaths": [
+            {
+              "lc_index": 7,
+              "text": "@loader_path",
+              "b64": "QGxvYWRlcl9wYXRo"
+            }
+          ],
+          "dependencies": [
+            {
+              "lc_index": 5,
+              "text": "@rpath/libggml.dylib",
+              "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+              "kind": "load",
+              "command": "LC_LOAD_DYLIB"
+            },
+            {
+              "lc_index": 6,
+              "text": "/tmp/llama-build-7f3a/ggml/src/libggml-base.dylib",
+              "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2dnbWwvc3JjL2xpYmdnbWwtYmFzZS5keWxpYg==",
+              "kind": "load",
+              "command": "LC_LOAD_DYLIB"
+            }
+          ],
+          "id_dylib": {
+            "lc_index": 2,
+            "text": "/tmp/llama-build-7f3a/src/libllama.dylib",
+            "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL3NyYy9saWJsbGFtYS5keWxpYg=="
+          },
+          "dyld_environment": [],
+          "unknown_load_commands": [],
+          "index": 0,
+          "fat_arch": null
+        }
+      ],
+      "container": "thin",
+      "status": "complete"
+    },
+    {
+      "path": {
+        "text": "llama-cli",
+        "b64": "bGxhbWEtY2xp",
+        "utf8": true
+      },
+      "size": 624,
+      "sha256": "700a3d75d756a57db27756243363674cf9c723ef18a4e6178e3a2a8c6c072bdd",
+      "fat": null,
+      "slices": [
+        {
+          "offset": 0,
+          "size": 624,
+          "errors": [],
+          "magic": "0xfeedfacf",
+          "bits": 64,
+          "endian": "little",
+          "cputype": 16777228,
+          "cpusubtype": 0,
+          "arch": "arm64",
+          "filetype": 2,
+          "filetype_name": "execute",
+          "ncmds": 11,
+          "sizeofcmds": 576,
+          "flags": "0x00200085",
+          "load_commands": [
+            {
+              "index": 0,
+              "offset": 32,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 72,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAEgAAABfX1BBR0VaRVJPAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            },
+            {
+              "index": 1,
+              "offset": 104,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 152,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAJgAAABfX1RFWFQAAAAAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAcAIAAAAAAAAFAAAABQAAAAEAAAAAAAAAX190ZXh0AAAAAAAAAAAAAF9fVEVYVAAAAAAAAAAAAABgAgAAAQAAAAQAAAAAAAAAYAIAAAIAAAAAAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAA="
+            },
+            {
+              "index": 2,
+              "offset": 256,
+              "cmd": "0x00000019",
+              "name": "LC_SEGMENT_64",
+              "cmdsize": 72,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GQAAAEgAAABfX0xJTktFRElUAAAAAAAAAEAAAAEAAAAAQAAAAAAAAHACAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAA"
+            },
+            {
+              "index": 3,
+              "offset": 328,
+              "cmd": "0x0000000e",
+              "name": "LC_LOAD_DYLINKER",
+              "cmdsize": 32,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DgAAACAAAAAMAAAAL3Vzci9saWIvZHlsZAAAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 12,
+                  "nul_terminated": true,
+                  "text": "/usr/lib/dyld",
+                  "b64": "L3Vzci9saWIvZHlsZA==",
+                  "utf8": true
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "offset": 360,
+              "cmd": "0x0000001b",
+              "name": "LC_UUID",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "GwAAABgAAABvQftteXJR3CkpMmln3EG9"
+            },
+            {
+              "index": 5,
+              "offset": 384,
+              "cmd": "0x00000032",
+              "name": "LC_BUILD_VERSION",
+              "cmdsize": 24,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "MgAAABgAAAABAAAAAAALAAAADgAAAAAA"
+            },
+            {
+              "index": 6,
+              "offset": 408,
+              "cmd": "0x0000000c",
+              "name": "LC_LOAD_DYLIB",
+              "cmdsize": 48,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DAAAADAAAAAYAAAAAgAAAAAAAQAAAAEAQHJwYXRoL2xpYmxsYW1hLmR5bGliAAAA",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "@rpath/libllama.dylib",
+                  "b64": "QHJwYXRoL2xpYmxsYW1hLmR5bGli",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            },
+            {
+              "index": 7,
+              "offset": 456,
+              "cmd": "0x0000000c",
+              "name": "LC_LOAD_DYLIB",
+              "cmdsize": 56,
+              "requires_dyld": false,
+              "known_to_macholib": true,
+              "raw_b64": "DAAAADgAAAAYAAAAAgAAAAAAAQAAAAEAL3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWIAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "name",
+                  "offset": 24,
+                  "nul_terminated": true,
+                  "text": "/usr/lib/libSystem.B.dylib",
+                  "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                  "utf8": true
+                }
+              ],
+              "dylib": {
+                "timestamp": 2,
+                "current_version": 65536,
+                "compatibility_version": 65536
+              }
+            },
+            {
+              "index": 8,
+              "offset": 512,
+              "cmd": "0x8000001c",
+              "name": "LC_RPATH",
+              "cmdsize": 40,
+              "requires_dyld": true,
+              "known_to_macholib": true,
+              "raw_b64": "HAAAgCgAAAAMAAAAL3RtcC9sbGFtYS1idWlsZC03ZjNhL2JpbgAAAA==",
+              "strings": [
+                {
+                  "field": "path",
+                  "offset": 12,
+                  "nul_terminated": true,
+                  "text": "/tmp/llama-build-7f3a/bin",
+                  "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2Jpbg==",
+                  "utf8": true
+                }
+              ]
+            },
+            {
+              "index": 9,
+              "offset": 552,
+              "cmd": "0x8000001c",
+              "name": "LC_RPATH",
+              "cmdsize": 32,
+              "requires_dyld": true,
+              "known_to_macholib": true,
+              "raw_b64": "HAAAgCAAAAAMAAAAQGxvYWRlcl9wYXRoAAAAAAAAAAA=",
+              "strings": [
+                {
+                  "field": "path",
+                  "offset": 12,
+                  "nul_terminated": true,
+                  "text": "@loader_path",
+                  "b64": "QGxvYWRlcl9wYXRo",
+                  "utf8": true
+                }
+              ]
+            },
+            {
+              "index": 10,
+              "offset": 584,
+              "cmd": "0x80000028",
+              "name": "LC_MAIN",
+              "cmdsize": 24,
+              "requires_dyld": true,
+              "known_to_macholib": true,
+              "raw_b64": "KAAAgBgAAABgAgAAAAAAAAAAAAAAAAAA"
+            }
+          ],
+          "macholib": {
+            "status": "agree"
+          },
+          "status": "complete",
+          "rpaths": [
+            {
+              "lc_index": 8,
+              "text": "/tmp/llama-build-7f3a/bin",
+              "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2Jpbg=="
+            },
+            {
+              "lc_index": 9,
+              "text": "@loader_path",
+              "b64": "QGxvYWRlcl9wYXRo"
+            }
+          ],
+          "dependencies": [
+            {
+              "lc_index": 6,
+              "text": "@rpath/libllama.dylib",
+              "b64": "QHJwYXRoL2xpYmxsYW1hLmR5bGli",
+              "kind": "load",
+              "command": "LC_LOAD_DYLIB"
+            },
+            {
+              "lc_index": 7,
+              "text": "/usr/lib/libSystem.B.dylib",
+              "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+              "kind": "load",
+              "command": "LC_LOAD_DYLIB"
+            }
+          ],
+          "id_dylib": null,
+          "dyld_environment": [],
+          "unknown_load_commands": [],
+          "index": 0,
+          "fat_arch": null
+        }
+      ],
+      "container": "thin",
+      "status": "complete"
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "text": "llama-cli",
+        "b64": "bGxhbWEtY2xp",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 6,
+      "kind": "load",
+      "command": "LC_LOAD_DYLIB",
+      "literal": {
+        "text": "@rpath/libllama.dylib",
+        "b64": "QHJwYXRoL2xpYmxsYW1hLmR5bGli",
+        "utf8": true
+      },
+      "candidates": [
+        {
+          "via": "own_rpath",
+          "rpath_lc_index": 8,
+          "rpath": {
+            "text": "/tmp/llama-build-7f3a/bin",
+            "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2Jpbg==",
+            "utf8": true
+          },
+          "class": "forbidden_build_root",
+          "literal": {
+            "text": "/tmp/llama-build-7f3a/bin/libllama.dylib",
+            "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2Jpbi9saWJsbGFtYS5keWxpYg==",
+            "utf8": true
+          }
+        },
+        {
+          "via": "own_rpath",
+          "rpath_lc_index": 9,
+          "rpath": {
+            "text": "@loader_path",
+            "b64": "QGxvYWRlcl9wYXRo",
+            "utf8": true
+          },
+          "class": "in_bundle",
+          "path": {
+            "text": "/libllama.dylib",
+            "b64": "L2xpYmxsYW1hLmR5bGli",
+            "utf8": true
+          },
+          "result": "ok",
+          "resolved": {
+            "text": "libllama.dylib",
+            "b64": "bGlibGxhbWEuZHlsaWI=",
+            "utf8": true
+          }
+        }
+      ],
+      "status": "in_bundle",
+      "target": {
+        "text": "libllama.dylib",
+        "b64": "bGlibGxhbWEuZHlsaWI=",
+        "utf8": true
+      }
+    },
+    {
+      "from": {
+        "text": "llama-cli",
+        "b64": "bGxhbWEtY2xp",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 7,
+      "kind": "load",
+      "command": "LC_LOAD_DYLIB",
+      "literal": {
+        "text": "/usr/lib/libSystem.B.dylib",
+        "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+        "utf8": true
+      },
+      "candidates": [
+        {
+          "via": "absolute",
+          "class": "system_policy",
+          "literal": {
+            "text": "/usr/lib/libSystem.B.dylib",
+            "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+            "utf8": true
+          }
+        }
+      ],
+      "status": "system_policy_allowed",
+      "target": null
+    },
+    {
+      "from": {
+        "text": "libllama.dylib",
+        "b64": "bGlibGxhbWEuZHlsaWI=",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 5,
+      "kind": "load",
+      "command": "LC_LOAD_DYLIB",
+      "literal": {
+        "text": "@rpath/libggml.dylib",
+        "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+        "utf8": true
+      },
+      "candidates": [
+        {
+          "via": "own_rpath",
+          "rpath_lc_index": 7,
+          "rpath": {
+            "text": "@loader_path",
+            "b64": "QGxvYWRlcl9wYXRo",
+            "utf8": true
+          },
+          "class": "in_bundle",
+          "path": {
+            "text": "/libggml.dylib",
+            "b64": "L2xpYmdnbWwuZHlsaWI=",
+            "utf8": true
+          },
+          "result": "ok",
+          "resolved": {
+            "text": "libggml.dylib",
+            "b64": "bGliZ2dtbC5keWxpYg==",
+            "utf8": true
+          }
+        }
+      ],
+      "status": "in_bundle",
+      "target": {
+        "text": "libggml.dylib",
+        "b64": "bGliZ2dtbC5keWxpYg==",
+        "utf8": true
+      }
+    },
+    {
+      "from": {
+        "text": "libllama.dylib",
+        "b64": "bGlibGxhbWEuZHlsaWI=",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 6,
+      "kind": "load",
+      "command": "LC_LOAD_DYLIB",
+      "literal": {
+        "text": "/tmp/llama-build-7f3a/ggml/src/libggml-base.dylib",
+        "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2dnbWwvc3JjL2xpYmdnbWwtYmFzZS5keWxpYg==",
+        "utf8": true
+      },
+      "candidates": [
+        {
+          "via": "absolute",
+          "class": "forbidden_build_root",
+          "literal": {
+            "text": "/tmp/llama-build-7f3a/ggml/src/libggml-base.dylib",
+            "b64": "L3RtcC9sbGFtYS1idWlsZC03ZjNhL2dnbWwvc3JjL2xpYmdnbWwtYmFzZS5keWxpYg==",
+            "utf8": true
+          }
+        }
+      ],
+      "status": "external",
+      "target": null
+    },
+    {
+      "from": {
+        "text": "libggml.dylib",
+        "b64": "bGliZ2dtbC5keWxpYg==",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 5,
+      "kind": "load",
+      "command": "LC_LOAD_DYLIB",
+      "literal": {
+        "text": "/usr/lib/libSystem.B.dylib",
+        "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+        "utf8": true
+      },
+      "candidates": [
+        {
+          "via": "absolute",
+          "class": "system_policy",
+          "literal": {
+            "text": "/usr/lib/libSystem.B.dylib",
+            "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+            "utf8": true
+          }
+        }
+      ],
+      "status": "system_policy_allowed",
+      "target": null
+    }
+  ],
+  "findings": [
+    {
+      "code": "FORBIDDEN_BUILD_ROOT",
+      "severity": "fail",
+      "path": {
+        "text": "libllama.dylib",
+        "b64": "bGlibGxhbWEuZHlsaWI=",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 6,
+      "detail": "/tmp/llama-build-7f3a/ggml/src/libggml-base.dylib"
+    },
+    {
+      "code": "FORBIDDEN_BUILD_ROOT",
+      "severity": "fail",
+      "path": {
+        "text": "llama-cli",
+        "b64": "bGxhbWEtY2xp",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 6,
+      "detail": "/tmp/llama-build-7f3a/bin/libllama.dylib"
+    },
+    {
+      "code": "RPATH_FORBIDDEN_BUILD_ROOT",
+      "severity": "fail",
+      "path": {
+        "text": "llama-cli",
+        "b64": "bGxhbWEtY2xp",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 8,
+      "detail": "/tmp/llama-build-7f3a/bin"
+    },
+    {
+      "code": "SYSTEM_POLICY_ALLOWED",
+      "severity": "info",
+      "path": {
+        "text": "libggml.dylib",
+        "b64": "bGliZ2dtbC5keWxpYg==",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 5,
+      "detail": "/usr/lib/libSystem.B.dylib"
+    },
+    {
+      "code": "SYSTEM_POLICY_ALLOWED",
+      "severity": "info",
+      "path": {
+        "text": "llama-cli",
+        "b64": "bGxhbWEtY2xp",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 7,
+      "detail": "/usr/lib/libSystem.B.dylib"
+    },
+    {
+      "code": "ID_DYLIB_FORBIDDEN_BUILD_ROOT",
+      "severity": "warning",
+      "path": {
+        "text": "libllama.dylib",
+        "b64": "bGlibGxhbWEuZHlsaWI=",
+        "utf8": true
+      },
+      "arch": "arm64",
+      "lc_index": 2,
+      "detail": "LC_ID_DYLIB: /tmp/llama-build-7f3a/src/libllama.dylib"
+    },
+    {
+      "code": "UNREACHABLE_MACHO",
+      "severity": "warning",
+      "path": {
+        "text": "libggml-base.dylib",
+        "b64": "bGliZ2dtbC1iYXNlLmR5bGli",
+        "utf8": true
+      },
+      "arch": null,
+      "lc_index": null,
+      "detail": "not reached from the given roots; pass --extra-root if it is dlopen()ed"
+    }
+  ],
+  "limit_hits": [],
+  "verdict": {
+    "status": "fail",
+    "fail_codes": [
+      "FORBIDDEN_BUILD_ROOT",
+      "RPATH_FORBIDDEN_BUILD_ROOT"
+    ],
+    "incomplete_codes": [],
+    "warning_codes": [
+      "ID_DYLIB_FORBIDDEN_BUILD_ROOT",
+      "UNREACHABLE_MACHO"
+    ],
+    "info_codes": [
+      "SYSTEM_POLICY_ALLOWED"
+    ],
+    "static_only": true,
+    "runtime_qualified": false,
+    "statement": "Static load command inspection only. It does not prove that dyld loads this bundle; run the separate relocated runtime test on macOS."
+  }
+}

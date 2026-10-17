@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m17-section-amplification.bin': truncated or malformed object (offset field of section 1 in LC_SEGMENT_64 command 0 not past the headers of the file)

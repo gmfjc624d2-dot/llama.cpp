@@ -1,0 +1,4 @@
+cwd: /tmp/claude-0/-home-user-llama-cpp/604f2550-ab21-5d1b-bd0c-0f97e8e0bc46/scratchpad/replay-extract-20261017T023936Z
+start_utc: 2026-10-17T02:41:50Z
+argv: llvm-objdump-18 --macho --arch=arm64 --private-headers parse/u05-fat-x86_64-cmdsize-zero-arm64-ok.bin
+end_utc: 2026-10-17T02:41:50Z

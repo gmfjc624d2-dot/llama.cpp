@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m18-fat-nfat-huge.bin': truncated or malformed fat file (fat_arch structs would extend past the end of the file)

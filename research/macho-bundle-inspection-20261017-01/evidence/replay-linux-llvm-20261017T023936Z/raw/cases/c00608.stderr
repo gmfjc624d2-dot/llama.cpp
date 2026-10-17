@@ -1,0 +1,1 @@
+llvm-otool-18: error: 'parse/m05-sizeofcmds-beyond-eof.bin': truncated or malformed object (load commands extend past the end of the file)

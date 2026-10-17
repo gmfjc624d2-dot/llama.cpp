@@ -1,0 +1,5 @@
+platform linux-llvm, arch arm64, bundles/b04-system-and-external/: fail; 3 relative dependency names not resolved here
+  fail: bundles/b04-system-and-external/app: LC_LOAD_DYLIB /usr/local/lib/libomp.dylib (absolute external)
+  fail: bundles/b04-system-and-external/app: LC_LOAD_DYLIB /opt/homebrew/opt/libomp/lib/libomp.dylib (absolute external)
+  unsupported: bundles/b04-system-and-external/app: LC_LOAD_DYLIB libbare.dylib (cwd-relative or unknown token)
+  unsupported: bundles/b04-system-and-external/app: LC_LOAD_DYLIB @foo/libtoken.dylib (cwd-relative or unknown token)

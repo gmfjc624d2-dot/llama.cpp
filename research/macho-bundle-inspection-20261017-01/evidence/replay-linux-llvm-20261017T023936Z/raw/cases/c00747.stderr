@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m21-fat-arch-mismatch.bin': truncated or malformed object (universal header architecture: 0's cputype does not match object file's mach header)

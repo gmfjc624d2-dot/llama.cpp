@@ -1,0 +1,5 @@
+bundles/dist/libllama.dylib:
+	@rpath/libllama.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libggml.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1.0.0)

@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b11-malformed-dep/: fail; 1 relative dependency names not resolved here
+  fail: bundles/b11-malformed-dep/libtrunc.dylib: rejected / rejected

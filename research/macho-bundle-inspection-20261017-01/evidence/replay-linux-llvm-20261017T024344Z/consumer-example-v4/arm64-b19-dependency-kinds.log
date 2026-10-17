@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b19-dependency-kinds/: unsupported; 5 relative dependency names not resolved here
+  unsupported: bundles/b19-dependency-kinds/main: LC_LAZY_LOAD_DYLIB @rpath/liblazy.dylib

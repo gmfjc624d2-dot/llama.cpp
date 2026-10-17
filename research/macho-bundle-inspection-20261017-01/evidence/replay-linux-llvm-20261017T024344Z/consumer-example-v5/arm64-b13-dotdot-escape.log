@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b13-dotdot-escape/: fail; 1 relative dependency names not resolved here
+  fail: bundles/b13-dotdot-escape/main: LC_LOAD_DYLIB @loader_path/../_outside/b13-dotdot-escape/libx.dylib (leaves the bundle lexically)

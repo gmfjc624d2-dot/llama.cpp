@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b15-duplicate-rpath/: unsupported; 1 relative dependency names not resolved here
+  unsupported: bundles/b15-duplicate-rpath/main: LC_RPATH @loader_path (duplicate LC_RPATH)

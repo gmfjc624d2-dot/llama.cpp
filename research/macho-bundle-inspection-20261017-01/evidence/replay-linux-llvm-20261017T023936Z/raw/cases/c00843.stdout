@@ -1,0 +1,3 @@
+parse/t07-undecodable-path.bin:
+	@rpath/libu.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libÿþggml.dylib (compatibility version 1.0.0, current version 1.0.0)

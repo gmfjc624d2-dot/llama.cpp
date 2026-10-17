@@ -1,0 +1,1 @@
+llvm-lipo: error: 'bundles/b11-malformed-dep/libtrunc.dylib': truncated or malformed object (load commands extend past the end of the file)

@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b21-loader-path-symlink-dir/: static parse ok

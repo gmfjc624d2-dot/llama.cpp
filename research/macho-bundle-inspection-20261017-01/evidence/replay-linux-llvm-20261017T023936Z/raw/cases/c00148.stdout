@@ -1,0 +1,4 @@
+bundles/b02-nested-inherited-rpath/lib/libllama.dylib:
+	@rpath/libllama.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libggml.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@loader_path/sub/libnested.dylib (compatibility version 1.0.0, current version 1.0.0)

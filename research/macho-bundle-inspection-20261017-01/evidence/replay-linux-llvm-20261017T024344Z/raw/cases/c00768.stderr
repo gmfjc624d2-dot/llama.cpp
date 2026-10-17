@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m15-lcstr-offset-into-header.bin': truncated or malformed object (load command 6 LC_RPATH path.offset field too small, not past the end of the rpath_command struct)

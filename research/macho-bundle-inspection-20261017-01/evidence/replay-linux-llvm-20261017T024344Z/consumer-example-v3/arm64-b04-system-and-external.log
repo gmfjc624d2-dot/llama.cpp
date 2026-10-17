@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b04-system-and-external/: static parse ok

@@ -1,0 +1,10 @@
+Fat headers
+fat_magic 0xcafebabe
+nfat_arch 1
+architecture 0
+    cputype 16777228
+    cpusubtype 0
+    capabilities 0x0
+    offset 16384
+    size 432
+    align 2^14 (16384)

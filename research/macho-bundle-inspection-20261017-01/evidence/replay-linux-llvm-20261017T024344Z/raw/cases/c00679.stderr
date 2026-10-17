@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m06-ncmds-huge.bin': truncated or malformed object (load command 9 extends past the end all load commands in the file)

@@ -1,0 +1,3 @@
+parse/u01-fat-x86_64-broken-arm64-ok.bin:
+	@rpath/libu.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1.0.0)

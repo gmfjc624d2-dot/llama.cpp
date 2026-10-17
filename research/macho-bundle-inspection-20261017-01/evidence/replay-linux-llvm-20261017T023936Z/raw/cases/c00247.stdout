@@ -1,0 +1,7 @@
+bundles/b06-symlinks/bin/tool:
+	@rpath/libinternal.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libbroken.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libescape.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libabs.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libloop.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/ext/libescape.dylib (compatibility version 1.0.0, current version 1.0.0)

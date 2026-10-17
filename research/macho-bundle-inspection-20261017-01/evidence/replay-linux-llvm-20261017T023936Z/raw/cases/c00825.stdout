@@ -1,0 +1,3 @@
+parse/t05-build-rpath-exe.bin:
+	@rpath/libllama.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/tmp/llama-build-7f3a/ggml/src/libggml.dylib (compatibility version 1.0.0, current version 1.0.0)

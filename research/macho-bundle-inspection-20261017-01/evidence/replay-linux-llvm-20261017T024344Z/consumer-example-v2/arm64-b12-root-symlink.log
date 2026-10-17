@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b12-root-symlink/: static parse ok

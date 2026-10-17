@@ -1,0 +1,3 @@
+parse/t01-thin-arm64-exe.bin:
+	@rpath/libllama.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1.0.0)

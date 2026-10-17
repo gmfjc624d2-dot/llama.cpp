@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m07-cmdsize-zero.bin': truncated or malformed object (load command 6 with size less than 8 bytes)

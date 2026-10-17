@@ -1,0 +1,1 @@
+llvm-lipo: error: 'parse/m10-lcstr-offset-beyond-cmd.bin': truncated or malformed object (load command 6 LC_RPATH path.offset field extends past the end of the load command)

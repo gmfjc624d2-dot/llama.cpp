@@ -1,0 +1,2 @@
+bundles/b11-malformed-dep/main:
+	@loader_path/libtrunc.dylib (compatibility version 1.0.0, current version 1.0.0)

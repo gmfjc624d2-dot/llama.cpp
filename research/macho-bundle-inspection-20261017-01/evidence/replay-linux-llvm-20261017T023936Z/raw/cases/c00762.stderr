@@ -1,0 +1,1 @@
+llvm-otool-18: error: 'parse/m22-fat-duplicate-arch.bin': truncated or malformed fat file (contains two of the same architecture (cputype (16777228) cpusubtype (0)))

@@ -1,0 +1,66 @@
+c00001	identity uname
+c00002	identity otool --version
+c00003	identity lipo --version
+c00004	identity file --version
+c00005	identity sha256
+c00006	readlink bundles/dist/libggml.dylib
+c00007	file bundles/dist/README.txt
+c00008	magic bundles/dist/README.txt
+c00009	lipo-info bundles/dist/README.txt
+c00010	lipo-archs bundles/dist/README.txt
+c00011	otool-fatheaders bundles/dist/README.txt
+c00012	otool-loadcommands all bundles/dist/README.txt
+c00013	otool-loadcommands arm64 bundles/dist/README.txt
+c00014	otool-dependencies arm64 bundles/dist/README.txt
+c00015	otool-loadcommands x86_64 bundles/dist/README.txt
+c00016	otool-dependencies x86_64 bundles/dist/README.txt
+c00017	file bundles/dist/libggml-base.dylib
+c00018	magic bundles/dist/libggml-base.dylib
+c00019	lipo-info bundles/dist/libggml-base.dylib
+c00020	lipo-archs bundles/dist/libggml-base.dylib
+c00021	otool-fatheaders bundles/dist/libggml-base.dylib
+c00022	otool-loadcommands all bundles/dist/libggml-base.dylib
+c00023	otool-loadcommands arm64 bundles/dist/libggml-base.dylib
+c00024	otool-dependencies arm64 bundles/dist/libggml-base.dylib
+c00025	otool-loadcommands x86_64 bundles/dist/libggml-base.dylib
+c00026	otool-dependencies x86_64 bundles/dist/libggml-base.dylib
+c00027	file bundles/dist/libggml-cpu.dylib
+c00028	magic bundles/dist/libggml-cpu.dylib
+c00029	lipo-info bundles/dist/libggml-cpu.dylib
+c00030	lipo-archs bundles/dist/libggml-cpu.dylib
+c00031	otool-fatheaders bundles/dist/libggml-cpu.dylib
+c00032	otool-loadcommands all bundles/dist/libggml-cpu.dylib
+c00033	otool-loadcommands arm64 bundles/dist/libggml-cpu.dylib
+c00034	otool-dependencies arm64 bundles/dist/libggml-cpu.dylib
+c00035	otool-loadcommands x86_64 bundles/dist/libggml-cpu.dylib
+c00036	otool-dependencies x86_64 bundles/dist/libggml-cpu.dylib
+c00037	file bundles/dist/libggml.0.dylib
+c00038	magic bundles/dist/libggml.0.dylib
+c00039	lipo-info bundles/dist/libggml.0.dylib
+c00040	lipo-archs bundles/dist/libggml.0.dylib
+c00041	otool-fatheaders bundles/dist/libggml.0.dylib
+c00042	otool-loadcommands all bundles/dist/libggml.0.dylib
+c00043	otool-loadcommands arm64 bundles/dist/libggml.0.dylib
+c00044	otool-dependencies arm64 bundles/dist/libggml.0.dylib
+c00045	otool-loadcommands x86_64 bundles/dist/libggml.0.dylib
+c00046	otool-dependencies x86_64 bundles/dist/libggml.0.dylib
+c00047	file bundles/dist/libllama.dylib
+c00048	magic bundles/dist/libllama.dylib
+c00049	lipo-info bundles/dist/libllama.dylib
+c00050	lipo-archs bundles/dist/libllama.dylib
+c00051	otool-fatheaders bundles/dist/libllama.dylib
+c00052	otool-loadcommands all bundles/dist/libllama.dylib
+c00053	otool-loadcommands arm64 bundles/dist/libllama.dylib
+c00054	otool-dependencies arm64 bundles/dist/libllama.dylib
+c00055	otool-loadcommands x86_64 bundles/dist/libllama.dylib
+c00056	otool-dependencies x86_64 bundles/dist/libllama.dylib
+c00057	file bundles/dist/llama-cli
+c00058	magic bundles/dist/llama-cli
+c00059	lipo-info bundles/dist/llama-cli
+c00060	lipo-archs bundles/dist/llama-cli
+c00061	otool-fatheaders bundles/dist/llama-cli
+c00062	otool-loadcommands all bundles/dist/llama-cli
+c00063	otool-loadcommands arm64 bundles/dist/llama-cli
+c00064	otool-dependencies arm64 bundles/dist/llama-cli
+c00065	otool-loadcommands x86_64 bundles/dist/llama-cli
+c00066	otool-dependencies x86_64 bundles/dist/llama-cli

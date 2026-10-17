@@ -1,0 +1,2 @@
+bundles/_outside/b06-symlinks/libescape.dylib:
+	@rpath/libescape.dylib (compatibility version 1.0.0, current version 1.0.0)

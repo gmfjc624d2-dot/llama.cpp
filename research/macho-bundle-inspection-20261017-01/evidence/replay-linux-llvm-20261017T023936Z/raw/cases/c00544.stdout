@@ -1,0 +1,2 @@
+bundles/b21-loader-path-symlink-dir/main:
+	@rpath/libfoo.dylib (compatibility version 1.0.0, current version 1.0.0)

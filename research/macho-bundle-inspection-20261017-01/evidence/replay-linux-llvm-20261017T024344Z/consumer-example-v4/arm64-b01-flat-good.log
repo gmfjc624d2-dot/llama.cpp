@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b01-flat-good/: no static defect found; 5 relative dependency names not resolved here

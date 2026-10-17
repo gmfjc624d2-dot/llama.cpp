@@ -1,5 +1,10 @@
 # Baseline findings: stock macholib 1.16.4 on synthetic Mach-O fixtures
 
+> Later scope decision (see README.md): item 4 below ("candidate for the next step") was stopped. The
+> validator draft is frozen as unqualified, and the macOS path is native otool via the replay wrapper.
+> Log names `L__*` / `l__*` mentioned implicitly below were renamed to `dependencies__*` /
+> `loadcommands__*` in checkpoint 2 (map: `evidence/path-renames-1.json`).
+
 Request: public-macho-inspection-20261017-01. Checkpoint 1, written before any
 inspector code is committed. Linux x86_64 only. Nothing here is macOS
 qualification or runtime evidence: fixtures are synthetic parse fixtures that

@@ -1,0 +1,1 @@
+platform linux-llvm, arch arm64, bundles/b20-dependency-kinds-no-lazy/: static parse ok

@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b11-malformed-dep/: NOT passing
+  bundles/b11-malformed-dep/libtrunc.dylib: rejected / rejected

@@ -1,0 +1,4 @@
+platform linux-llvm, arch arm64, bundles/b03-build-rpath/: fail; 2 relative dependency names not resolved here
+  fail: bundles/b03-build-rpath/libllama.dylib: LC_ID_DYLIB /tmp/llama-build-7f3a/src/libllama.dylib (forbidden root)
+  fail: bundles/b03-build-rpath/libllama.dylib: LC_LOAD_DYLIB /tmp/llama-build-7f3a/ggml/src/libggml-base.dylib (forbidden root)
+  fail: bundles/b03-build-rpath/llama-cli: LC_RPATH /tmp/llama-build-7f3a/bin (forbidden root)

@@ -1,0 +1,2 @@
+parse/t08-duplicate-rpath.bin:
+	@rpath/libllama.dylib (compatibility version 1.0.0, current version 1.0.0)

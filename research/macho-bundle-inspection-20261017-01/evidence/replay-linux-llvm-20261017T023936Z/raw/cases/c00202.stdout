@@ -1,0 +1,10 @@
+bundles/b04-system-and-external/app:
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate (compatibility version 1.0.0, current version 1.0.0)
+	/usr/local/lib/libomp.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/opt/homebrew/opt/libomp/lib/libomp.dylib (compatibility version 1.0.0, current version 1.0.0)
+	libbare.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@foo/libtoken.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@executable_path/lib/libok.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libmissing.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libweakmissing.dylib (compatibility version 1.0.0, current version 1.0.0, weak)

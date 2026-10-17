@@ -1,0 +1,2 @@
+bundles/_outside/b13-dotdot-escape/libx.dylib:
+	@rpath/libx.dylib (compatibility version 1.0.0, current version 1.0.0)

@@ -1,0 +1,3 @@
+platform linux-llvm, arch arm64, bundles/b07-missing-arch/: fail; 2 relative dependency names not resolved here
+  fail: bundles/b07-missing-arch/libfat.dylib: arch_selection_unreliable / arch_unverified
+  fail: bundles/b07-missing-arch/libx86only.dylib: arch_absent / arch_absent

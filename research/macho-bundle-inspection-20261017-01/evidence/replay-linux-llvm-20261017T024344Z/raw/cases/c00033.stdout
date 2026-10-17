@@ -1,0 +1,2 @@
+bundles/_decoy-dyld/libllama.dylib:
+	@rpath/libllama.dylib (compatibility version 1.0.0, current version 1.0.0)

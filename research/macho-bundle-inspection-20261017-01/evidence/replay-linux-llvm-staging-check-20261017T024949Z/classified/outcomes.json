@@ -1,0 +1,539 @@
+{
+  "files": [
+    {
+      "file": "bundles/dist/README.txt",
+      "lipo_archs": null,
+      "lipo_rc": "1",
+      "magic": "6e6f7420",
+      "per_arch": {
+        "all": {
+          "loadcommands": "not_object",
+          "loadcommands_case": "c00012"
+        },
+        "arm64": {
+          "dependencies": "not_object",
+          "dependencies_case": "c00014",
+          "loadcommands": "not_object",
+          "loadcommands_case": "c00013",
+          "passing_parse": false
+        },
+        "x86_64": {
+          "dependencies": "not_object",
+          "dependencies_case": "c00016",
+          "loadcommands": "not_object",
+          "loadcommands_case": "c00015",
+          "passing_parse": false
+        }
+      }
+    },
+    {
+      "file": "bundles/dist/libggml-base.dylib",
+      "lipo_archs": [
+        "arm64"
+      ],
+      "lipo_rc": "0",
+      "magic": "cffaedfe",
+      "per_arch": {
+        "all": {
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00022",
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                "text": "@rpath/libggml-base.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            }
+          ]
+        },
+        "arm64": {
+          "dependencies": "parsed_by_tool",
+          "dependencies_case": "c00024",
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00023",
+          "passing_parse": true,
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                "text": "@rpath/libggml-base.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            }
+          ]
+        },
+        "x86_64": {
+          "dependencies": "arch_absent",
+          "dependencies_case": "c00026",
+          "dependencies_detail": "lipo -archs: arm64",
+          "loadcommands": "arch_absent",
+          "loadcommands_case": "c00025",
+          "loadcommands_detail": "tool printed arm64",
+          "passing_parse": false
+        }
+      }
+    },
+    {
+      "file": "bundles/dist/libggml-cpu.dylib",
+      "lipo_archs": [
+        "arm64"
+      ],
+      "lipo_rc": "0",
+      "magic": "cffaedfe",
+      "per_arch": {
+        "all": {
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00032",
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtY3B1LmR5bGli",
+                "text": "@rpath/libggml-cpu.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                "text": "@rpath/libggml-base.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "arm64": {
+          "dependencies": "parsed_by_tool",
+          "dependencies_case": "c00034",
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00033",
+          "passing_parse": true,
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtY3B1LmR5bGli",
+                "text": "@rpath/libggml-cpu.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                "text": "@rpath/libggml-base.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "x86_64": {
+          "dependencies": "arch_absent",
+          "dependencies_case": "c00036",
+          "dependencies_detail": "lipo -archs: arm64",
+          "loadcommands": "arch_absent",
+          "loadcommands_case": "c00035",
+          "loadcommands_detail": "tool printed arm64",
+          "passing_parse": false
+        }
+      }
+    },
+    {
+      "file": "bundles/dist/libggml.0.dylib",
+      "lipo_archs": [
+        "arm64"
+      ],
+      "lipo_rc": "0",
+      "magic": "cffaedfe",
+      "per_arch": {
+        "all": {
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00042",
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+                "text": "@rpath/libggml.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                "text": "@rpath/libggml-base.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRoL2xpYmdnbWwtY3B1LmR5bGli",
+                "text": "@loader_path/libggml-cpu.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "arm64": {
+          "dependencies": "parsed_by_tool",
+          "dependencies_case": "c00044",
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00043",
+          "passing_parse": true,
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+                "text": "@rpath/libggml.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwtYmFzZS5keWxpYg==",
+                "text": "@rpath/libggml-base.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRoL2xpYmdnbWwtY3B1LmR5bGli",
+                "text": "@loader_path/libggml-cpu.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "x86_64": {
+          "dependencies": "arch_absent",
+          "dependencies_case": "c00046",
+          "dependencies_detail": "lipo -archs: arm64",
+          "loadcommands": "arch_absent",
+          "loadcommands_case": "c00045",
+          "loadcommands_detail": "tool printed arm64",
+          "passing_parse": false
+        }
+      }
+    },
+    {
+      "file": "bundles/dist/libllama.dylib",
+      "lipo_archs": [
+        "arm64"
+      ],
+      "lipo_rc": "0",
+      "magic": "cffaedfe",
+      "per_arch": {
+        "all": {
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00052",
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmxsYW1hLmR5bGli",
+                "text": "@rpath/libllama.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+                "text": "@rpath/libggml.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliYysrLjEuZHlsaWI=",
+                "text": "/usr/lib/libc++.1.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "arm64": {
+          "dependencies": "parsed_by_tool",
+          "dependencies_case": "c00054",
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00053",
+          "passing_parse": true,
+          "strings": [
+            {
+              "cmd": "LC_ID_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmxsYW1hLmR5bGli",
+                "text": "@rpath/libllama.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmdnbWwuZHlsaWI=",
+                "text": "@rpath/libggml.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliYysrLjEuZHlsaWI=",
+                "text": "/usr/lib/libc++.1.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "x86_64": {
+          "dependencies": "arch_absent",
+          "dependencies_case": "c00056",
+          "dependencies_detail": "lipo -archs: arm64",
+          "loadcommands": "arch_absent",
+          "loadcommands_case": "c00055",
+          "loadcommands_detail": "tool printed arm64",
+          "passing_parse": false
+        }
+      }
+    },
+    {
+      "file": "bundles/dist/llama-cli",
+      "lipo_archs": [
+        "arm64"
+      ],
+      "lipo_rc": "0",
+      "magic": "cffaedfe",
+      "per_arch": {
+        "all": {
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00062",
+          "strings": [
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmxsYW1hLmR5bGli",
+                "text": "@rpath/libllama.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L1N5c3RlbS9MaWJyYXJ5L0ZyYW1ld29ya3MvTWV0YWwuZnJhbWV3b3JrL1ZlcnNpb25zL0EvTWV0YWw=",
+                "text": "/System/Library/Frameworks/Metal.framework/Versions/A/Metal"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_WEAK_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliYysrLjEuZHlsaWI=",
+                "text": "/usr/lib/libc++.1.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "arm64": {
+          "dependencies": "parsed_by_tool",
+          "dependencies_case": "c00064",
+          "headers": [
+            "arm64"
+          ],
+          "loadcommands": "parsed_by_tool",
+          "loadcommands_case": "c00063",
+          "passing_parse": true,
+          "strings": [
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "QHJwYXRoL2xpYmxsYW1hLmR5bGli",
+                "text": "@rpath/libllama.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliU3lzdGVtLkIuZHlsaWI=",
+                "text": "/usr/lib/libSystem.B.dylib"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_DYLIB",
+              "value": {
+                "b64": "L1N5c3RlbS9MaWJyYXJ5L0ZyYW1ld29ya3MvTWV0YWwuZnJhbWV3b3JrL1ZlcnNpb25zL0EvTWV0YWw=",
+                "text": "/System/Library/Frameworks/Metal.framework/Versions/A/Metal"
+              }
+            },
+            {
+              "cmd": "LC_LOAD_WEAK_DYLIB",
+              "value": {
+                "b64": "L3Vzci9saWIvbGliYysrLjEuZHlsaWI=",
+                "text": "/usr/lib/libc++.1.dylib"
+              }
+            },
+            {
+              "cmd": "LC_RPATH",
+              "value": {
+                "b64": "QGxvYWRlcl9wYXRo",
+                "text": "@loader_path"
+              }
+            }
+          ]
+        },
+        "x86_64": {
+          "dependencies": "arch_absent",
+          "dependencies_case": "c00066",
+          "dependencies_detail": "lipo -archs: arm64",
+          "loadcommands": "arch_absent",
+          "loadcommands_case": "c00065",
+          "loadcommands_detail": "tool printed arm64",
+          "passing_parse": false
+        }
+      }
+    }
+  ],
+  "note": "tool parse outcomes only; not loader validity; not runtime evidence",
+  "platform": "linux-llvm",
+  "run": {
+    "archs": "arm64 x86_64",
+    "cases": "66",
+    "end_utc": "2026-10-17T02:49:56Z",
+    "file": "file",
+    "limits_in_child": "cpu=20 vmem=1048576",
+    "lipo": "llvm-lipo-18",
+    "max_bytes": "536870912",
+    "mem_kib": "1048576",
+    "otool": "llvm-otool-18",
+    "platform": "linux-llvm",
+    "start_utc": "2026-10-17T02:49:49Z",
+    "timeout_s": "20"
+  },
+  "symlinks": [
+    {
+      "link": {
+        "b64": "YnVuZGxlcy9kaXN0L2xpYmdnbWwuZHlsaWI=",
+        "text": "bundles/dist/libggml.dylib"
+      },
+      "rc": "0",
+      "target": {
+        "b64": "bGliZ2dtbC4wLmR5bGli",
+        "text": "libggml.0.dylib"
+      }
+    }
+  ]
+}

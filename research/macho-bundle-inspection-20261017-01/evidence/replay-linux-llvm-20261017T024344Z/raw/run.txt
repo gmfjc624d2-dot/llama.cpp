@@ -1,0 +1,12 @@
+platform: linux-llvm
+start_utc: 2026-10-17T02:43:44Z
+timeout_s: 20
+max_bytes: 1048576
+mem_kib: 1048576
+archs: arm64 x86_64
+otool: llvm-otool-18
+lipo: llvm-lipo-18
+file: file
+limits_in_child: cpu=20 vmem=1048576
+end_utc: 2026-10-17T02:45:30Z
+cases: 1005

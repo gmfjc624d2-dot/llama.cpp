@@ -1,0 +1,5 @@
+bundles/b20-dependency-kinds-no-lazy/main:
+	@rpath/libload.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libweak.dylib (compatibility version 1.0.0, current version 1.0.0, weak)
+	@rpath/libreexport.dylib (compatibility version 1.0.0, current version 1.0.0, reexport)
+	@rpath/libupward.dylib (compatibility version 1.0.0, current version 1.0.0, upward)

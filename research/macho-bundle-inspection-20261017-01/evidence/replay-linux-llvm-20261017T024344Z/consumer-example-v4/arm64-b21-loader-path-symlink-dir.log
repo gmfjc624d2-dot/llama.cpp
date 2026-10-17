@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b21-loader-path-symlink-dir/: unsupported; 2 relative dependency names not resolved here
+  unsupported: bundles/b21-loader-path-symlink-dir/lib -> versions/A/lib: broken or directory symlink not modelled

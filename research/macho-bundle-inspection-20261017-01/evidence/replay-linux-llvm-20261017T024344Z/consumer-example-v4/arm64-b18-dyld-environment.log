@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b18-dyld-environment/: unsupported; 0 relative dependency names not resolved here
+  unsupported: bundles/b18-dyld-environment/main: LC_DYLD_ENVIRONMENT DYLD_LIBRARY_PATH=@executable_path/lib

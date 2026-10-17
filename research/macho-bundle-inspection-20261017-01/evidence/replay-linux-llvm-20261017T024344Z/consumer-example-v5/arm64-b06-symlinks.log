@@ -1,0 +1,7 @@
+platform linux-llvm, arch arm64, bundles/b06-symlinks/: fail; 6 relative dependency names not resolved here
+  fail: bundles/b06-symlinks/lib/ext -> ../../_outside/b06-symlinks: symlink leaves the bundle
+  fail: bundles/b06-symlinks/lib/libabs.dylib -> /usr/lib/libSystem.B.dylib: symlink leaves the bundle
+  fail: bundles/b06-symlinks/lib/libescape.dylib -> ../../_outside/b06-symlinks/libescape.dylib: symlink leaves the bundle
+  unsupported: bundles/b06-symlinks/lib/libbroken.dylib -> real/libnothere.dylib: broken or directory symlink not modelled
+  unsupported: bundles/b06-symlinks/lib/libloop.dylib -> libloop2.dylib: chained symlink not modelled
+  unsupported: bundles/b06-symlinks/lib/libloop2.dylib -> libloop.dylib: chained symlink not modelled

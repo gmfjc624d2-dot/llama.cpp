@@ -1,0 +1,2 @@
+platform linux-llvm, arch arm64, bundles/b10-unknown-lc-dep/: fail; 1 relative dependency names not resolved here
+  fail: bundles/b10-unknown-lc-dep/libunk.dylib: unknown_load_command / parsed_by_tool

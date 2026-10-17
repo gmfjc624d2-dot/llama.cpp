@@ -1,0 +1,3 @@
+platform linux-llvm, arch arm64, bundles/b08-universal-broken-slice/: NOT passing
+  bundles/b08-universal-broken-slice/libu.dylib: arch_selection_unreliable / arch_unverified
+  bundles/b08-universal-broken-slice/main: arch_selection_unreliable / arch_unverified

@@ -1,0 +1,2 @@
+bundles/b02-nested-inherited-rpath/PlugIns/libggml-metal.so:
+	@rpath/libggml.dylib (compatibility version 1.0.0, current version 1.0.0)

@@ -1,0 +1,3 @@
+platform linux-llvm, arch arm64, bundles/b08-universal-broken-slice/: fail; 0 relative dependency names not resolved here
+  fail: bundles/b08-universal-broken-slice/libu.dylib: arch_selection_unreliable / arch_unverified
+  fail: bundles/b08-universal-broken-slice/main: arch_selection_unreliable / arch_unverified

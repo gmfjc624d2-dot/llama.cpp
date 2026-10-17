@@ -1,0 +1,2 @@
+bundles/b05-cycle/main:
+	@rpath/libA.dylib (compatibility version 1.0.0, current version 1.0.0)

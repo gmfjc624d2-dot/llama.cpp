@@ -1,0 +1,2 @@
+bundles/_decoy-dyld/libggml.dylib:
+	@rpath/libggml.dylib (compatibility version 1.0.0, current version 1.0.0)
