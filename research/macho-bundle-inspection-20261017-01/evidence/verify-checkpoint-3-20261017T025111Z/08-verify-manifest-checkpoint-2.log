@@ -1,0 +1,31 @@
+{
+  "manifest": "research/macho-bundle-inspection-20261017-01/evidence/checkpoint-2/MANIFEST.json",
+  "entries": 913,
+  "by_extension": {
+    "(none)": 2,
+    ".4": 1,
+    ".5": 1,
+    ".bin": 37,
+    ".cmd": 283,
+    ".exit": 283,
+    ".json": 5,
+    ".jsonl": 1,
+    ".log": 283,
+    ".md": 2,
+    ".py": 9,
+    ".sh": 2,
+    ".tar": 1,
+    ".txt": 1,
+    ".whl": 2
+  },
+  "problems": [
+    [
+      "sha256 differs",
+      "research/macho-bundle-inspection-20261017-01/FINDINGS-baseline.md"
+    ],
+    [
+      "sha256 differs",
+      "research/macho-bundle-inspection-20261017-01/tool/gen_fixtures.py"
+    ]
+  ]
+}

@@ -1,0 +1,4 @@
+ea6f4a7031366b4a983bb34e65c9048bfa7f9fb4 research : native otool replay recipe and existing-tools analysis
+6a67e59f0e6b1729f832a2b179da7a057769a878 research : rename case-colliding otool log names
+d684bb18a0bdb49d40f9e628f151f8ecc05149b7 research : macholib baseline checkpoint for Mach-O bundle inspection
+420f01a4f0b6514d1880e9d347157ebed25d2edb completion : keep a failed report file instead of removing it by name

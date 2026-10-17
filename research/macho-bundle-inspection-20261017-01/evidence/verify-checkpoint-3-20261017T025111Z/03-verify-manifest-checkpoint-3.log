@@ -1,0 +1,29 @@
+{
+  "manifest": "research/macho-bundle-inspection-20261017-01/evidence/checkpoint-3/MANIFEST.json",
+  "entries": 9297,
+  "by_extension": {
+    "(none)": 3,
+    ".4": 1,
+    ".5": 1,
+    ".bin": 37,
+    ".cmd": 2397,
+    ".exit": 420,
+    ".files": 3,
+    ".json": 36,
+    ".jsonl": 1,
+    ".log": 420,
+    ".md": 12,
+    ".py": 13,
+    ".rc": 1977,
+    ".sh": 4,
+    ".sha256": 4,
+    ".stderr": 1977,
+    ".stdout": 1977,
+    ".symlinks": 3,
+    ".tar": 2,
+    ".tsv": 3,
+    ".txt": 4,
+    ".whl": 2
+  },
+  "problems": []
+}
