@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Classify a replay_otool.sh run conservatively; raw files are not changed.
 
-usage: python -I classify_replay.py RUN_DIR OUT_DIR
+usage: python -I classify_replay.py RUN_DIR OUT_DIR [MAX_CASE_BYTES]
 Writes OUT_DIR/outcomes.json and OUT_DIR/outcomes.md (OUT_DIR must be new).
 An outcome is about what the tool printed. "parsed_by_tool" does not mean dyld
 would load the file, and anything else is not passing.
+Every file is read with a cap. A case file over MAX_CASE_BYTES (default 8 MiB), or a
+replay_bounded.py case whose capture.json is not complete, is not passing.
 """
 
 import base64
@@ -23,17 +25,61 @@ def b(v):
     return {"text": v.decode("utf-8", "backslashreplace"), "b64": base64.b64encode(v).decode()}
 
 
-def load(run):
+META_CAP = 16 << 20
+
+
+def read_capped(path, cap):
+    """(at most cap bytes, True if that was the whole file)."""
+    with open(path, "rb") as fp:
+        data = fp.read(cap + 1)
+    return data[:cap], len(data) <= cap
+
+
+def read_meta(path):
+    data, whole = read_capped(path, META_CAP)
+    if not whole:
+        raise SystemExit("classify_replay: %s is larger than %d bytes" % (path, META_CAP))
+    return data
+
+
+def capture_problem(cap):
+    """None if a replay_bounded.py capture record says the case is complete."""
+    sm = cap.get("summary", {})
+    if sm.get("capture_complete"):
+        return None
+    if cap.get("process", {}).get("timed_out"):
+        return "timeout"
+    if not sm.get("streams_complete", False):
+        return "capture_incomplete"
+    if not sm.get("cleanup_certain", False):
+        return "cleanup_uncertain"
+    return "process_incomplete"
+
+
+def load(run, cap=8 << 20):
     cases = {}
-    for line in open(os.path.join(run, "index.tsv"), "rb"):
-        cid, label = line.rstrip(b"\n").split(b"\t", 1)
+    for line in read_meta(os.path.join(run, "index.tsv")).split(b"\n"):
+        if not line:
+            continue
+        cid, label = line.split(b"\t", 1)
         base = os.path.join(run, "cases", cid.decode())
-        c = {"id": cid.decode(), "label": label.decode("utf-8", "backslashreplace"), "rc": open(base + ".rc").read().strip()}
+        c = {"id": cid.decode(), "label": label.decode("utf-8", "backslashreplace"), "rc": read_capped(base + ".rc", 64)[0].decode().strip()}
         for k in ("stdout", "stderr"):
             p = base + "." + k
-            c[k] = open(p, "rb").read() if os.path.exists(p) else b""
+            c[k], whole = read_capped(p, cap) if os.path.exists(p) else (b"", True)
+            if not whole:
+                c["capture_problem"] = "classifier_read_truncated"
+        if os.path.exists(base + ".capture.json") and "capture_problem" not in c:
+            c["capture"] = json.loads(read_meta(base + ".capture.json"))
+            prob = capture_problem(c["capture"])
+            if prob:
+                c["capture_problem"] = prob
         cases[c["label"]] = c
     return cases
+
+
+def usable(c):
+    return c is not None and c["rc"] == "0" and "capture_problem" not in c
 
 
 def headers(out):
@@ -73,6 +119,8 @@ def outcome(c, want_arch, lipo_archs):
         return "timeout", None
     if c["rc"] == "skipped_size":
         return "skipped_size", None
+    if "capture_problem" in c:
+        return c["capture_problem"], None
     text = c["stdout"] + c["stderr"]
     if b"is not an object file" in text or b"not recognized as a valid object file" in text:
         return "not_object", None
@@ -100,18 +148,23 @@ def outcome(c, want_arch, lipo_archs):
 
 def main():
     run, out = sys.argv[1], sys.argv[2]
+    cap = int(sys.argv[3]) if len(sys.argv) > 3 else 8 << 20
     os.makedirs(out)
-    meta = dict(l.split(": ", 1) for l in open(os.path.join(run, "run.txt")).read().splitlines() if ": " in l)
-    cases = load(run)
-    files = [l.rstrip("\n") for l in open(os.path.join(run, "inputs.files"))]
+    meta = dict(l.split(": ", 1) for l in read_meta(os.path.join(run, "run.txt")).decode().splitlines() if ": " in l)
+    cases = load(run, cap)
+    files = [l for l in read_meta(os.path.join(run, "inputs.files")).decode().split("\n") if l]
+    ipath = os.path.join(run, "inputs.json")
+    inputs = {r["path"]: r for r in json.loads(read_meta(ipath))} if os.path.exists(ipath) else {}
     archs = meta.get("archs", "arm64 x86_64").split()
     rows = []
     for f in files:
         lc = cases.get("lipo-archs " + f)
-        lipo = lc["stdout"].decode().split() if lc and lc["rc"] == "0" else None
+        lipo = lc["stdout"].decode().split() if usable(lc) else None
         mc = cases.get("magic " + f)
-        magic = mc["stdout"].decode().replace(" ", "").strip() if mc and mc["rc"] == "0" else None
+        magic = mc["stdout"].decode().replace(" ", "").strip() if usable(mc) else None
         row = {"file": f, "magic": magic, "lipo_archs": lipo, "lipo_rc": lc["rc"] if lc else None, "per_arch": {}}
+        if f in inputs:
+            row["input_status"] = inputs[f]["status"]
         if "file " + f in cases and cases["file " + f]["rc"] == "skipped_size":
             row["skipped"] = "size"
         for a in archs + ["all"]:
@@ -156,12 +209,23 @@ def main():
             if al["loadcommands"] == "parsed_by_tool" and sorted(al.get("headers", [])) != sorted(lipo):
                 al["loadcommands"] = "slices_missing_from_output"
                 al["loadcommands_detail"] = "printed %s, lipo lists %s" % (",".join(al.get("headers", [])), ",".join(lipo))
+        if inputs.get(f, {}).get("unchanged_after_cases") is False:
+            for e in row["per_arch"].values():
+                for k in ("loadcommands", "dependencies"):
+                    if k in e:
+                        e[k] = "input_changed"
+                e["passing_parse"] = False
         rows.append(row)
     links = []
-    for l in open(os.path.join(run, "inputs.symlinks"), "rb"):
-        l = l.rstrip(b"\n")
+    for l in read_meta(os.path.join(run, "inputs.symlinks")).split(b"\n"):
+        if not l:
+            continue
+        rec = inputs.get(l.decode("utf-8", "backslashreplace"))
+        if rec is not None:
+            links.append({"link": b(l), "rc": None, "target": rec.get("target")})
+            continue
         c = cases.get("readlink " + l.decode("utf-8", "backslashreplace"))
-        links.append({"link": b(l), "rc": c and c["rc"], "target": b(c["stdout"].rstrip(b"\n")) if c and c["rc"] == "0" else None})
+        links.append({"link": b(l), "rc": c and c["rc"], "target": b(c["stdout"].rstrip(b"\n")) if usable(c) else None})
     res = {"platform": meta.get("platform"), "run": meta, "note": "tool parse outcomes only; not loader validity; not runtime evidence",
            "files": rows, "symlinks": links}
     with open(os.path.join(out, "outcomes.json"), "x") as fp:

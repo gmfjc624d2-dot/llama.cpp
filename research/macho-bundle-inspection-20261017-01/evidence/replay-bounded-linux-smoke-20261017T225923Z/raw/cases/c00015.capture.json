@@ -1,0 +1,59 @@
+{
+  "argv": [
+    "/usr/bin/file",
+    "-b",
+    "parse/u03-fat-per-slice-rpaths.bin"
+  ],
+  "claims": {
+    "descendants": "not tracked; only members of the owned process group at signal time were sent SIGKILL, and only on timeout or overflow",
+    "pipe_eof": "per stream, see streams.*.eof",
+    "process_completion": "direct child only, from waitpid"
+  },
+  "cleanup": {
+    "direct_signal": "not_sent",
+    "group_signal": "not_sent",
+    "reaped": true
+  },
+  "grace_s": 2.0,
+  "label": "file parse/u03-fat-per-slice-rpaths.bin",
+  "pid": 422,
+  "process": {
+    "exit_code": 0,
+    "reaped": true,
+    "signal": null,
+    "timed_out": false
+  },
+  "rc": "0",
+  "streams": {
+    "stderr": {
+      "complete": true,
+      "complete_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "eof": "capture",
+      "limit_bytes": 65536,
+      "observed_bytes": 0,
+      "observed_is_lower_bound": false,
+      "overflow": false,
+      "retained_bytes": 0,
+      "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "complete": true,
+      "complete_sha256": "7ea9eec745ae54c581f0a988fa5fcbe8a15804fab6827d0494e2a7138578b6a8",
+      "eof": "capture",
+      "limit_bytes": 1048576,
+      "observed_bytes": 304,
+      "observed_is_lower_bound": false,
+      "overflow": false,
+      "retained_bytes": 304,
+      "retained_sha256": "7ea9eec745ae54c581f0a988fa5fcbe8a15804fab6827d0494e2a7138578b6a8"
+    }
+  },
+  "summary": {
+    "capture_complete": true,
+    "cleanup_certain": true,
+    "process_completed": true,
+    "reasons": [],
+    "streams_complete": true
+  },
+  "timeout_s": 20.0
+}

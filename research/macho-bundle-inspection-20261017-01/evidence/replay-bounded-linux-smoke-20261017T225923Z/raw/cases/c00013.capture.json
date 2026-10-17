@@ -1,0 +1,61 @@
+{
+  "argv": [
+    "/usr/bin/llvm-otool-18",
+    "-arch",
+    "x86_64",
+    "-l",
+    "parse/t01-thin-arm64-exe.bin"
+  ],
+  "claims": {
+    "descendants": "not tracked; only members of the owned process group at signal time were sent SIGKILL, and only on timeout or overflow",
+    "pipe_eof": "per stream, see streams.*.eof",
+    "process_completion": "direct child only, from waitpid"
+  },
+  "cleanup": {
+    "direct_signal": "not_sent",
+    "group_signal": "not_sent",
+    "reaped": true
+  },
+  "grace_s": 2.0,
+  "label": "otool-loadcommands x86_64 parse/t01-thin-arm64-exe.bin",
+  "pid": 420,
+  "process": {
+    "exit_code": 0,
+    "reaped": true,
+    "signal": null,
+    "timed_out": false
+  },
+  "rc": "0",
+  "streams": {
+    "stderr": {
+      "complete": true,
+      "complete_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "eof": "capture",
+      "limit_bytes": 65536,
+      "observed_bytes": 0,
+      "observed_is_lower_bound": false,
+      "overflow": false,
+      "retained_bytes": 0,
+      "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "complete": true,
+      "complete_sha256": "8390a3155a7572b9014016bfca7e377721ae203f358e2b63679b12367c7ba56a",
+      "eof": "capture",
+      "limit_bytes": 1048576,
+      "observed_bytes": 1983,
+      "observed_is_lower_bound": false,
+      "overflow": false,
+      "retained_bytes": 1983,
+      "retained_sha256": "8390a3155a7572b9014016bfca7e377721ae203f358e2b63679b12367c7ba56a"
+    }
+  },
+  "summary": {
+    "capture_complete": true,
+    "cleanup_certain": true,
+    "process_completed": true,
+    "reasons": [],
+    "streams_complete": true
+  },
+  "timeout_s": 20.0
+}

@@ -1,0 +1,2 @@
+label: otool-loadcommands arm64 parse/t01-thin-arm64-exe.bin
+argv: ["/usr/bin/llvm-otool-18", "-arch", "arm64", "-l", "parse/t01-thin-arm64-exe.bin"]

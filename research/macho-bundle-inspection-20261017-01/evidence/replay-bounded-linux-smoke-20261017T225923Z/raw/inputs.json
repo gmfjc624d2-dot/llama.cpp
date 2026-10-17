@@ -1,0 +1,63 @@
+[
+  {
+    "path": "parse/t01-thin-arm64-exe.bin",
+    "status": "ok",
+    "size": 592,
+    "sha256": "21f125f468839493ed0498590ab35b6354d3d976cae75c9ddee4f21e379833c0",
+    "magic": "cffaedfe",
+    "identity": [
+      65024,
+      1810541,
+      592,
+      0
+    ],
+    "unchanged_after_cases": true
+  },
+  {
+    "path": "parse/u03-fat-per-slice-rpaths.bin",
+    "status": "ok",
+    "size": 49152,
+    "sha256": "3be803e60830675503b951ceebd8d726b12cab9235f4a22053ef2b3bebc336b2",
+    "magic": "cafebabe",
+    "identity": [
+      65024,
+      1810552,
+      49152,
+      0
+    ],
+    "unchanged_after_cases": true
+  },
+  {
+    "path": "parse/m08-cmdsize-unaligned.bin",
+    "status": "ok",
+    "size": 480,
+    "sha256": "2e4626b4cb513ca7622aac44c83fa582b1f7f76ccdca61e280cdfbec7936b29d",
+    "magic": "cffaedfe",
+    "identity": [
+      65024,
+      1810524,
+      480,
+      0
+    ],
+    "unchanged_after_cases": true
+  },
+  {
+    "path": "parse/m17-section-amplification.bin",
+    "status": "too_large",
+    "size": 320368,
+    "max_bytes": 65536
+  },
+  {
+    "path": "bundles/b01-flat-good/libggml.dylib",
+    "status": "symlink",
+    "target": {
+      "text": "libggml.0.dylib",
+      "b64": "bGliZ2dtbC4wLmR5bGli"
+    }
+  },
+  {
+    "path": "bundles/b01-flat-good/missing.dylib",
+    "status": "lstat_failed",
+    "error": "FileNotFoundError"
+  }
+]

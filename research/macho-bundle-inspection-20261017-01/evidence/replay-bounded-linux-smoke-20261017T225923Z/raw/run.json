@@ -1,0 +1,44 @@
+{
+  "archs": "arm64 x86_64",
+  "cases": 34,
+  "end_utc": "2026-10-17T22:59:24Z",
+  "env": {
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin"
+  },
+  "file": "/usr/bin/file",
+  "grace_s": 2.0,
+  "lipo": "/usr/bin/llvm-lipo-18",
+  "max_input_bytes": 65536,
+  "max_stderr_bytes": 65536,
+  "max_stdout_bytes": 1048576,
+  "od": "/usr/bin/od",
+  "otool": "/usr/bin/llvm-otool-18",
+  "platform": "linux-llvm",
+  "python": "3.13.16",
+  "start_utc": "2026-10-17T22:59:23Z",
+  "timeout_s": 20.0,
+  "tool_sha256": [
+    {
+      "bytes": 919920,
+      "path": "/usr/bin/llvm-otool-18",
+      "sha256": "4f98b86448d23bd1f858c50e93fbfc799f1c3640961a95e3b6c89d229a1b91bb"
+    },
+    {
+      "bytes": 81288,
+      "path": "/usr/bin/llvm-lipo-18",
+      "sha256": "4383194f73dc24a8c5b46e32a1d004f8e17ff55f1eefedecfdcf710c2d139f79"
+    },
+    {
+      "bytes": 31336,
+      "path": "/usr/bin/file",
+      "sha256": "6741f44dde8e51309325c8bcf88ee16bc1e022985d584415680484c11ee89e0d"
+    },
+    {
+      "bytes": 72200,
+      "path": "/usr/bin/od",
+      "sha256": "4effe765b188099f41fcb8ac6009d065b0859a97f1b2dd50c222dee0843195c6"
+    }
+  ],
+  "wrapper": "replay_bounded.py"
+}

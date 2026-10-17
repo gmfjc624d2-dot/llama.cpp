@@ -1,0 +1,16 @@
+.......usage: test_replay_bounded.py [-h] --platform {macos-native,linux-llvm}
+                              --fixture-dir FIXTURE_DIR --out OUT
+                              --otool OTOOL --lipo LIPO [--file FILE]
+                              [--od OD] [--input INPUT]
+                              [--inputs-from INPUTS_FROM] [--arch ARCH]
+                              [--timeout TIMEOUT] [--grace GRACE]
+                              [--max-input-bytes MAX_INPUT_BYTES]
+                              [--max-stdout-bytes MAX_STDOUT_BYTES]
+                              [--max-stderr-bytes MAX_STDERR_BYTES]
+                              [--max-tool-hash-bytes MAX_TOOL_HASH_BYTES]
+test_replay_bounded.py: error: SIGCHLD is ignored; children would be reaped automatically
+..............
+----------------------------------------------------------------------
+Ran 21 tests in 2.282s
+
+OK

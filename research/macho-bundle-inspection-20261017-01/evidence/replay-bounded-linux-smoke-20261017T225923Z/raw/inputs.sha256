@@ -1,0 +1,3 @@
+21f125f468839493ed0498590ab35b6354d3d976cae75c9ddee4f21e379833c0  parse/t01-thin-arm64-exe.bin
+3be803e60830675503b951ceebd8d726b12cab9235f4a22053ef2b3bebc336b2  parse/u03-fat-per-slice-rpaths.bin
+2e4626b4cb513ca7622aac44c83fa582b1f7f76ccdca61e280cdfbec7936b29d  parse/m08-cmdsize-unaligned.bin

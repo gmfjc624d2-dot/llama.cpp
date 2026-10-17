@@ -1,0 +1,4 @@
+cwd: /tmp/claude-0/-home-user-llama-cpp/604f2550-ab21-5d1b-bd0c-0f97e8e0bc46/scratchpad
+start_utc: 2026-10-17T22:59:23Z
+argv: python3 -I /home/user/llama.cpp/research/macho-bundle-inspection-20261017-01/scripts/replay_bounded.py --platform linux-llvm --fixture-dir /tmp/claude-0/-home-user-llama-cpp/604f2550-ab21-5d1b-bd0c-0f97e8e0bc46/scratchpad/rb-fixtures-20261017T225923Z --out /home/user/llama.cpp/research/macho-bundle-inspection-20261017-01/evidence/replay-bounded-linux-smoke-20261017T225923Z/raw --otool /usr/bin/llvm-otool-18 --lipo /usr/bin/llvm-lipo-18 --timeout 20 --grace 2 --max-input-bytes 65536 --max-stdout-bytes 1048576 --max-stderr-bytes 65536 --input parse/t01-thin-arm64-exe.bin --input parse/u03-fat-per-slice-rpaths.bin --input parse/m08-cmdsize-unaligned.bin --input parse/m17-section-amplification.bin --input bundles/b01-flat-good/libggml.dylib --input bundles/b01-flat-good/missing.dylib
+end_utc: 2026-10-17T22:59:24Z

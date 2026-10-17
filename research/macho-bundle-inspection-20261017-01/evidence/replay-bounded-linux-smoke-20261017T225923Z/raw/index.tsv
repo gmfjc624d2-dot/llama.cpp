@@ -1,0 +1,34 @@
+c00001	identity uname
+c00002	identity otool --version
+c00003	identity lipo -version
+c00004	identity file --version
+c00005	file parse/t01-thin-arm64-exe.bin
+c00006	magic parse/t01-thin-arm64-exe.bin
+c00007	lipo-info parse/t01-thin-arm64-exe.bin
+c00008	lipo-archs parse/t01-thin-arm64-exe.bin
+c00009	otool-fatheaders parse/t01-thin-arm64-exe.bin
+c00010	otool-loadcommands all parse/t01-thin-arm64-exe.bin
+c00011	otool-loadcommands arm64 parse/t01-thin-arm64-exe.bin
+c00012	otool-dependencies arm64 parse/t01-thin-arm64-exe.bin
+c00013	otool-loadcommands x86_64 parse/t01-thin-arm64-exe.bin
+c00014	otool-dependencies x86_64 parse/t01-thin-arm64-exe.bin
+c00015	file parse/u03-fat-per-slice-rpaths.bin
+c00016	magic parse/u03-fat-per-slice-rpaths.bin
+c00017	lipo-info parse/u03-fat-per-slice-rpaths.bin
+c00018	lipo-archs parse/u03-fat-per-slice-rpaths.bin
+c00019	otool-fatheaders parse/u03-fat-per-slice-rpaths.bin
+c00020	otool-loadcommands all parse/u03-fat-per-slice-rpaths.bin
+c00021	otool-loadcommands arm64 parse/u03-fat-per-slice-rpaths.bin
+c00022	otool-dependencies arm64 parse/u03-fat-per-slice-rpaths.bin
+c00023	otool-loadcommands x86_64 parse/u03-fat-per-slice-rpaths.bin
+c00024	otool-dependencies x86_64 parse/u03-fat-per-slice-rpaths.bin
+c00025	file parse/m08-cmdsize-unaligned.bin
+c00026	magic parse/m08-cmdsize-unaligned.bin
+c00027	lipo-info parse/m08-cmdsize-unaligned.bin
+c00028	lipo-archs parse/m08-cmdsize-unaligned.bin
+c00029	otool-fatheaders parse/m08-cmdsize-unaligned.bin
+c00030	otool-loadcommands all parse/m08-cmdsize-unaligned.bin
+c00031	otool-loadcommands arm64 parse/m08-cmdsize-unaligned.bin
+c00032	otool-dependencies arm64 parse/m08-cmdsize-unaligned.bin
+c00033	otool-loadcommands x86_64 parse/m08-cmdsize-unaligned.bin
+c00034	otool-dependencies x86_64 parse/m08-cmdsize-unaligned.bin

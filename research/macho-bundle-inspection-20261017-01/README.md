@@ -165,6 +165,99 @@ as a whole is not resource-bounded.
 - `ulimit -t` and `ulimit -v` run in the child with errors discarded, and the case runs even if they fail. `limits_in_child` in `raw/run.txt` reports what a separate test subshell got, not proof of enforcement for each case. A memory bound on macOS is not established (`ulimit -v` usually fails there).
 - `find`, the hashing, `wc`, the shell loop itself and the classifier run without any of these limits.
 
+`replay_otool.sh` and its evidence stay as they are. The successor below replaces it for new runs.
+
+### Bounded successor: `scripts/replay_bounded.py`
+
+For a maintainer who replays a small, explicitly selected set of static fixtures against trusted
+inspection tools. Python 3.9 or newer, standard library only, POSIX (Linux or macOS). It writes the
+same case layout and labels as `replay_otool.sh`, so `classify_replay.py`, `compare_replays.py` and
+the consumer example still apply.
+
+**Scope.** This is for cooperative tools that the wrapper starts and owns. It is **not
+containment for hostile programs.** The only programs launched are the tools given by absolute
+path (`--otool`, `--lipo`, `--file`, `--od`) plus `/usr/bin/uname` and, on macOS,
+`/usr/bin/sw_vers`. A fixture is only ever a path argument to them; no fixture is executed. Tools
+run with `PATH=/usr/bin:/bin LC_ALL=C` and stdin from `/dev/null`.
+
+**Inputs.**
+- Only the paths given with `--input` / `--inputs-from` are used, relative to `--fixture-dir`. Absolute paths, `..`, empty components and parent symlinks are refused.
+- Type and size come from `lstat` before anything is opened. Symlinks are recorded with their target (`os.readlink`, data only) and not followed. Non-regular files (FIFO, device, directory) are never opened. Files over `--max-input-bytes` are never opened or hashed.
+- An accepted file is opened with `O_NOFOLLOW|O_NONBLOCK` and re-checked with `fstat` (same device and inode, still regular, still in size). It is hashed by reading at most `max+1` bytes; a file that grows, shrinks or changes is not given a digest.
+- After its cases, the file's `lstat` identity is compared again (`unchanged_after_cases`); the classifier turns a change into `input_changed`.
+- Remaining gap: the tool opens the path itself, so a swap and swap back between the checks is not detected. Keep the fixture directory private to the run.
+
+**Capture.**
+- stdout and stderr have independent byte limits (`--max-stdout-bytes`, `--max-stderr-bytes`). At most `limit+1` bytes are ever read from a pipe, and only `limit` bytes are kept.
+- The first overflow on either stream ends the case. The other stream is then drained only during the short `--grace` window, so it may not reach EOF.
+- Per stream, `capture.json` records `observed_bytes` (a lower bound when EOF was not seen), `retained_bytes`, `eof` (`capture`, `after_cleanup` or none), `overflow` and `complete`. `retained_sha256` describes only the retained prefix; `complete_sha256` is set only when the stream reached EOF during capture without overflow.
+- `classify_replay.py` now reads every file with a cap (default 8 MiB per case file, 16 MiB per metadata file). An oversize case file is `classifier_read_truncated`; a case whose `capture.json` is not complete is `timeout`, `capture_incomplete`, `cleanup_uncertain` or `process_incomplete`. All of these are not passing.
+
+**Process and cleanup.**
+- Each tool runs in a new session (`start_new_session=True`), so it leads its own process group. Nothing is reaped while output is captured, so the child's PID, which is also its group ID, stays reserved.
+- **Natural completion** (both pipes at EOF, then the direct child reaped before the deadline): no signal is sent. After the leader is reaped, the group is never signalled by number.
+- **Timeout or overflow:** `SIGKILL` goes to the owned group while its leader is still unreaped. If that fails, it goes to the direct child. Then comes a bounded drain and a bounded reap.
+- `PermissionError` or any other signal failure, a child not reaped within the grace period, a pipe without EOF after cleanup, or a child reaped by someone else (`ChildProcessError`) is recorded under `summary.reasons`, and `capture_complete` is false. A group that no longer exists (`ESRCH`) is recorded as `no_such_group`.
+- **Claims are kept apart in `capture.json`:**
+  - process completion covers the direct child only, from `waitpid`;
+  - pipe EOF is reported per stream;
+  - descendants are not tracked. Only members of the owned group at signal time get `SIGKILL`, and only on timeout or overflow. A descendant that left the group or session, or that closed its pipes, is not seen.
+- **Preconditions:**
+  - The wrapper is the tools' only reaper.
+  - `SIGCHLD` must not be `SIG_IGN`; the wrapper refuses to start if it is.
+  - No handler or thread may reap children (for example `SA_NOCLDWAIT` or `waitpid(-1)`).
+  - Run it as a plain command, not inside a host process that reaps children.
+- **Not limited:** the tools' CPU and memory (only wall time per case, `--timeout` plus `--grace`); the wrapper reads a capped amount, but nothing limits what a tool itself allocates.
+- `rc` is the direct child's exit code, `signal:N`, `timeout` or `unknown`. Neither rc 0 nor a complete capture is a validity verdict.
+
+**Linux measurement in this session** (`evidence/replay-bounded-tests-*`, `evidence/replay-bounded-linux-smoke-*`):
+- `tests/test_replay_bounded.py`: 21 tests, OK in four runs (about 2.3 s each). Three runs came before a test-only change that removes the tests' temp directories; those runs left their temp directories behind. One run came after that change and left none. They cover:
+  - pure doubles for byte accounting: exact limit, first overflow, truncation without EOF, EOF after cleanup;
+  - native cooperative fakes (`python3 -I -c`, each at most 3 s of natural life): clean completion, non-zero exit, exact limit, first overflow, direct-child timeout, timeout with a grandchild holding the inherited pipes;
+  - doubles for `PermissionError` on both signals and for a child reaped elsewhere;
+  - input checks;
+  - the classifier caps;
+  - the `SIGCHLD` refusal.
+
+  No fake process was left running afterwards.
+- Smoke run with `llvm-otool-18` on 6 selected inputs at `--max-input-bytes 65536`:
+  - m17 (320,368 bytes) was rejected before any read;
+  - the symlink was recorded and not followed, and a missing path came out `lstat_failed`;
+  - 34 cases, all complete, no group signal needed;
+  - the outcomes match the earlier Linux measurements for t01, u03 and m08.
+
+#### macOS qualification (review before running; not run in this session)
+
+Nothing here shows the successor works on macOS. These steps are bounded and launch only
+`/usr/bin/python3` (the cooperative test fakes), `uname`, `sw_vers`, `file`, `od` and the
+otool/lipo paths that you print and check first.
+
+```sh
+cd llama.cpp/research/macho-bundle-inspection-20261017-01
+/usr/bin/python3 -I -c 'import sys; print(sys.version)'        # needs 3.9 or newer
+/usr/bin/python3 -I tests/test_replay_bounded.py -v             # about 3 s on Linux; fakes live at most 3 s each
+F=evidence/replay-fixtures-20261017T023926Z
+(cd "$F" && shasum -a 256 -c fixtures.sha256)
+RUN="$HOME/rb-qual-$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$RUN/fixtures" && tar -xf "$F/fixtures-snapshot.tar" -C "$RUN/fixtures"
+OTOOL=$(xcrun --find otool); LIPO=$(xcrun --find lipo); echo "$OTOOL" "$LIPO"   # review; otool-classic: xcrun --find otool-classic
+/usr/bin/python3 -I scripts/replay_bounded.py --platform macos-native \
+  --fixture-dir "$RUN/fixtures" --out "$RUN/raw" --otool "$OTOOL" --lipo "$LIPO" \
+  --timeout 20 --grace 2 --max-input-bytes 1048576 --max-stdout-bytes 1048576 --max-stderr-bytes 65536 \
+  --input parse/t01-thin-arm64-exe.bin --input parse/u03-fat-per-slice-rpaths.bin \
+  --input parse/m08-cmdsize-unaligned.bin --input parse/m10-lcstr-offset-beyond-cmd.bin \
+  --input parse/m21-fat-arch-mismatch.bin --input parse/m24-sizeofcmds-slack.bin
+/usr/bin/python3 -I scripts/classify_replay.py "$RUN/raw" "$RUN/classified"
+```
+
+- Worst case: 6 inputs x 10 cases + 6 identity cases = 66 cases. Each takes at most 24 s of wall time (20 s timeout, plus up to 2 s of drain and 2 s of reap after `SIGKILL`) and keeps at most 1 MiB + 64 KiB of output, so about 70 MiB in all. Typical runs take seconds.
+- These macOS behaviours have **not been observed** and are what the qualification checks:
+  - `killpg` on a group whose leader is a zombie (`sent` or `no_such_group`; the tests accept either only where that is expected);
+  - `kqueue`-based selectors on pipes;
+  - `start_new_session`;
+  - how `/usr/bin/python3` starts the fakes.
+- A pass of these steps qualifies only this wrapper on that machine. It says nothing about fixture validity or dyld loadability.
+
 ## Relocated runtime test (separate, required, real bundle only)
 
 This runs the consumer's own built program, never a fixture, and is the only step here that
@@ -218,6 +311,8 @@ casefold, every directory component) runs on the tree, the git index, tar member
 | `evidence/cmake-source-check-*` | CMake 4.4.4 module sources (BSD-3-Clause, with LICENSE.rst) and observations |
 | `evidence/replay-fixtures-*` | fixture snapshot for the replay (adds u05 and b21), determinism check |
 | `evidence/replay-linux-llvm-*` | Linux llvm-otool replays, classifications v1-v3, arch selection probe, consumer runs; `-staging-check-*` tries the real-bundle staging steps on b01 |
+| `evidence/replay-bounded-tests-*` | focused tests of `replay_bounded.py` and the classifier caps (Linux), three runs, leftover-process check |
+| `evidence/replay-bounded-linux-smoke-*` | Linux smoke run of `replay_bounded.py` on 6 selected inputs, classification, casefold check, Python 3.9 grammar check |
 
 ## Retained negative and initial results
 

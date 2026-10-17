@@ -1,0 +1,59 @@
+{
+  "argv": [
+    "/usr/bin/llvm-lipo-18",
+    "-info",
+    "parse/m08-cmdsize-unaligned.bin"
+  ],
+  "claims": {
+    "descendants": "not tracked; only members of the owned process group at signal time were sent SIGKILL, and only on timeout or overflow",
+    "pipe_eof": "per stream, see streams.*.eof",
+    "process_completion": "direct child only, from waitpid"
+  },
+  "cleanup": {
+    "direct_signal": "not_sent",
+    "group_signal": "not_sent",
+    "reaped": true
+  },
+  "grace_s": 2.0,
+  "label": "lipo-info parse/m08-cmdsize-unaligned.bin",
+  "pid": 434,
+  "process": {
+    "exit_code": 1,
+    "reaped": true,
+    "signal": null,
+    "timed_out": false
+  },
+  "rc": "1",
+  "streams": {
+    "stderr": {
+      "complete": true,
+      "complete_sha256": "13341e618285811e07df2e0bc8d1496dfa68a3e737d2c7712b067ead6b1d71cf",
+      "eof": "capture",
+      "limit_bytes": 65536,
+      "observed_bytes": 128,
+      "observed_is_lower_bound": false,
+      "overflow": false,
+      "retained_bytes": 128,
+      "retained_sha256": "13341e618285811e07df2e0bc8d1496dfa68a3e737d2c7712b067ead6b1d71cf"
+    },
+    "stdout": {
+      "complete": true,
+      "complete_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "eof": "capture",
+      "limit_bytes": 1048576,
+      "observed_bytes": 0,
+      "observed_is_lower_bound": false,
+      "overflow": false,
+      "retained_bytes": 0,
+      "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "summary": {
+    "capture_complete": true,
+    "cleanup_certain": true,
+    "process_completed": true,
+    "reasons": [],
+    "streams_complete": true
+  },
+  "timeout_s": 20.0
+}
