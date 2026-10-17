@@ -1,0 +1,3 @@
+[1/2] Building CXX object tests/CMakeFiles/test-arg-parser.dir/test-arg-parser.cpp.o
+[2/2] Linking CXX executable bin/test-arg-parser
+rc=0

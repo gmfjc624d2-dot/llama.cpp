@@ -1,0 +1,8 @@
+[1/4] Building C object tests/CMakeFiles/test-completion-report-shim.dir/test-completion-report-shim.c.o
+/home/user/llama.cpp/tests/test-completion-report-shim.c: In function 'llama_process':
+/home/user/llama.cpp/tests/test-completion-report-shim.c:24:16: warning: ISO C forbids conversion of object pointer to function pointer type [-Wpedantic]
+   24 |         real = (llama_process_fn) dlsym(RTLD_NEXT, "llama_process");
+      |                ^
+[2/4] Linking C shared module bin/libtest-completion-report-shim.so
+[3/4] Building CXX object tests/CMakeFiles/test-arg-parser.dir/test-arg-parser.cpp.o
+[4/4] Linking CXX executable bin/test-arg-parser

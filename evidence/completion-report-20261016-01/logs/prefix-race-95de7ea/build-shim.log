@@ -1,0 +1,4 @@
++ cmake --build build-final --target test-completion-report-shim   (pre-fix build dir, only the shim is rebuilt)
+[1/2] Building C object tests/CMakeFiles/test-completion-report-shim.dir/test-completion-report-shim.c.o
+[2/2] Linking C shared module bin/libtest-completion-report-shim.so
+exit=0

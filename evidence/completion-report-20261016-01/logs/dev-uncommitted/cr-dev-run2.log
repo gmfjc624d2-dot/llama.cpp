@@ -1,0 +1,66 @@
+test_g_unsupported_encoder_decoder (__main__.SyntheticTests.test_g_unsupported_encoder_decoder) ... FAIL
+test_i_legacy_sigint (__main__.LegacyTests.test_i_legacy_sigint) ... ok
+test_i_no_report_created (__main__.LegacyTests.test_i_no_report_created) ... ok
+test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) ... 
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='eog') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='budget') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ctx') ... FAIL
+
+======================================================================
+FAIL: test_g_unsupported_encoder_decoder (__main__.SyntheticTests.test_g_unsupported_encoder_decoder)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 559, in test_g_unsupported_encoder_decoder
+    self.assertIn(b"arch = t5", r.stderr)  # the model loaded, the rejection is not a load failure
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'arch = t5' not found in b'0.00.001.886 I llama_completion: llama backend init\n0.00.003.805 I llama_completion: load the model and apply lora adapter, if any\n'
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='eog')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 795, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['I l[1701 chars]s /  # %      (total - sampling - prompt eval [169 chars]ze)'] != ['I l[1701 chars]s /   # %      (total - sampling - prompt eval[170 chars]ze)']
+
+First differing element 21:
+'I co[45 chars]s /  # %      (total - sampling - prompt eval [13 chars]tal)'
+'I co[45 chars]s /   # %      (total - sampling - prompt eval[14 chars]tal)'
+
+Diff is 2210 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='budget')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 795, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['I l[1701 chars]s /   # %      (total - sampling - prompt eval[170 chars]ze)'] != ['I l[1701 chars]s /  # %      (total - sampling - prompt eval [169 chars]ze)']
+
+First differing element 21:
+'I co[45 chars]s /   # %      (total - sampling - prompt eval[14 chars]tal)'
+'I co[45 chars]s /  # %      (total - sampling - prompt eval [13 chars]tal)'
+
+Diff is 2210 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ctx')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 795, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['I l[1707 chars]      # ms /   255 tokens', 'I common_perf_pri[248 chars]ze)'] != ['I l[1707 chars]     # ms /   255 tokens', 'I common_perf_prin[247 chars]ze)']
+
+First differing element 23:
+'I common_perf_print:       total time =      # ms /   255 tokens'
+'I common_perf_print:       total time =     # ms /   255 tokens'
+
+Diff is 2285 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 4 tests in 3.657s
+
+FAILED (failures=4)

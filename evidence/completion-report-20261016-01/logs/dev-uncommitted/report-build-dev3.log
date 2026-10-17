@@ -1,0 +1,4 @@
+[1/4] Building C object tests/CMakeFiles/test-completion-report-shim.dir/test-completion-report-shim.c.o
+[2/4] Linking C shared module bin/libtest-completion-report-shim.so
+[3/4] Building CXX object tests/CMakeFiles/test-arg-parser.dir/test-arg-parser.cpp.o
+[4/4] Linking CXX executable bin/test-arg-parser

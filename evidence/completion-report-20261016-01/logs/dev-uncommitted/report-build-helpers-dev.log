@@ -1,0 +1,7 @@
+[1/6] Building CXX object tools/tokenize/CMakeFiles/llama-tokenize.dir/tokenize.cpp.o
+[2/6] Linking CXX executable bin/llama-tokenize
+[3/6] Building CXX object tests/CMakeFiles/test-arg-parser.dir/test-arg-parser.cpp.o
+[4/6] Linking CXX executable bin/test-arg-parser
+[5/6] Building CXX object tests/CMakeFiles/test-llama-archs.dir/test-llama-archs.cpp.o
+[6/6] Linking CXX executable bin/test-llama-archs
+rc=0

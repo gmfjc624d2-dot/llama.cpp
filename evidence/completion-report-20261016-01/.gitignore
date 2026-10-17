@@ -1,0 +1,3 @@
+# the top-level .gitignore drops *.log and *.bin, these are the evidence
+!*.log
+!*.bin

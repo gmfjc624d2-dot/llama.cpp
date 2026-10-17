@@ -1,0 +1,44 @@
+# test source: working tree on top of 95de7ea (new tests, old production code)
++ python3 -I tests/test-completion-report.py --bin-dir /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-final/bin --vocab models/ggml-vocab-llama-spm.gguf --gguf-py gguf-py --work-dir /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race --shim /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-final/bin/libtest-completion-report-shim.so SyntheticTests.test_g_write_failure FaultTests.test_g_publish_swap_fdopen_failure FaultTests.test_g_publish_swap_write_failure
+test-completion-report: run dir /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003402Z-6898
+test_g_write_failure (__main__.SyntheticTests.test_g_write_failure) ... ERROR
+test_g_publish_swap_fdopen_failure (__main__.FaultTests.test_g_publish_swap_fdopen_failure) ... ERROR
+test_g_publish_swap_write_failure (__main__.FaultTests.test_g_publish_swap_write_failure) ... ERROR
+
+======================================================================
+ERROR: test_g_write_failure (__main__.SyntheticTests.test_g_write_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 614, in test_g_write_failure
+    self.assertEqual(os.path.getsize(r.path), 64)
+                     ~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen genericpath>", line 86, in getsize
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003402Z-6898/cases/synthetic-write-failure/report.json'
+
+======================================================================
+ERROR: test_g_publish_swap_fdopen_failure (__main__.FaultTests.test_g_publish_swap_fdopen_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 701, in test_g_publish_swap_fdopen_failure
+    moved = self.run_swap("swap-fdopen-failure", "swap_fail")
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 692, in run_swap
+    with open(path, "rb") as f:
+         ~~~~^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003402Z-6898/cases/fault-swap-fdopen-failure-target/report.json'
+
+======================================================================
+ERROR: test_g_publish_swap_write_failure (__main__.FaultTests.test_g_publish_swap_write_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 705, in test_g_publish_swap_write_failure
+    moved = self.run_swap("swap-write-failure", "swap", preexec_fn=limit_file_size)
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 692, in run_swap
+    with open(path, "rb") as f:
+         ~~~~^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-prefix-race/run-20261017T003402Z-6898/cases/fault-swap-write-failure-target/report.json'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.302s
+
+FAILED (errors=3)
+exit=1

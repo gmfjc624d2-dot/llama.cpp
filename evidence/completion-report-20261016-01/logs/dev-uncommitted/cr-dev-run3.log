@@ -1,0 +1,9 @@
+test_g_unsupported_encoder_decoder (__main__.SyntheticTests.test_g_unsupported_encoder_decoder) ... ok
+test_i_legacy_sigint (__main__.LegacyTests.test_i_legacy_sigint) ... ok
+test_i_no_report_created (__main__.LegacyTests.test_i_no_report_created) ... ok
+test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 3.518s
+
+OK

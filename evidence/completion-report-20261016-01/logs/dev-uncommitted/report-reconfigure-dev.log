@@ -1,0 +1,16 @@
+-- llama.cpp version: 0.7.0-dev
+CMAKE_BUILD_TYPE=Release
+-- Warning: ccache not found - consider installing it for faster compilation or disable this warning with GGML_CCACHE=OFF
+-- CMAKE_SYSTEM_PROCESSOR: x86_64
+-- GGML_SYSTEM_ARCH: x86
+-- Including CPU backend
+-- x86 detected
+-- Adding CPU backend variant ggml-cpu: -march=native 
+-- ggml version: 0.27.0
+-- ggml commit:  ceefd16
+-- OpenSSL found: 3.0.13
+-- Found Python3: /usr/bin/python3 (found version "3.13.16") found components: Interpreter 
+-- Generating embedded license file for target: llama-app
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-report

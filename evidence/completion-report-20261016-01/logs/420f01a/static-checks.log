@@ -1,0 +1,19 @@
++ flake8 tests/test-completion-report.py   (repo .flake8; flake8-no-print plugin not installable here, checked with grep below)
+7.3.0 (mccabe: 0.7.0, pycodestyle: 2.14.0, pyflakes: 3.4.0) CPython 3.13.16 on
+Linux
+exit=0
++ grep -c 'print(' tests/test-completion-report.py
+0
++ ty check --exit-zero-on-warning tests/test-completion-report.py
+ty 0.0.88
+All checks passed!
+exit=0
++ git diff --check ceefd16 420f01a
+exit=0
++ non-ASCII added lines (git diff ceefd16 420f01a | grep -P '^\+.*[^\x00-\x7F]')
+0
++ git grep -n llama_version b11696 -- include/llama.h
+b11696:include/llama.h:478:    LLAMA_API const char * llama_version(void);
+exit=0
++ git grep -n llama_version b9842 -- include/llama.h
+exit=1

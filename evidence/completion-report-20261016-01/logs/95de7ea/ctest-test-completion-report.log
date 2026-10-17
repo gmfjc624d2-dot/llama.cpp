@@ -1,0 +1,12 @@
++ ctest -R test-completion-report --output-on-failure --timeout 1800
+Test project /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-final
+    Start 42: test-completion-report
+1/1 Test #42: test-completion-report ...........   Passed   10.99 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Label Time Summary:
+python    =  10.99 sec*proc (1 test)
+
+Total Test time (real) =  10.99 sec
+exit=0

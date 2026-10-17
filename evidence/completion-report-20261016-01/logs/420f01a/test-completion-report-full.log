@@ -1,0 +1,70 @@
++ python3 -I tests/test-completion-report.py --bin-dir /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-420f01a/bin --vocab models/ggml-vocab-llama-spm.gguf --gguf-py gguf-py --work-dir /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-420f01a --shim /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-420f01a/bin/libtest-completion-report-shim.so --base-bin /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/build-base/bin/llama-completion
+test-completion-report: run dir /tmp/claude-0/-home-user-llama-cpp/609dabb3-6a7f-5c4c-8a9e-38a33cd90d9f/scratchpad/runs-420f01a/run-20261017T003818Z-8279
+test_a_budget_one (__main__.SyntheticTests.test_a_budget_one) ... ok
+test_a_budget_zero (__main__.SyntheticTests.test_a_budget_zero) ... ok
+test_a_eog_in_last_budget_slot (__main__.SyntheticTests.test_a_eog_in_last_budget_slot) ... ok
+test_b_eog_empty_piece (__main__.SyntheticTests.test_b_eog_empty_piece) ... ok
+test_b_eog_from_prompt (__main__.SyntheticTests.test_b_eog_from_prompt) ... ok
+test_b_eog_render_special (__main__.SyntheticTests.test_b_eog_render_special) ... ok
+test_b_literal_marker_is_text (__main__.SyntheticTests.test_b_literal_marker_is_text) ... ok
+test_c_antiprompt_across_boundary (__main__.SyntheticTests.test_c_antiprompt_across_boundary) ... ok
+test_c_antiprompt_across_pieces (__main__.SyntheticTests.test_c_antiprompt_across_pieces) ... ok
+test_c_antiprompt_and_budget (__main__.SyntheticTests.test_c_antiprompt_and_budget) ... ok
+test_c_antiprompt_and_eog (__main__.SyntheticTests.test_c_antiprompt_and_eog) ... ok
+test_c_antiprompt_from_prompt (__main__.SyntheticTests.test_c_antiprompt_from_prompt) ... ok
+test_c_antiprompt_single_piece_and_index (__main__.SyntheticTests.test_c_antiprompt_single_piece_and_index) ... ok
+test_c_antiprompt_single_token (__main__.SyntheticTests.test_c_antiprompt_single_token) ... ok
+test_c_antiprompt_window_limit (__main__.SyntheticTests.test_c_antiprompt_window_limit) ... ok
+test_d_batch_size_one (__main__.SyntheticTests.test_d_batch_size_one) ... ok
+test_d_conversation_auto_off (__main__.SyntheticTests.test_d_conversation_auto_off) ... ok
+test_d_display_prompt_does_not_change_output (__main__.SyntheticTests.test_d_display_prompt_does_not_change_output) ... ok
+test_d_one_token_prompt (__main__.SyntheticTests.test_d_one_token_prompt) ... ok
+test_e_budget_ends_before_context (__main__.SyntheticTests.test_e_budget_ends_before_context) ... ok
+test_e_context_limit (__main__.SyntheticTests.test_e_context_limit) ... ok
+test_e_context_shift (__main__.SyntheticTests.test_e_context_shift) ... ok
+test_f_external_sigint (__main__.SyntheticTests.test_f_external_sigint) ... ok
+test_f_external_sigterm (__main__.SyntheticTests.test_f_external_sigterm) ... ok
+test_f_incomplete_report_rejected (__main__.SyntheticTests.test_f_incomplete_report_rejected) ... ok
+test_f_sigkill_leaves_no_report (__main__.SyntheticTests.test_f_sigkill_leaves_no_report) ... ok
+test_g_dangling_symlink_destination (__main__.SyntheticTests.test_g_dangling_symlink_destination) ... ok
+test_g_existing_destination (__main__.SyntheticTests.test_g_existing_destination) ... ok
+test_g_invalid_model (__main__.SyntheticTests.test_g_invalid_model) ... ok
+test_g_missing_directory (__main__.SyntheticTests.test_g_missing_directory) ... ok
+test_g_missing_model (__main__.SyntheticTests.test_g_missing_model) ... ok
+test_g_prompt_too_long (__main__.SyntheticTests.test_g_prompt_too_long) ... ok
+test_g_unsupported (__main__.SyntheticTests.test_g_unsupported) ... ok
+test_g_unsupported_encoder_decoder (__main__.SyntheticTests.test_g_unsupported_encoder_decoder) ... ok
+test_g_write_failure (__main__.SyntheticTests.test_g_write_failure) ... ok
+test_h_bytes_round_trip (__main__.SyntheticTests.test_h_bytes_round_trip) ... ok
+test_f_sigint_cooperative (__main__.FaultTests.test_f_sigint_cooperative) ... ok
+test_f_signal_during_prompt (__main__.FaultTests.test_f_signal_during_prompt) ... ok
+test_f_signal_with_failure_is_failure (__main__.FaultTests.test_f_signal_with_failure_is_failure) ... ok
+test_f_sigterm_cooperative (__main__.FaultTests.test_f_sigterm_cooperative) ... ok
+test_g_decode_failure_generated (__main__.FaultTests.test_g_decode_failure_generated) ... ok
+test_g_decode_failure_prompt (__main__.FaultTests.test_g_decode_failure_prompt) ... ok
+test_g_destination_created_during_run (__main__.FaultTests.test_g_destination_created_during_run) ... ok
+test_g_publish_swap_fdopen_failure (__main__.FaultTests.test_g_publish_swap_fdopen_failure) ... ok
+test_g_publish_swap_write_failure (__main__.FaultTests.test_g_publish_swap_write_failure) ... ok
+test_antiprompt_from_previous_output (__main__.SyntheticModelTests.test_antiprompt_from_previous_output) ... ok
+test_budget_small (__main__.SyntheticModelTests.test_budget_small) ... ok
+test_budget_zero (__main__.SyntheticModelTests.test_budget_zero) ... ok
+test_context_limit (__main__.SyntheticModelTests.test_context_limit) ... ok
+test_display_prompt (__main__.SyntheticModelTests.test_display_prompt) ... ok
+test_external_sigint (__main__.SyntheticModelTests.test_external_sigint) ... ok
+test_forced_eog (__main__.SyntheticModelTests.test_forced_eog) ... ok
+test_antiprompt_from_previous_output (__main__.RealModelTests.test_antiprompt_from_previous_output) ... skipped 'NOT_EXECUTED: no real model'
+test_budget_small (__main__.RealModelTests.test_budget_small) ... skipped 'NOT_EXECUTED: no real model'
+test_budget_zero (__main__.RealModelTests.test_budget_zero) ... skipped 'NOT_EXECUTED: no real model'
+test_context_limit (__main__.RealModelTests.test_context_limit) ... skipped 'NOT_EXECUTED: no real model'
+test_display_prompt (__main__.RealModelTests.test_display_prompt) ... skipped 'NOT_EXECUTED: no real model'
+test_external_sigint (__main__.RealModelTests.test_external_sigint) ... skipped 'NOT_EXECUTED: no real model'
+test_forced_eog (__main__.RealModelTests.test_forced_eog) ... skipped 'NOT_EXECUTED: no real model'
+test_i_legacy_sigint (__main__.LegacyTests.test_i_legacy_sigint) ... ok
+test_i_no_report_created (__main__.LegacyTests.test_i_no_report_created) ... ok
+test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) ... ok
+
+----------------------------------------------------------------------
+Ran 62 tests in 10.867s
+
+OK (skipped=7)
+exit=0

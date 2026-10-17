@@ -1,0 +1,199 @@
+test_f_sigint_cooperative (__main__.FaultTests.test_f_sigint_cooperative) ... ok
+test_f_signal_during_prompt (__main__.FaultTests.test_f_signal_during_prompt) ... ok
+test_f_signal_with_failure_is_failure (__main__.FaultTests.test_f_signal_with_failure_is_failure) ... ok
+test_f_sigterm_cooperative (__main__.FaultTests.test_f_sigterm_cooperative) ... ok
+test_g_decode_failure_generated (__main__.FaultTests.test_g_decode_failure_generated) ... ok
+test_g_decode_failure_prompt (__main__.FaultTests.test_g_decode_failure_prompt) ... ok
+test_g_destination_created_during_run (__main__.FaultTests.test_g_destination_created_during_run) ... ok
+test_i_legacy_sigint (__main__.LegacyTests.test_i_legacy_sigint) ... ok
+test_i_no_report_created (__main__.LegacyTests.test_i_no_report_created) ... ok
+test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) ... 
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='eog') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='budget') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ap') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ctx') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ctx-shift') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='no-n') ... FAIL
+  test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='missing') ... FAIL
+test_antiprompt_from_previous_output (__main__.ModelTests.test_antiprompt_from_previous_output) ... skipped 'NOT_EXECUTED: no None model'
+test_budget_small (__main__.ModelTests.test_budget_small) ... skipped 'NOT_EXECUTED: no None model'
+test_budget_zero (__main__.ModelTests.test_budget_zero) ... skipped 'NOT_EXECUTED: no None model'
+test_context_limit (__main__.ModelTests.test_context_limit) ... skipped 'NOT_EXECUTED: no None model'
+test_display_prompt (__main__.ModelTests.test_display_prompt) ... skipped 'NOT_EXECUTED: no None model'
+test_external_sigint (__main__.ModelTests.test_external_sigint) ... skipped 'NOT_EXECUTED: no None model'
+test_forced_eog (__main__.ModelTests.test_forced_eog) ... skipped 'NOT_EXECUTED: no None model'
+test_antiprompt_from_previous_output (__main__.RealModelTests.test_antiprompt_from_previous_output) ... skipped 'NOT_EXECUTED: no real model'
+test_budget_small (__main__.RealModelTests.test_budget_small) ... skipped 'NOT_EXECUTED: no real model'
+test_budget_zero (__main__.RealModelTests.test_budget_zero) ... skipped 'NOT_EXECUTED: no real model'
+test_context_limit (__main__.RealModelTests.test_context_limit) ... skipped 'NOT_EXECUTED: no real model'
+test_display_prompt (__main__.RealModelTests.test_display_prompt) ... skipped 'NOT_EXECUTED: no real model'
+test_external_sigint (__main__.RealModelTests.test_external_sigint) ... skipped 'NOT_EXECUTED: no real model'
+test_forced_eog (__main__.RealModelTests.test_forced_eog) ... skipped 'NOT_EXECUTED: no real model'
+test_antiprompt_from_previous_output (__main__.SyntheticModelTests.test_antiprompt_from_previous_output) ... ok
+test_budget_small (__main__.SyntheticModelTests.test_budget_small) ... ok
+test_budget_zero (__main__.SyntheticModelTests.test_budget_zero) ... ok
+test_context_limit (__main__.SyntheticModelTests.test_context_limit) ... ok
+test_display_prompt (__main__.SyntheticModelTests.test_display_prompt) ... ok
+test_external_sigint (__main__.SyntheticModelTests.test_external_sigint) ... ok
+test_forced_eog (__main__.SyntheticModelTests.test_forced_eog) ... ok
+test_a_budget_one (__main__.SyntheticTests.test_a_budget_one) ... ok
+test_a_budget_zero (__main__.SyntheticTests.test_a_budget_zero) ... ok
+test_a_eog_in_last_budget_slot (__main__.SyntheticTests.test_a_eog_in_last_budget_slot) ... ok
+test_b_eog_empty_piece (__main__.SyntheticTests.test_b_eog_empty_piece) ... ok
+test_b_eog_from_prompt (__main__.SyntheticTests.test_b_eog_from_prompt) ... ok
+test_b_eog_render_special (__main__.SyntheticTests.test_b_eog_render_special) ... ok
+test_b_literal_marker_is_text (__main__.SyntheticTests.test_b_literal_marker_is_text) ... ok
+test_c_antiprompt_across_boundary (__main__.SyntheticTests.test_c_antiprompt_across_boundary) ... ok
+test_c_antiprompt_across_pieces (__main__.SyntheticTests.test_c_antiprompt_across_pieces) ... ok
+test_c_antiprompt_and_budget (__main__.SyntheticTests.test_c_antiprompt_and_budget) ... ok
+test_c_antiprompt_and_eog (__main__.SyntheticTests.test_c_antiprompt_and_eog) ... ok
+test_c_antiprompt_from_prompt (__main__.SyntheticTests.test_c_antiprompt_from_prompt) ... ok
+test_c_antiprompt_single_piece_and_index (__main__.SyntheticTests.test_c_antiprompt_single_piece_and_index) ... ok
+test_c_antiprompt_single_token (__main__.SyntheticTests.test_c_antiprompt_single_token) ... ok
+test_c_antiprompt_window_limit (__main__.SyntheticTests.test_c_antiprompt_window_limit) ... ok
+test_d_batch_size_one (__main__.SyntheticTests.test_d_batch_size_one) ... ok
+test_d_conversation_auto_off (__main__.SyntheticTests.test_d_conversation_auto_off) ... ok
+test_d_display_prompt_does_not_change_output (__main__.SyntheticTests.test_d_display_prompt_does_not_change_output) ... ok
+test_d_one_token_prompt (__main__.SyntheticTests.test_d_one_token_prompt) ... ok
+test_e_budget_ends_before_context (__main__.SyntheticTests.test_e_budget_ends_before_context) ... ok
+test_e_context_limit (__main__.SyntheticTests.test_e_context_limit) ... ok
+test_e_context_shift (__main__.SyntheticTests.test_e_context_shift) ... ok
+test_f_external_sigint (__main__.SyntheticTests.test_f_external_sigint) ... ok
+test_f_external_sigterm (__main__.SyntheticTests.test_f_external_sigterm) ... ok
+test_f_incomplete_report_rejected (__main__.SyntheticTests.test_f_incomplete_report_rejected) ... ok
+test_f_sigkill_leaves_no_report (__main__.SyntheticTests.test_f_sigkill_leaves_no_report) ... ok
+test_g_dangling_symlink_destination (__main__.SyntheticTests.test_g_dangling_symlink_destination) ... ok
+test_g_existing_destination (__main__.SyntheticTests.test_g_existing_destination) ... ok
+test_g_invalid_model (__main__.SyntheticTests.test_g_invalid_model) ... ok
+test_g_missing_directory (__main__.SyntheticTests.test_g_missing_directory) ... ok
+test_g_missing_model (__main__.SyntheticTests.test_g_missing_model) ... ok
+test_g_prompt_too_long (__main__.SyntheticTests.test_g_prompt_too_long) ... ok
+test_g_unsupported (__main__.SyntheticTests.test_g_unsupported) ... ok
+test_g_unsupported_encoder_decoder (__main__.SyntheticTests.test_g_unsupported_encoder_decoder) ... FAIL
+test_g_write_failure (__main__.SyntheticTests.test_g_write_failure) ... ok
+test_h_bytes_round_trip (__main__.SyntheticTests.test_h_bytes_round_trip) ... ok
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='eog')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 754, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['0.00.001.102 I llama_completion: llama backend ini[1523 chars]ze)'] != ['0.00.001.079 I llama_completion: llama backend ini[1523 chars]ze)']
+
+First differing element 0:
+'0.00.001.102 I llama_completion: llama backend init'
+'0.00.001.079 I llama_completion: llama backend init'
+
+Diff is 3024 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='budget')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 754, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['0.00.001.512 I llama_completion: llama backend init[1522 chars]ze)'] != ['0.00.001.520 I llama_completion: llama backend init[1522 chars]ze)']
+
+First differing element 0:
+'0.00.001.512 I llama_completion: llama backend init'
+'0.00.001.520 I llama_completion: llama backend init'
+
+Diff is 3123 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ap')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 754, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['0.00.001.130 I llama_completion: llama backend ini[1522 chars]ze)'] != ['0.00.001.312 I llama_completion: llama backend ini[1522 chars]ze)']
+
+First differing element 0:
+'0.00.001.130 I llama_completion: llama backend init'
+'0.00.001.312 I llama_completion: llama backend init'
+
+Diff is 3129 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ctx')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 754, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['0.00.001.137 I llama_completion: llama backend ini[1623 chars]ze)'] != ['0.00.001.336 I llama_completion: llama backend ini[1623 chars]ze)']
+
+First differing element 0:
+'0.00.001.137 I llama_completion: llama backend init'
+'0.00.001.336 I llama_completion: llama backend init'
+
+Diff is 3187 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='ctx-shift')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 754, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['0.00.001.096 I llama_completion: llama backend init[1522 chars]ze)'] != ['0.00.001.080 I llama_completion: llama backend init[1522 chars]ze)']
+
+First differing element 0:
+'0.00.001.096 I llama_completion: llama backend init'
+'0.00.001.080 I llama_completion: llama backend init'
+
+Diff is 3126 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='no-n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 754, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['0.00.001.182 I llama_completion: llama backend init[1620 chars]ze)'] != ['0.00.001.195 I llama_completion: llama backend init[1620 chars]ze)']
+
+First differing element 0:
+'0.00.001.182 I llama_completion: llama backend init'
+'0.00.001.195 I llama_completion: llama backend init'
+
+Diff is 3300 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_i_same_as_base (__main__.LegacyTests.test_i_same_as_base) (name='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 754, in test_i_same_as_base
+    self.assertEqual(legacy_filter(new.stderr), legacy_filter(old.stderr))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['0.00.001.246 I llama_completion: llama backend ini[1425 chars]ext'] != ['0.00.001.131 I llama_completion: llama backend ini[1425 chars]ext']
+
+First differing element 0:
+'0.00.001.246 I llama_completion: llama backend init'
+'0.00.001.131 I llama_completion: llama backend init'
+
+Diff is 2766 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_g_unsupported_encoder_decoder (__main__.SyntheticTests.test_g_unsupported_encoder_decoder)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 521, in test_g_unsupported_encoder_decoder
+    rep, _ = self.ok(run("synthetic-unsupported-t5", ["-no-cnv", "-p", "x", "-n", "4"], os.path.join(d, "t5-dense.gguf")), "unsupported", rc=1)
+             ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/llama.cpp/tests/test-completion-report.py", line 260, in ok
+    self.assertEqual(rep["reason"], reason)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'runtime_failure' != 'unsupported'
+- runtime_failure
++ unsupported
+
+
+----------------------------------------------------------------------
+Ran 67 tests in 10.510s
+
+FAILED (failures=8, skipped=14)
