@@ -832,9 +832,9 @@ def test_ids(suite):
             yield t.id()
 
 
-def result_records(suite, res):
+def result_records(ids, res):
     """PASS, FAIL, ERROR or NOT_EXECUTED (skipped) per test, a failed subtest fails its test"""
-    records = {tid: {"test": tid, "status": "PASS", "detail": ""} for tid in test_ids(suite)}
+    records = {tid: {"test": tid, "status": "PASS", "detail": ""} for tid in ids}
     for status, entries in [("NOT_EXECUTED", res.skipped), ("FAIL", res.failures), ("ERROR", res.errors)]:
         for t, detail in entries:
             rec = records.setdefault(t.id().split(" ")[0], {"test": t.id(), "status": status, "detail": ""})
@@ -880,9 +880,11 @@ def main():
     suite = unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__])
     if ARGS.unittest_args:
         suite = unittest.defaultTestLoader.loadTestsFromNames(ARGS.unittest_args, sys.modules[__name__])
+    # the suite drops its tests while it runs, so take the ids first
+    ids = list(test_ids(suite))
     res = runner.run(suite)
     with open(os.path.join(ARGS.work_dir, "results.json"), "w") as f:
-        json.dump(result_records(suite, res), f, indent=2)
+        json.dump(result_records(ids, res), f, indent=2)
     return 0 if res.wasSuccessful() else 1
 
 
