@@ -248,6 +248,7 @@ static std::string completion_report_dump(const completion_report & r) {
 }
 
 // create the file exclusively so that an existing file is never replaced
+// on failure the file is kept: removing it by name could remove another file that took its place
 static bool completion_report_publish(const std::string & path, const std::string & data) {
 #if defined (_WIN32)
     const int fd = _open(path.c_str(), _O_WRONLY | _O_CREAT | _O_EXCL | _O_BINARY, _S_IREAD | _S_IWRITE);
@@ -264,7 +265,6 @@ static bool completion_report_publish(const std::string & path, const std::strin
 #else
             close(fd);
 #endif
-            std::remove(path.c_str());
         }
         return false;
     }
@@ -273,8 +273,7 @@ static bool completion_report_publish(const std::string & path, const std::strin
     ok = fflush(f) == 0 && ok;
     ok = fclose(f)  == 0 && ok;
     if (!ok) {
-        LOG_ERR("%s: failed to write report file '%s': %s\n", __func__, path.c_str(), strerror(errno));
-        std::remove(path.c_str());
+        LOG_ERR("%s: failed to write report file '%s', it can be incomplete: %s\n", __func__, path.c_str(), strerror(errno));
     }
     return ok;
 }
@@ -352,6 +351,9 @@ static void sigint_handler(int signo) {
 #endif
 
 #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+// a std::atomic access is signal-safe only if it is lock-free
+static_assert(std::atomic<int>::is_always_lock_free, "g_report_signal must be lock-free, it is written in a signal handler");
+
 // only records the signal, the generation loop checks it
 static void report_signal_handler(int signo) {
     g_report_signal = signo;

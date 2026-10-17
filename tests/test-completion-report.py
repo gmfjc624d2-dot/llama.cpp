@@ -19,11 +19,11 @@ import json
 import os
 import re
 import resource
-import shutil
 import signal
 import subprocess
 import sys
 import threading
+import time
 import unittest
 
 ARGS = argparse.Namespace()
@@ -53,6 +53,17 @@ N_FF   = 64
 
 class Unobserved(Exception):
     pass
+
+
+# exit status for each reason, see tools/completion/README.md
+EXIT_STATUS = {
+    "eog":             {0},
+    "token_limit":     {0},
+    "antiprompt":      {0},
+    "context_limit":   {0},
+    "runtime_failure": {1, 255},
+    "unsupported":     {1},
+}
 
 
 def add_vocab(w, r):
@@ -212,6 +223,12 @@ def load_report(path, pid, returncode):
     data = base64.b64decode(obj["generated"]["base64"], validate=True)
     if len(data) != obj["generated"]["n_bytes"]:
         raise Unobserved("n_bytes does not match the decoded data")
+    if obj["reason"] == "cancelled" and isinstance(obj.get("signal"), int):
+        expected = {128 + obj["signal"]}
+    else:
+        expected = EXIT_STATUS.get(obj["reason"], set())
+    if returncode not in expected:
+        raise Unobserved(f"exit status {returncode} does not match reason {obj['reason']}")
     return obj, data
 
 
@@ -230,9 +247,8 @@ class Result:
 
 
 def case_dir(name):
+    # each run dir is new, so a case dir (and its report path) is never reused
     d = os.path.join(ARGS.work_dir, "cases", name)
-    if os.path.exists(d):
-        shutil.rmtree(d)
     os.makedirs(d)
     return d
 
@@ -303,6 +319,12 @@ def run_and_signal(name, args, model, sig, report=True, binary=None, min_bytes=3
         t.join()
     save_case(d, cmd, {"external_signal": int(sig), "stdout_bytes_before_signal": sent_at}, proc.returncode, bytes(out), bytes(err))
     return Result(cmd, proc, bytes(out), bytes(err), path, d)
+
+
+def limit_file_size():
+    """files written by the child fail after 64 bytes with EFBIG"""
+    signal.signal(signal.SIGXFSZ, signal.SIG_IGN)
+    resource.setrlimit(resource.RLIMIT_FSIZE, (64, 64))
 
 
 class Base(unittest.TestCase):
@@ -602,13 +624,14 @@ class SyntheticTests(Base):
         self.assertFalse(os.path.lexists(path))
 
     def test_g_write_failure(self):
-        def limit_file_size():
-            signal.signal(signal.SIGXFSZ, signal.SIG_IGN)
-            resource.setrlimit(resource.RLIMIT_FSIZE, (64, 64))
         r = self.run_s("write-failure", ["-p", "stop", "-n", "2"], preexec_fn=limit_file_size)
         self.assertEqual(r.rc, 1)
         self.assertIn(b"failed to write report file", r.stderr)
-        self.assertFalse(os.path.lexists(r.path))
+        # the partial file is kept, the exit status and the consumer rules reject it
+        self.assertTrue(os.path.exists(r.path), "the partial report was removed")
+        self.assertEqual(os.path.getsize(r.path), 64)
+        with self.assertRaises(Unobserved):
+            r.report()
 
     # H. byte transport through the real serialization path
     def test_h_bytes_round_trip(self):
@@ -674,6 +697,32 @@ class FaultTests(Base):
     def test_f_signal_during_prompt(self):
         rep, data = self.ok(self.run_f("sigint-prompt", ["-p", "loop", "-n", "10"], 1, "sigint"), "cancelled", rc=130)
         self.assertEqual(rep["n_generated"], 1)
+
+    def run_swap(self, name, spec, preexec_fn=None):
+        """another actor moves the new report away and puts an unrelated file at its path before fdopen()"""
+        d = case_dir("fault-" + name + "-target")
+        path = os.path.join(d, "report.json")
+        env = {"LD_PRELOAD": ARGS.shim, "CR_SHIM_FDOPEN": spec + ":" + path}
+        r = run("fault-" + name, ["-no-cnv", "-p", "stop", "-n", "2"], ARGS.synthetic_model, env_extra=env, report_path=path, preexec_fn=preexec_fn)
+        self.assertIn(b"test-completion-report-shim: fdopen: moved the report", r.stderr)
+        self.assertEqual(r.rc, 1)
+        # the unrelated file at the report path is not removed or changed
+        self.assertTrue(os.path.exists(path), "the unrelated file at the report path was removed")
+        with open(path, "rb") as f:
+            self.assertEqual(f.read(), b"unrelated file\n")
+        with self.assertRaises(Unobserved):
+            load_report(path, r.pid, r.rc)
+        with self.assertRaises(Unobserved):
+            load_report(path + ".moved", r.pid, r.rc)
+        return path + ".moved"
+
+    def test_g_publish_swap_fdopen_failure(self):
+        moved = self.run_swap("swap-fdopen-failure", "swap_fail")
+        self.assertEqual(os.path.getsize(moved), 0)
+
+    def test_g_publish_swap_write_failure(self):
+        moved = self.run_swap("swap-write-failure", "swap", preexec_fn=limit_file_size)
+        self.assertEqual(os.path.getsize(moved), 64)
 
     def test_g_destination_created_during_run(self):
         d = case_dir("fault-created-during-run-target")
@@ -857,7 +906,11 @@ def main():
     p.parse_args(namespace=ARGS)
 
     ARGS.completion = os.path.join(ARGS.bin_dir, "llama-completion")
+    # a new run dir for every invocation, earlier runs and their reports are kept
     os.makedirs(ARGS.work_dir, exist_ok=True)
+    ARGS.work_dir = os.path.join(ARGS.work_dir, time.strftime("run-%Y%m%dT%H%M%SZ", time.gmtime()) + f"-{os.getpid()}")
+    os.makedirs(ARGS.work_dir)
+    sys.stderr.write(f"test-completion-report: run dir {ARGS.work_dir}\n")
 
     ARGS.synthetic_model = os.path.join(ARGS.work_dir, "synthetic.gguf")
     TOK, EOS = make_model(ARGS.vocab, ARGS.synthetic_model, ARGS.gguf_py)
