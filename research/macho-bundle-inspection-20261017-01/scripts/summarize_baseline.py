@@ -38,7 +38,7 @@ def cell(r):
 
 
 def otool(base, name):
-    p = os.path.join(base, "otool-oracle", "l__parse_%s" % name)
+    p = os.path.join(base, "otool-oracle", "loadcommands__parse_%s" % name)
     if not os.path.exists(p + ".exit"):
         return "n/a"
     rc = open(p + ".exit").read().strip()

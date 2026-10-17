@@ -1,0 +1,8 @@
+{
+  "colliding_names": 0,
+  "collision_groups": 0,
+  "groups": [],
+  "paths_checked": 861,
+  "prefix": "research/macho-bundle-inspection-20261017-01",
+  "source": "git ls-files"
+}

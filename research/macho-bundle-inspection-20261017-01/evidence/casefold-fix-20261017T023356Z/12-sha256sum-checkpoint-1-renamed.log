@@ -1,0 +1,4 @@
+scripts/run_otool_oracle.sh: FAILED
+scripts/summarize_baseline.py: FAILED
+tool/gen_fixtures.py: FAILED
+sha256sum: WARNING: 3 computed checksums did NOT match

@@ -1,0 +1,10 @@
+test_directory_component (__main__.CasefoldTest.test_directory_component) ... ok
+test_file_vs_directory (__main__.CasefoldTest.test_file_vs_directory) ... ok
+test_leaf_names (__main__.CasefoldTest.test_leaf_names) ... ok
+test_no_collision (__main__.CasefoldTest.test_no_collision) ... ok
+test_unicode_normalization (__main__.CasefoldTest.test_unicode_normalization) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK

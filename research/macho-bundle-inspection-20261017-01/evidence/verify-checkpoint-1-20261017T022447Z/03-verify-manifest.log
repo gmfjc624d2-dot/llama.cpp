@@ -1,0 +1,22 @@
+{
+  "manifest": "research/macho-bundle-inspection-20261017-01/evidence/checkpoint-1/MANIFEST.json",
+  "entries": 855,
+  "by_extension": {
+    "(none)": 1,
+    ".4": 1,
+    ".5": 1,
+    ".bin": 37,
+    ".cmd": 266,
+    ".exit": 266,
+    ".json": 3,
+    ".jsonl": 1,
+    ".log": 266,
+    ".md": 2,
+    ".py": 5,
+    ".sh": 2,
+    ".tar": 1,
+    ".txt": 1,
+    ".whl": 2
+  },
+  "problems": []
+}
