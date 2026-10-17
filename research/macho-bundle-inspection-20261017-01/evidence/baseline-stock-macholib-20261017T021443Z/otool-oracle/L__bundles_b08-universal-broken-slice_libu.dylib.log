@@ -1,0 +1,2 @@
+bundles/b08-universal-broken-slice/libu.dylib:
+	@rpath/libu.dylib (compatibility version 1.0.0, current version 1.0.0)

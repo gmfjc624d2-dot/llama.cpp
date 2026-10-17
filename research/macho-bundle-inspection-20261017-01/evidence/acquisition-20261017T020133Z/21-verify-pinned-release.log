@@ -1,0 +1,205 @@
+{
+  "facts_installed_wheel": {
+    "MachO._RELOCATABLE": [
+      "LC_LOAD_DYLIB",
+      "LC_LOAD_UPWARD_DYLIB",
+      "LC_LOAD_WEAK_DYLIB",
+      "LC_PREBOUND_DYLIB",
+      "LC_REEXPORT_DYLIB"
+    ],
+    "MachO._RELOCATABLE_has_LC_LAZY_LOAD_DYLIB": false,
+    "MachO._RELOCATABLE_has_LC_PREBOUND_DYLIB": true,
+    "MachO.load_fat_raises_on_first_bad_slice": true,
+    "MachO.reads_section_data": true,
+    "MachO.walkRelocatables_decodes_with_fs_encoding": true,
+    "MachO.walkRelocatables_find_minus_one_slice": true,
+    "MachOGraph.mentions_rpath": false,
+    "MachOGraph.uses_dyld_find": true,
+    "dyld.ctypes_libSystem_on_darwin": true,
+    "dyld.default_fallback_has_home_lib": true,
+    "dyld.isfile_probe_on_host": true,
+    "dyld.mentions_rpath": false,
+    "dyld.reads_DYLD_vars": [
+      "DYLD_FALLBACK_FRAMEWORK_PATH",
+      "DYLD_FALLBACK_LIBRARY_PATH",
+      "DYLD_FRAMEWORK_PATH",
+      "DYLD_IMAGE_SUFFIX",
+      "DYLD_LIBRARY_PATH"
+    ],
+    "dyld.shared_cache_lookup": true,
+    "dyld.uses_os_environ_when_env_None": true
+  },
+  "git": {
+    "9c2da6781c61b51bb209345a05157a79758d13d6": {
+      "facts": {
+        "MachO._RELOCATABLE": [
+          "LC_LOAD_DYLIB",
+          "LC_LOAD_UPWARD_DYLIB",
+          "LC_LOAD_WEAK_DYLIB",
+          "LC_PREBOUND_DYLIB",
+          "LC_REEXPORT_DYLIB"
+        ],
+        "MachO._RELOCATABLE_has_LC_LAZY_LOAD_DYLIB": false,
+        "MachO._RELOCATABLE_has_LC_PREBOUND_DYLIB": true,
+        "MachO.load_fat_raises_on_first_bad_slice": true,
+        "MachO.reads_section_data": true,
+        "MachO.walkRelocatables_decodes_with_fs_encoding": true,
+        "MachO.walkRelocatables_find_minus_one_slice": true,
+        "MachOGraph.mentions_rpath": false,
+        "MachOGraph.uses_dyld_find": true,
+        "dyld.ctypes_libSystem_on_darwin": true,
+        "dyld.default_fallback_has_home_lib": true,
+        "dyld.isfile_probe_on_host": true,
+        "dyld.mentions_rpath": false,
+        "dyld.reads_DYLD_vars": [
+          "DYLD_FALLBACK_FRAMEWORK_PATH",
+          "DYLD_FALLBACK_LIBRARY_PATH",
+          "DYLD_FRAMEWORK_PATH",
+          "DYLD_IMAGE_SUFFIX",
+          "DYLD_LIBRARY_PATH"
+        ],
+        "dyld.shared_cache_lookup": true,
+        "dyld.uses_os_environ_when_env_None": true
+      },
+      "identical_to_installed": {
+        "MachO.py": true,
+        "MachOGraph.py": true,
+        "dyld.py": true,
+        "mach_o.py": true
+      }
+    },
+    "v1.16.4": {
+      "facts": {
+        "MachO._RELOCATABLE": [
+          "LC_LOAD_DYLIB",
+          "LC_LOAD_UPWARD_DYLIB",
+          "LC_LOAD_WEAK_DYLIB",
+          "LC_PREBOUND_DYLIB",
+          "LC_REEXPORT_DYLIB"
+        ],
+        "MachO._RELOCATABLE_has_LC_LAZY_LOAD_DYLIB": false,
+        "MachO._RELOCATABLE_has_LC_PREBOUND_DYLIB": true,
+        "MachO.load_fat_raises_on_first_bad_slice": true,
+        "MachO.reads_section_data": true,
+        "MachO.walkRelocatables_decodes_with_fs_encoding": true,
+        "MachO.walkRelocatables_find_minus_one_slice": true,
+        "MachOGraph.mentions_rpath": false,
+        "MachOGraph.uses_dyld_find": true,
+        "dyld.ctypes_libSystem_on_darwin": true,
+        "dyld.default_fallback_has_home_lib": true,
+        "dyld.isfile_probe_on_host": true,
+        "dyld.mentions_rpath": false,
+        "dyld.reads_DYLD_vars": [
+          "DYLD_FALLBACK_FRAMEWORK_PATH",
+          "DYLD_FALLBACK_LIBRARY_PATH",
+          "DYLD_FRAMEWORK_PATH",
+          "DYLD_IMAGE_SUFFIX",
+          "DYLD_LIBRARY_PATH"
+        ],
+        "dyld.shared_cache_lookup": true,
+        "dyld.uses_os_environ_when_env_None": true
+      },
+      "identical_to_installed": {
+        "MachO.py": true,
+        "MachOGraph.py": true,
+        "dyld.py": true,
+        "mach_o.py": true
+      }
+    }
+  },
+  "installed": {
+    "name": "macholib",
+    "requires": [
+      "altgraph >=0.17"
+    ],
+    "version": "1.16.4"
+  },
+  "record": [
+    {
+      "path": "macholib/MachO.py",
+      "record_ok": true,
+      "sha256": "8e66d47c2c06a4c301eb01620b3f58706b7ec6d257dcd8429681f012878dc755"
+    },
+    {
+      "path": "macholib/MachOGraph.py",
+      "record_ok": true,
+      "sha256": "4d1fb9c47ad503f5e56a914644dda12d500df0dd0714396ba41c63ca3b2bddc6"
+    },
+    {
+      "path": "macholib/MachOStandalone.py",
+      "record_ok": true,
+      "sha256": "d6c98d767ac0b6a040abfd2dd6bd882623467825c53c5d8924c15aad406a66bb"
+    },
+    {
+      "path": "macholib/SymbolTable.py",
+      "record_ok": true,
+      "sha256": "cd3beb1889fe685303bc5ae5d79bfff9e03d4b155faec041f4406f243bd04233"
+    },
+    {
+      "path": "macholib/__init__.py",
+      "record_ok": true,
+      "sha256": "9a8ccc2503107251cd8673977caec4b190ab9e46a132c64eda8c364ed288dd98"
+    },
+    {
+      "path": "macholib/__main__.py",
+      "record_ok": true,
+      "sha256": "65bc0e71edc8934df832b5f28be02c5346f817f367ed71e0ddefefd17350c4b2"
+    },
+    {
+      "path": "macholib/_cmdline.py",
+      "record_ok": true,
+      "sha256": "0431dda9f00984db9cc9818954ed5dbceb975f0f56d1fb71f5a843911412fb7f"
+    },
+    {
+      "path": "macholib/dyld.py",
+      "record_ok": true,
+      "sha256": "2008eaf44ef8b3f5b4885571f278563f01774e65e6262aa2190bea39fdfb25b1"
+    },
+    {
+      "path": "macholib/dylib.py",
+      "record_ok": true,
+      "sha256": "a89fa75a5fd3ed2e060de29e945f7f918d8217700ee4a14736b0d116e312f8f9"
+    },
+    {
+      "path": "macholib/framework.py",
+      "record_ok": true,
+      "sha256": "408bddcc8577e00b4243617142dd62ec5cf6791927b610b3b7cc832e95e6f2be"
+    },
+    {
+      "path": "macholib/itergraphreport.py",
+      "record_ok": true,
+      "sha256": "7a9ca3bb0d98e247fa87fedc4a4a9b0d4438d186226c8d162b12fe48fa4e6958"
+    },
+    {
+      "path": "macholib/mach_o.py",
+      "record_ok": true,
+      "sha256": "1fbcc60794d9bbd63cb192243eff01b462e4720cc74c37c71fba06795ad22ca8"
+    },
+    {
+      "path": "macholib/macho_dump.py",
+      "record_ok": true,
+      "sha256": "051043c70521d8e2dd06065d9e1387ce3893e8946eabe3b23da779fb8bfda621"
+    },
+    {
+      "path": "macholib/macho_find.py",
+      "record_ok": true,
+      "sha256": "9a439daee7ef15ade5923c4b4e4296d2ac0cd7d7ccf7f6b98ca07356774fff61"
+    },
+    {
+      "path": "macholib/macho_standalone.py",
+      "record_ok": true,
+      "sha256": "d81bad4c2d82fc16a4438b316ed9483e53b0014d42ee79a0833cee090b6f9fde"
+    },
+    {
+      "path": "macholib/ptypes.py",
+      "record_ok": true,
+      "sha256": "a1ad2d444d84eb2e2c206bc96d11e4c86104dedd5005a7b6db2a76d0d5e4195a"
+    },
+    {
+      "path": "macholib/util.py",
+      "record_ok": true,
+      "sha256": "a1c94bb7f1bcf515d70aa94d2c25759fecad3b72247852e3e986a362e1737dd4"
+    }
+  ],
+  "record_all_ok": true
+}

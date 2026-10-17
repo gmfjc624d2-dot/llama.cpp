@@ -1,0 +1,6 @@
+Looking in links: /home/user/llama.cpp/research/macho-bundle-inspection-20261017-01/evidence/upstream/wheels
+Processing /home/user/llama.cpp/research/macho-bundle-inspection-20261017-01/evidence/upstream/wheels/macholib-1.16.4-py2.py3-none-any.whl (from -r /home/user/llama.cpp/research/macho-bundle-inspection-20261017-01/requirements.txt (line 4))
+Processing /home/user/llama.cpp/research/macho-bundle-inspection-20261017-01/evidence/upstream/wheels/altgraph-0.17.5-py2.py3-none-any.whl (from -r /home/user/llama.cpp/research/macho-bundle-inspection-20261017-01/requirements.txt (line 6))
+Installing collected packages: macholib, altgraph
+
+Successfully installed altgraph-0.17.5 macholib-1.16.4

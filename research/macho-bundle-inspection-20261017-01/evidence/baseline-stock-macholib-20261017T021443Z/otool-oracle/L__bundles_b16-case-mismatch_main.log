@@ -1,0 +1,2 @@
+bundles/b16-case-mismatch/main:
+	@rpath/LibGGML.dylib (compatibility version 1.0.0, current version 1.0.0)

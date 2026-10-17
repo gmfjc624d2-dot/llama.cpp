@@ -1,0 +1,3 @@
+#!/bin/sh
+echo must-not-run
+exit 99

@@ -1,0 +1,6 @@
+# the repository root ignores these; evidence here must be tracked
+!*.bin
+!*.log
+!*.so
+!*.o
+__pycache__/

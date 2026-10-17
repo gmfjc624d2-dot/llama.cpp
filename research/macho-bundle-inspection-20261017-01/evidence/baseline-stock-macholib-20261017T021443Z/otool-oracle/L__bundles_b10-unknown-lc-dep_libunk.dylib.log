@@ -1,0 +1,2 @@
+bundles/b10-unknown-lc-dep/libunk.dylib:
+	@rpath/libunk.dylib (compatibility version 1.0.0, current version 1.0.0)

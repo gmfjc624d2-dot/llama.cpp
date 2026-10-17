@@ -1,0 +1,7 @@
+# Optional research dependency only; not a llama.cpp dependency.
+# Install: python3 -m pip install --require-hashes --no-deps -r requirements.txt
+# Offline: add --no-index --find-links evidence/upstream/wheels
+macholib==1.16.4 \
+    --hash=sha256:da1a3fa8266e30f0ce7e97c6a54eefaae8edd1e5f86f3eb8b95457cae90265ea
+altgraph==0.17.5 \
+    --hash=sha256:f3a22400bce1b0c701683820ac4f3b159cd301acab067c51c653e06961600597

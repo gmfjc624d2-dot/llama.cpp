@@ -1,0 +1,4 @@
+cwd: /tmp/claude-0/-home-user-llama-cpp/604f2550-ab21-5d1b-bd0c-0f97e8e0bc46/scratchpad/pypi-dl
+start_utc: 2026-10-17T02:02:01Z
+argv: curl -sS --fail -w %\{http_code\}\ %\{size_download\}\ %\{url_effective\}\\n -O https://files.pythonhosted.org/packages/c7/d1/a9f36f8ecdf0fb7c9b1e78c8d7af12b8c8754e74851ac7b94a8305540fc7/macholib-1.16.4-py2.py3-none-any.whl -O https://files.pythonhosted.org/packages/10/2f/97589876ea967487978071c9042518d28b958d87b17dceb7cdc1d881f963/macholib-1.16.4.tar.gz -O https://files.pythonhosted.org/packages/a9/ba/000a1996d4308bc65120167c21241a3b205464a2e0b58deda26ae8ac21d1/altgraph-0.17.5-py2.py3-none-any.whl -O https://files.pythonhosted.org/packages/7e/f8/97fdf103f38fed6792a1601dbc16cc8aac56e7459a9fff08c812d8ae177a/altgraph-0.17.5.tar.gz
+end_utc: 2026-10-17T02:02:02Z

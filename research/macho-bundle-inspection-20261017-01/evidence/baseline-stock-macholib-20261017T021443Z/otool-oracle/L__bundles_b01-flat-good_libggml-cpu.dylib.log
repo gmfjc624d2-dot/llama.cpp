@@ -1,0 +1,3 @@
+bundles/b01-flat-good/libggml-cpu.dylib:
+	@rpath/libggml-cpu.dylib (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/libggml-base.dylib (compatibility version 1.0.0, current version 1.0.0)
